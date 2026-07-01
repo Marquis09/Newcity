@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sermons | New City MK</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../NewCity/Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS (SAFETY NET)
+           ========================================== */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* ==========================================
+           RESPONSIVE INTERACTIVE OVERRIDES
+           ========================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Fluid 16:9 Video Layout Wrapper */
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Base Navigation Structural Overrides */
+        .nav-flex {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 25px !important;
+        }
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Screen Breakpoint: Tablets & Small Desktops (max-width: 991px) */
+        @media (max-width: 991px) {
+            .hero-grid {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+                gap: 40px;
+            }
+            .hero-visual {
+                display: flex;
+                justify-content: center;
+            }
+            .hero-visual img {
+                max-width: 80%;
+                height: auto;
+                transform: none !important;
+            }
+            .split-header.left-aligned-header {
+                text-align: center;
+            }
+            .split-header.left-aligned-header h2 {
+                justify-content: center;
+            }
+        }
+
+        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
+        @media (max-width: 768px) {
+            .nav-flex {
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: center !important;
+                padding: 15px 20px !important;
+            }
+            .nav-right {
+                flex-direction: column !important;
+                gap: 14px !important;
+                width: 100% !important;
+                display: flex !important;
+            }
+            .nav-links {
+                display: flex !important;
+                justify-content: center !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 25px !important;
+                padding: 0 !important;
+                margin: 4px 0 !important;
+            }
+            .nav-links li a {
+                display: inline-block !important;
+                font-size: 1rem !important;
+            }
+            .btn-glass {
+                width: 100% !important;
+                max-width: 320px !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+                display: block !important;
+            }
+            .quote-text {
+                font-size: 1.8rem !important;
+                line-height: 1.3;
+            }
+            .live-stream-banner, .spotify-archive-card {
+                padding: 30px 20px !important;
+            }
+        }
+
+        /* Chat Pop-up Responsive Adjustments */
+        @media (max-width: 400px) {
+            .chat-widget {
+                width: calc(100% - 30px) !important;
+                right: 15px !important;
+                bottom: 85px !important;
+                height: 450px !important;
+            }
+        }
+
+        /* ==========================================
+           DYNAMIC LIVE INDICATOR PULSE ENGINE
+           ========================================== */
+        .nav-live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ff3b30;
+            border-radius: 50%;
+            margin-left: 6px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+            animation: pulse-red-live 1.6s infinite;
+        }
+        @keyframes pulse-red-live {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(255, 59, 48, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="container nav-flex">
+          <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../NewCity/index.html">Home</a></li>
+                    <li style="position: relative; display: inline-flex; align-items: center;">
+                        <a href="sermons.html" style="color: var(--brand);">Sermons</a>
+                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                    </li>
+                    <li><a href="../NewCity/news.html">News</a></li>
+                </ul>
+                <a href="../NewCity/imnew.html" class="btn-glass" style="background: var(--brand); color: white; border: none; text-decoration: none;">Plan Your Visit</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="sermon-hero">
+        <div class="container hero-grid reveal">
+            <div class="hero-text">
+                <span class="badge">Acts 2:42</span>
+                <h1 class="quote-text">"They devoted themselves to the <span class="text-gradient">apostles' teaching</span> and to fellowship..."</h1>
+            </div>
+            <div class="hero-visual">
+                <img src="../NewCity/props/sermons.png" alt="Sermon Teaching" class="main-img" style="transform: rotate(-2deg); max-width: 100%;">
+            </div>
+        </div>
+    </header>
+<br>
+<section class="sermon-content">
+        <div class="container layout-stack">
+            
+            <div class="split-header left-aligned-header reveal">
+                <h2>Latest Sermons</h2>
+                <div class="sermon-meta-text">
+                    <p>We believe that <strong>God speaks</strong>, and so we take the Bible seriously. Recordings and live streams are hosted on Logos Sermons, Spotify, and YouTube.</p>
+                    <div class="podcast-badges" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-top: 1rem;">
+                        <a href="#" class="spotify-badge"><img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Black.png" alt="Listen on Spotify" style="height: 30px; max-width: 100%; object-fit: contain;"></a>
+                        <a href="#" class="youtube-badge"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="Watch on YouTube" style="height: 26px; max-width: 100%; object-fit: contain;"></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube Live Stream Box Layout -->
+            <div class="live-stream-banner reveal">
+                <div class="live-status">
+                    <span class="live-dot"></span>
+                    <strong>DON'T MISS OUT</strong>
+                </div>
+                <h2>Join Our Service Online Now</h2>
+                <p>Watch our Sunday services live right here. Engage with the community and worship with us in real-time.</p>
+                
+                <div class="video-responsive">
+                    <iframe 
+                        src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    stream?channel=YOUR_CHANNEL_ID_HERE
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Premium Spotify Archive Card Layout -->
+            <div class="spotify-archive-card reveal">
+                <div class="archive-header">
+                    <i class="ph-fill ph-headphones-stereo archive-icon"></i>
+                    <h2>Catch Up On Past Sermons</h2>
+                    <p>Missed a Sunday or want to revisit a past series? Listen to our full library of teachings directly below, or subscribe to our channel on the Spotify app to take them on the go.</p>
+                </div>
+
+                <div class="spotify-widget-container">
+                    <!-- Swap 'YOUR_SHOW_ID_HERE' with your church's actual Spotify Podcast ID string -->
+                    <iframe 
+                        style="border-radius:12px" 
+                        src="https://open.spotify.com/embed/show/YOUR_SHOW_ID_HERE?utm_source=generator&theme=0" 
+                        width="100%" 
+                        height="400" 
+                        allowfullscreen="" 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+
+                <div class="archive-footer-text">
+                    <p>New episodes are published every Sunday afternoon. If you are blessed by these messages, consider hitting the <strong>Follow</strong> button inside your Spotify app to stay up to date and share them with a friend!</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <br>
+
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
+    </div>
+
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+            <div class="chat-bubble">
+                To send us a message, first leave your contact info so we can get back to you.
+            </div>
+            
+            <form class="chat-form">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                    <i class="ph ph-info info-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+      <br>
+
+    <footer class="footer-modern">
+    </footer>
+
+    <!-- INTERSECTION OBSERVER ANIMATION WATCHER ENGINE -->
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; // Switch this placeholder string out with your real channel ID
+            const navDot = document.getElementById("nav-live-dot");
+            
+            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                if (this.width === 320) {
+                    navDot.style.display = "inline-block";
+                } else {
+                    navDot.style.display = "none";
+                }
+            };
+            
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        function initReveal() {
+            const revealElements = document.querySelectorAll(".reveal");
+            
+            if (!window.IntersectionObserver) {
+                revealElements.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealElements.forEach(element => observer.observe(element));
+        }
+        
+        // Boot up status systems
+        initReveal();
+        checkChurchLiveStatus();
+        document.addEventListener("DOMContentLoaded", function() {
+            initReveal();
+            checkChurchLiveStatus();
+        });
+    </script>
+
+</body>
+</html>

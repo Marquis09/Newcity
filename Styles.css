@@ -1,0 +1,1538 @@
+:root {
+    --brand: #8B2E5F;
+    --brand-light: #AD3E7A;
+    --dark: #0F172A;
+    --text: #475569;
+    --white: #ffffff;
+    --bg: #F8FAFC;
+    --radius: 24px;
+}
+.logo { 
+    font-weight: 800; 
+    font-size: 1.4rem; 
+    letter-spacing: -1px; 
+    text-decoration: none; /* <--- ADD THIS LINE */
+    color: var(--dark);    /* Ensures the text stays dark instead of turning blue */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background: var(--bg); 
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevents rogue horizontal scrolling on mobile */
+}
+
+/* --- INTERNAL GUIDE STYLING --- */
+.sub-page-header {
+    padding: 10rem 0 4rem;
+    text-align: center;
+    background: #fff;
+}
+
+.sub-page-header h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.sub-page-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.guide-section {
+    padding-bottom: 8rem;
+}
+
+/* The 'Blocks' layout */
+.info-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 6rem;
+}
+
+.info-box {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: var(--radius);
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.info-box:hover {
+    transform: translateY(-8px);
+    border-color: var(--brand);
+    box-shadow: 0 20px 40px rgba(139, 46, 95, 0.1);
+}
+
+.info-box p {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex-grow: 1; /* Aligns boxes uniformly */
+}
+
+.icon-wrap {
+    width: 55px;
+    height: 55px;
+    background: #FCE7F3;
+    color: var(--brand);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+
+.info-box h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--dark);
+}
+
+/* Expectations Section */
+.expectations-layout {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid #eee;
+}
+
+/* Journey CTA */
+.journey-cta {
+    margin-top: 6rem;
+    padding: 5rem;
+    background: #F1F5F9;
+    border-radius: var(--radius);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.cta-content p {
+    margin-bottom: 2rem;
+    color: var(--text);
+    font-size: 1.1rem;
+}
+
+/* Life at New City Grid */
+.life-section {
+    padding: 6rem 0;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.feature-card {
+    position: relative;
+    height: 400px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.feature-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s transform ease;
+}
+
+.feature-card:hover img {
+    transform: scale(1.05);
+}
+
+.feature-overlay {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0) 100%);
+    padding: 3rem 2rem 2rem;
+    width: 100%;
+    color: white;
+}
+
+.badge-mini {
+    background: var(--brand);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.feature-overlay h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-overlay p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.5;
+    max-width: 90%;
+}
+
+/* Pastor Cards - Compact Horizontal */
+.pastor-cards { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 2rem; 
+}
+
+.p-card { 
+    background: var(--white); 
+    padding: 1.5rem; 
+    border-radius: 24px; 
+    display: flex; 
+    align-items: center; 
+    gap: 1.5rem; 
+    border: 1px solid #F1F5F9; 
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.p-card:hover { 
+    border-color: var(--brand); 
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.05);
+}
+
+.p-img { 
+    flex-shrink: 0;
+    width: 120px; 
+    height: 120px; 
+    border-radius: 18px; 
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.p-tag { 
+    color: var(--brand); 
+    font-weight: 800; 
+    font-size: 0.7rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.p-info h3 { 
+    font-size: 1.25rem; 
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.p-bio {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Sermon Hero Styles */
+.sermon-hero {
+    padding: 8rem 0 4rem;
+    background: white;
+}
+
+.quote-text {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+/* Sermon Grid & Cards */
+.sermon-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.sermon-card {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border: 1px solid #F1F5F9;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.sermon-card:hover {
+    border-color: var(--brand);
+    transform: translateX(10px);
+    background: #FFFBFE;
+}
+
+.sermon-card.featured {
+    border-left: 5px solid var(--brand);
+    background: #FFF5FA;
+}
+
+.s-play {
+    width: 50px;
+    height: 50px;
+    background: var(--brand);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.s-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--brand);
+    letter-spacing: 0.05em;
+}
+
+.s-info h3 {
+    font-size: 1.2rem;
+    color: var(--dark);
+}
+
+.s-info p {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.sermon-meta-text {
+    max-width: 500px;
+}
+
+.spotify-badge {
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.spotify-badge:hover { opacity: 0.7; }
+
+/* News Page Layout */
+.news-header {
+    padding: 8rem 0 4rem;
+    text-align: center;
+}
+
+.news-filter {
+    margin-top: 2rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: inline-block;
+    padding: 0 2rem;
+}
+
+.news-filter a {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 1rem 0;
+    display: inline-block;
+    border-bottom: 2px solid var(--brand);
+}
+
+.news-feed { padding-bottom: 8rem; }
+
+.news-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    border: 1px solid #f1f5f9;
+    transition: 0.3s ease;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border-color: #fce7f3;
+}
+
+.news-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-body {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.author-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.author-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f1f5f9;
+    flex-shrink: 0;
+}
+
+.author-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-info strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+
+.author-info span {
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+.news-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.news-excerpt {
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.news-cta { margin-bottom: 1.5rem; }
+
+.btn-primary-small {
+    background: var(--brand);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+    transition: 0.3s ease;
+    border: 2px solid var(--brand);
+}
+
+.btn-primary-small:hover {
+    background: transparent;
+    color: var(--brand);
+}
+
+.news-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f8fafc;
+}
+
+.view-count {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.like-btn:hover { color: var(--brand); }
+
+/* Policy Reading Layout */
+.container.narrow {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.post-layout {
+    padding: 8rem 0;
+    background: #ffffff;
+}
+
+.post-header h1 {
+    font-size: 3rem;
+    margin: 1.5rem 0;
+    line-height: 1.1;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.6;
+    margin-bottom: 3rem;
+}
+
+.post-figure { margin: 3rem 0; }
+.post-figure img {
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.post-figure figcaption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.post-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #334155;
+}
+
+.location-card {
+    background: #f8fafc;
+    padding: 2.5rem;
+    border-radius: 24px;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+}
+
+.location-text h3 { margin-bottom: 0.5rem; }
+.w3w a { color: var(--brand); font-weight: 700; text-decoration: none; }
+
+.post-footer-meta {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    color: #94a3b8;
+}
+
+.share-links { display: flex; gap: 1.5rem; font-size: 1.2rem; cursor: pointer; }
+
+/* Giving v2 Layout */
+.giving-header-v2 {
+    padding: 10rem 0 6rem;
+    background: radial-gradient(circle at top right, #fff5f8 0%, #ffffff 50%);
+}
+
+.giving-flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.giving-text-side h1 {
+    font-size: 3.5rem;
+    line-height: 1;
+    margin: 1rem 0;
+}
+
+.giving-stats-mini {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.stat i { color: var(--brand); font-size: 1.1rem; }
+
+.giving-card-v2 {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 40px 80px rgba(15, 23, 42, 0.08);
+    border: 1px solid #f1f5f9;
+    padding: 8px;
+    max-width: 440px;
+    margin-left: auto;
+}
+
+.card-inner {
+    border: 1px solid #f1f5f9;
+    border-radius: 18px;
+    padding: 1.5rem;
+}
+
+.card-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #9d2d5b;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.give-online-text {
+    color: #9d2d5b;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.secure-badge-pill {
+    background: #fdf2f8;
+    color: #9d2d5b;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.amount-box-large {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.amount-box-large .currency-symbol { font-size: 1.5rem; color: #94a3b8; }
+.amount-box-large input {
+    border: none;
+    font-size: 2.8rem;
+    width: 140px;
+    outline: none;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.stacked-selectors {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.select-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f1f5f9;
+    background: white;
+}
+
+.select-row:last-child { border-bottom: none; }
+.select-row label { width: 80px; font-size: 0.8rem; color: #94a3b8; }
+.select-row select {
+    flex: 1;
+    border: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #334155;
+    background: transparent;
+    outline: none;
+}
+
+.email-section { text-align: left; margin-bottom: 20px; }
+.email-section label { font-size: 0.9rem; font-weight: 700; color: #334155; }
+.email-section .required { color: #e11d48; }
+.helper-text { font-size: 0.7rem; color: #94a3b8; margin: 4px 0 8px; line-height: 1.4; }
+
+.full-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+}
+
+.consent-section { text-align: left; margin-bottom: 25px; }
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.checkbox-container input { position: absolute; opacity: 0; cursor: pointer; }
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+}
+
+.btn-proceed-grey {
+    width: 100%;
+    background: #e2e8f0;
+    color: #94a3b8;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: not-allowed;
+}
+
+.btn-proceed-grey:hover { background: #cbd5e1; }
+.charity-num { text-align: center; font-size: 0.65rem; color: #94a3b8; margin-top: 1rem; }
+
+.bank-pill {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    border: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.bank-icon {
+    width: 50px;
+    height: 50px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--dark);
+}
+
+/* Chat Widget Layout Engine */
+.chat-trigger {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #9d2d5b;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(157, 45, 91, 0.3);
+    z-index: 1000;
+    transition: 0.3s;
+}
+
+.chat-trigger:hover { transform: translateY(-3px); }
+
+.chat-widget {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 350px;
+    background: #e5e7eb;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1001;
+    animation: slideUp 0.3s ease-out;
+}
+
+.chat-header {
+    background: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.chat-body { padding: 20px; }
+.chat-timestamp {
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    width: fit-content;
+    margin: 0 auto 15px;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
+.chat-bubble {
+    background: white;
+    padding: 15px;
+    border-radius: 12px 12px 12px 4px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.chat-form {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+}
+
+.input-group { margin-bottom: 20px; position: relative; }
+.input-group label { display: block; font-size: 0.8rem; color: #6b7280; margin-bottom: 5px; }
+.input-group input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #d1d5db;
+    padding: 8px 0;
+    outline: none;
+}
+
+.info-icon { position: absolute; right: 0; bottom: 10px; color: #374151; }
+.chat-submit {
+    width: 100%;
+    background: black;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Policy Accordion Page */
+.policy-header {
+    padding: 100px 0 60px;
+    text-align: center;
+    background: #f8fafc;
+}
+
+.last-updated {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.policy-intro { margin-bottom: 40px; line-height: 1.8; color: #475569; }
+.manager-box {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    border-left: 4px solid #9d2d5b;
+}
+
+.accordion-group { margin-top: 20px; }
+details {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+summary {
+    padding: 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1e293b;
+}
+
+summary::-webkit-details-marker { display: none; } /* Safari marker fix */
+summary i { color: #9d2d5b; transition: 0.3s; }
+details[open] { border-color: #9d2d5b; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+details[open] summary i { transform: rotate(180deg); }
+
+.details-content {
+    padding: 0 20px 20px;
+    line-height: 1.7;
+    color: #475569;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 20px;
+}
+
+.details-content ul { padding-left: 20px; margin-top: 15px; }
+.details-content li { margin-bottom: 10px; }
+.appendix-list { list-style: none !important; padding-left: 0 !important; }
+
+/* Global Base Containers */
+.container { width: 88%; max-width: 1200px; margin: 0 auto; }
+
+/* Navigation */
+.nav { padding: 1.5rem 0; position: sticky; top: 0; z-index: 1000; transition: 0.3s; background: var(--bg); }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
+.logo span { color: var(--brand); }
+.nav-right { display: flex; align-items: center; gap: 2rem; }
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 0.9rem; }
+.btn-glass { background: var(--brand); color: white; padding: 0.7rem 1.8rem; border-radius: 12px; text-decoration: none; font-weight: 600; box-shadow: 0 10px 20px rgba(139, 46, 95, 0.2); }
+
+/* Hero Section Desktop */
+.hero-modern { padding: 8rem 0 4rem; position: relative; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.badge { background: #FCE7F3; color: var(--brand); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
+h1 { font-size: 5rem; line-height: 1; margin: 1.5rem 0; font-weight: 800; }
+.text-gradient { background: linear-gradient(to right, var(--brand), #C026D3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-text p { font-size: 1.2rem; color: var(--text); margin-bottom: 2.5rem; max-width: 90%; }
+.hero-btns { display: flex; align-items: center; gap: 2rem; }
+.btn-primary { background: var(--dark); color: white; padding: 1.2rem 2.5rem; border-radius: 16px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+.btn-primary:hover { transform: translateY(-5px); background: var(--brand); }
+.btn-text { text-decoration: none; color: var(--dark); font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+
+/* Main Image Grid Stack */
+.image-stack { position: relative; width: 100%; }
+.main-img { width: 100%; height: 500px; object-fit: cover; border-radius: var(--radius); transform: rotate(2deg); box-shadow: 20px 20px 60px rgba(0,0,0,0.1); }
+.info-card-float { position: absolute; bottom: -20px; left: -20px; background: white; padding: 1.5rem; border-radius: 20px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transform: rotate(-2deg); z-index: 3; }
+.info-card-float i { font-size: 2rem; color: var(--brand); }
+
+/* Overlapping Service Section Row */
+.services-overlap { margin-top: -60px; position: relative; z-index: 10; padding-bottom: 6rem; }
+.glass-grid { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid white; display: grid; grid-template-columns: repeat(4, 1fr); padding: 3rem; border-radius: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
+.service-item { text-align: center; border-right: 1px solid #E2E8F0; padding: 0 10px; }
+.service-item:last-child { border: none; }
+.service-item i { font-size: 2.5rem; color: var(--brand); margin-bottom: 1rem; }
+.service-item h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); }
+
+/* Footer Engine Base styling */
+.footer-modern { background: var(--dark); color: white; padding: 6rem 0 3rem; border-radius: 60px 60px 0 0; }
+.footer-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.f-links { display: flex; gap: 4rem; justify-content: flex-end; }
+.link-group h4 { margin-bottom: 1.5rem; font-size: 0.8rem; text-transform: uppercase; color: var(--brand); }
+.link-group a { display: block; color: #94A3B8; text-decoration: none; margin-bottom: 0.8rem; font-size: 0.9rem; }
+
+
+/* ==========================================================
+   ADVANCED MOBILE & TABLET MEDIA RESPONSIVE ENGINE
+   ========================================================== */
+
+/* Tablet & Smaller Screen Optimizations */
+@media (max-width: 992px) {
+    h1 { font-size: 3.5rem; }
+    .sub-page-header h1 { font-size: 3rem; }
+    .giving-text-side h1 { font-size: 2.8rem; }
+    
+    .hero-grid, .giving-flex { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+        gap: 3rem;
+    }
+    
+    .hero-btns, .giving-stats-mini { justify-content: center; }
+    .hero-text p { margin: 0 auto 2.5rem; }
+    
+    .giving-card-v2 { margin: 0 auto; }
+    
+    .info-grid-modern { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .glass-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; padding: 2rem; }
+    .service-item { border: none; }
+    
+    .news-card { grid-template-columns: 40% 60%; max-width: 90%; }
+}
+
+/* Mobile Screens (Under 768px) */
+@media (max-width: 768px) {
+    h1 { font-size: 2.6rem !important; }
+    .sub-page-header h1 { font-size: 2.2rem !important; }
+    .post-header h1 { font-size: 2rem; }
+    
+    .sub-page-header { padding: 6rem 1rem 3rem; }
+    .hero-modern { padding: 5rem 0 2rem; }
+    
+    /* Navigation cleanup */
+    .nav-links { display: none; } /* Best paired with a mobile hamburger trigger menu script */
+    .nav-right { gap: 1rem; }
+    
+    /* Layout transformations to single columns */
+    .info-grid-modern,
+    .glass-grid,
+    .feature-grid,
+    .pastor-cards,
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+    }
+    
+    .f-links {
+        justify-content: linear-left;
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    /* Core Component Corrections */
+    .main-img { height: 320px; }
+    .info-card-float { left: 10px; bottom: 10px; padding: 1rem; }
+    
+    .services-overlap { margin-top: -30px; padding-bottom: 4rem; }
+    .journey-cta { padding: 3rem 1.5rem; margin-top: 4rem; }
+    .cta-content h2 { font-size: 1.8rem; }
+    
+    .feature-card { height: 320px; }
+    .feature-overlay { padding: 1.5rem; }
+    
+    /* Pastors Mobile Cards Stack */
+    .p-card { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 2rem 1.5rem; 
+    }
+    .p-img { margin: 0 auto; }
+    
+    /* Sermon Mobile Lists */
+    .sermon-card { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 1.5rem; 
+        gap: 1rem; 
+    }
+    .sermon-card:hover { transform: translateY(-4px); }
+    
+    /* News Feed Structural Break Fix */
+    .news-card { 
+        grid-template-columns: 1fr; 
+    }
+    .news-img { height: 220px; }
+    .news-body { padding: 1.5rem; }
+    .news-title { font-size: 1.6rem; }
+    
+    /* Policy and Accordions mobile adjustments */
+    .post-layout { padding: 4rem 0; }
+    .post-figure { margin: 1.5rem 0; }
+    .location-card { flex-direction: column; text-align: center; gap: 1.5rem; padding: 1.5rem; }
+    .post-footer-meta { flex-direction: column; gap: 1rem; text-align: center; }
+    .share-links { justify-content: center; }
+    
+    /* Widget protection bounds on tiny devices */
+    .chat-widget {
+        width: calc(100% - 40px);
+        right: 20px;
+        bottom: 85px;
+    }
+    .chat-trigger { right: 20px; bottom: 20px; padding: 10px 20px; }
+}
+/* ==========================================
+   SERMON PAGE MEDIA CONTAINERS (WIDE FORMAT)
+   ========================================== */
+
+/* Layout stack to align wide boxes down the center */
+.layout-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;                /* Extra breathing room between large blocks */
+    width: 100%;
+}
+
+/* Base style shared by both containers - NOW EXPANDED */
+.live-stream-banner, 
+.spotify-archive-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+    padding: 3.5rem;            /* Generous deep padding for a premium dashboard look */
+    border-radius: var(--radius);
+    text-align: center;
+    
+    /* EXPANDED BOUNDING BOXES */
+    width: 100%;
+    max-width: 900px;           /* <--- WIDENED: Spans beautifully across your main page content */
+    
+    box-sizing: border-box;     
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;             
+}
+
+/* --- Media Players Sizing Controls (Proportioned to the wide boxes) --- */
+.video-responsive,
+.spotify-widget-container {
+    width: 100%;
+    max-width: 750px;           /* <--- WIDENED: The players expand to fill the wide card layout beautifully */
+    margin: 0 auto;             /* Centers the players perfectly inside the wide cards */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+/* Preserves the crisp aspect ratio for the wider YouTube video box */
+.video-responsive {
+    aspect-ratio: 16 / 9;
+}
+
+/* Forces the frames to adapt completely to parent container limits */
+.video-responsive iframe, 
+.spotify-widget-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Adjusting the Spotify frame height slightly to look balanced at a wider scale */
+.spotify-widget-container iframe {
+    height: 450px;
+}
+
+/* --- Typography Control Inside Wide Cards --- */
+.live-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.live-status strong {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: #ef4444;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+.archive-icon {
+    font-size: 2.75rem;
+    color: #1ed760; 
+    margin-bottom: 1rem;
+}
+
+.live-stream-banner h2, 
+.spotify-archive-card h2 {
+    font-size: 2.25rem;         /* Slightly larger text to support the grander layout */
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.live-stream-banner p, 
+.spotify-archive-card p {
+    color: #94a3b8;
+    max-width: 650px;           /* Gives the wide sentences room to stretch without wrapping tightly */
+    margin: 0 auto 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* --- Smooth Responsive Collapse on Mobile Screens --- */
+@media (max-width: 930px) {
+    .live-stream-banner, 
+    .spotify-archive-card {
+        padding: 2.5rem 1.5rem;
+        max-width: 95%;         /* Keeps a clean safety margin gap on smaller viewports */
+    }
+    .live-stream-banner h2, 
+    .spotify-archive-card h2 {
+        font-size: 1.75rem;
+    }
+}
+/* ==========================================
+   SERMON PAGE MEDIA CONTAINERS (WIDE FORMAT)
+   ========================================== */
+
+/* Layout stack to align wide boxes down the center */
+.layout-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;                /* Extra breathing room between large blocks */
+    width: 100%;
+}
+
+/* Explicitly shifts the header block contents slightly over to the left */
+.left-aligned-header {
+    width: 100%;
+    max-width: 900px;           /* Aligns perfectly with the width profiles of the cards */
+    text-align: left !important;
+}
+
+.left-aligned-header .sermon-meta-text {
+    text-align: left !important;
+}
+
+/* Base style shared by both containers */
+.live-stream-banner, 
+.spotify-archive-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+    padding: 3.5rem;            /* Generous deep padding for a premium dashboard look */
+    border-radius: var(--radius);
+    text-align: center;
+    
+    /* Wide content column alignment configuration profiles */
+    width: 100%;
+    max-width: 900px;           
+    
+    box-sizing: border-box;     
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;             
+}
+
+/* --- Media Players Sizing Controls --- */
+.video-responsive,
+.spotify-widget-container {
+    width: 100%;
+    max-width: 750px;           
+    margin: 0 auto;             /* Centers the players perfectly inside the wide cards */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+/* Preserves the crisp aspect ratio for the wider YouTube video box */
+.video-responsive {
+    aspect-ratio: 16 / 9;
+}
+
+/* Forces the frames to adapt completely to parent container limits */
+.video-responsive iframe, 
+.spotify-widget-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Adjusting the Spotify frame height slightly to look balanced at a wider scale */
+.spotify-widget-container iframe {
+    height: 450px;
+}
+
+/* --- Typography Control Inside Wide Cards --- */
+.live-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.live-status strong {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: #ef4444;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+.archive-icon {
+    font-size: 2.75rem;
+    color: #1ed760; 
+    margin-bottom: 1rem;
+}
+
+.live-stream-banner h2, 
+.spotify-archive-card h2 {
+    font-size: 2.25rem;         
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.live-stream-banner p, 
+.spotify-archive-card p {
+    color: #94a3b8;
+    max-width: 650px;           
+    margin: 0 auto 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* --- ADDED: Styling for text below the Spotify Frame --- */
+.archive-footer-text {
+    width: 100%;
+    max-width: 650px;
+    margin: 2rem auto 0;        /* Creates beautiful breathing space right beneath the player */
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Sophisticated separator line */
+    padding-top: 1.5rem;
+}
+
+.archive-footer-text p {
+    color: #64748b;             /* Subdued secondary gray so it sits nicely in the hierarchy */
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;                  /* Drops the double-margin override cleanly */
+}
+
+/* --- Smooth Responsive Collapse on Mobile Screens --- */
+@media (max-width: 930px) {
+    .left-aligned-header {
+        text-align: center !important; /* Centers up typography cleanly strictly on mobile devices */
+    }
+    .left-aligned-header .sermon-meta-text {
+        text-align: center !important;
+    }
+    .live-stream-banner, 
+    .spotify-archive-card {
+        padding: 2.5rem 1.5rem;
+        max-width: 95%;         
+    }
+    .live-stream-banner h2, 
+    .spotify-archive-card h2 {
+        font-size: 1.75rem;
+    }
+}
+/* ==========================================
+   SCROLL-DRIVEN FADE IN ANIMATIONS
+   ========================================== */
+
+/* The hidden starting state for any element we want to animate */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px); /* Starts slightly lowered down */
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform;
+}
+
+/* The active state triggered by the JavaScript scroll watcher */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0); /* Smoothly glides up to its true position */
+}
+/* ==========================================
+   RESPONSIVE DESIGN INTERFACES
+   ========================================== */
+
+/* Tablet Framework Adjustments (Max 992px) */
+@media (max-width: 992px) {
+    .giving-flex {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .giving-text-side {
+        text-align: center;
+        max-width: 100%;
+    }
+    .giving-stats-mini {
+        justify-content: center;
+    }
+    .giving-card-v2 {
+        max-width: 550px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+/* Mobile Layout Systems (Max 768px) */
+@media (max-width: 768px) {
+    /* Global Containers & Footers */
+    .container {
+        padding: 0 20px !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    
+    .footer-modern {
+        padding: 40px 20px !important;
+        text-align: center;
+    }
+    
+    /* Navigation Adapters */
+    .nav-flex {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px !important;
+        text-align: center;
+    }
+    .nav-right {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    .nav-links {
+        justify-content: center;
+        padding: 0;
+        gap: 20px;
+    }
+    .nav-right .btn-glass {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* Typography Overrides */
+    h1 {
+        font-size: 2.2rem !important;
+        line-height: 1.2 !important;
+    }
+    .policy-header, .giving-header-v2 {
+        padding: 60px 0 40px 0 !important;
+    }
+
+    /* Accordions & Content Containers */
+    summary {
+        padding: 15px 18px !important;
+        font-size: 1.05rem !important;
+    }
+    .details-content {
+        padding: 15px 18px 25px 18px !important;
+    }
+    
+    /* Interactive Donation Selectors */
+    .amount-box-large input {
+        font-size: 3rem !important;
+    }
+    .stacked-selectors .select-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    .stacked-selectors label {
+        width: 100% !important;
+        min-width: unset !important;
+    }
+    .stacked-selectors select {
+        width: 100% !important;
+    }
+    
+    /* Chat Overlay Resizing */
+    .chat-widget {
+        bottom: 85px !important;
+        right: 15px !important;
+        left: 15px !important;
+        width: auto !important;
+        max-height: 80vh;
+    }
+    .chat-trigger {
+        right: 15px !important;
+        bottom: 15px !important;
+    }
+}
+
+/* Micro Devices Adjustments (Max 480px) */
+@media (max-width: 480px) {
+    .giving-stats-mini {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .amount-box-large input {
+        font-size: 2.5rem !important;
+    }
+}
+/* Navigation Live Indicator Dot */
+.nav-live-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: #ff3b30; /* Vivid Stream Red */
+    border-radius: 50%;
+    margin-left: 6px;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+    animation: pulse-red 1.6s infinite;
+}
+
+/* Pulsating Animation Engine */
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(255, 59, 48, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    }
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Protection Policy | New City MK</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../NewCity/Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS (SAFETY NET)
+           ========================================== */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* ==========================================
+           LIVE STATUS INDICATOR EFFECT
+           ========================================== */
+        .nav-live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-left: 6px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            animation: navPulse 1.5s infinite;
+        }
+
+        @keyframes navPulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+            }
+        }
+
+        /* ==========================================
+           RESPONSIVE INTERACTIVE OVERRIDES
+           ========================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Base Navigation Structural Overrides */
+        .nav-flex {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 25px !important;
+        }
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
+        @media (max-width: 768px) {
+            .nav-flex {
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: center !important;
+                padding: 15px 20px !important;
+            }
+            .nav-right {
+                flex-direction: column !important;
+                gap: 14px !important;
+                width: 100% !important;
+                display: flex !important;
+            }
+            .nav-links {
+                display: flex !important;
+                justify-content: center !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 25px !important;
+                padding: 0 !important;
+                margin: 4px 0 !important;
+            }
+            .nav-links li a {
+                display: inline-block !important;
+                font-size: 1rem !important;
+            }
+            .btn-glass {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+            }
+            
+            /* Policy Content Readability Optimizations */
+            .policy-header {
+                padding: 60px 0 30px 0 !important;
+                text-align: center !important;
+            }
+            .policy-header h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2 !important;
+            }
+            .manager-box {
+                padding: 16px !important;
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            details summary {
+                padding: 14px 16px !important;
+                font-size: 1.05rem !important;
+            }
+            .details-content {
+                padding: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="container nav-flex">
+           <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../NewCity/index.html">Home</a></li>
+                    <li style="position: relative; display: inline-flex; align-items: center;">
+                        <a href="../NewCity/sermons.html">Sermons</a>
+                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                    </li>
+                    <li><a href="../NewCity/news.html">News</a></li>
+                </ul>
+                 <a href="../NewCity/imnew.html" class="btn-glass" style="background: var(--brand); color: white; border: none;">Plan Your Visit</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="policy-header">
+        <div class="container narrow reveal">
+            <h1>Data Protection <span class="text-gradient">Policy</span></h1>
+            <p class="last-updated">Policy adopted on 27/5/18 • To be reviewed in 12 months’ time</p>
+        </div>
+    </header>
+
+    <section class="policy-content">
+        <div class="container narrow">
+            
+            <div class="policy-intro reveal">
+                <p>“Data Protection Legislation” or “Legislation” means the Data Protection Act 1998, the Privacy and Electronic Communications Regulations (EC Directive) Regulations 2003 (SI 2426/2003 as amended), the General Data Protection Regulation (GDPR), any laws in the UK enacting the GDPR or preserving its effect in whole or part following the departure of the UK from the European Union and all applicable laws and regulations, including any replacement UK or EU data protection legislation relating to the Processing of Personal Data, together with, where applicable, the guidance and codes of practice issued by the Information Commissioner’s Office.</p>
+                
+                <p>Data Protection Legislation is concerned with the protection of human rights in relation to personal data. The aim of the Legislation is to ensure that personal data is used fairly and lawfully and that where necessary the privacy of individuals is respected.</p>
+
+                <p>During the course of the activities of New City Church MK (“the Church”), the Church will collect, store and process personal data about our members, people who attend our services and activities, employees, suppliers and other third parties and we recognise that the correct and lawful treatment of this data will help maintain confidence in the Church.</p>
+                
+                <p>This policy sets out the basis on which we will process any personal data we collect from data subjects, or that is provided to us by data subjects or other sources.</p>
+
+                <div class="manager-box">
+                    <p>The Data Protection Compliance Manager is responsible for ensuring compliance with the Legislation and with this policy. The post is currently held by <strong>Chris Hicken (chrisjh1954@gmail.com)</strong>. Any questions about the operation of this policy or any concerns that the policy has not been followed should be referred in the first instance to the Data Protection Compliance Manager.</p>
+                </div>
+            </div>
+
+            <div class="accordion-group reveal">
+                
+                <details>
+                    <summary>Processing personal data <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>All personal data should be processed in accordance with the Legislation and this policy. Any breach of this policy may result in disciplinary action. Processing includes obtaining, holding, maintaining, storing, erasing, blocking and destroying data.</p>
+                        <p>Personal data is data relating to a living individual. It includes employee data. It will not include data relating to a company or organisation, although any data relating to individuals within companies or organisations may be covered. Personal data can be factual (for example a name, address or date of birth) or it can be an opinion about that person, their actions and behaviour.</p>
+                        <p>Examples of personal data are employee details, including employment records, names and addresses and other information relating to individuals, including supplier details, any third-party data and any recorded information including any recorded telephone conversations, emails or CCTV images.</p>
+                        <p>Employees and others (including volunteers and trustees) who process data on behalf of the Church (referred to in this policy as ‘Employees’) should assume that whatever they do with personal data will be considered to constitute processing.</p>
+                        <p>Employees should only process data:</p>
+                        <ul>
+                            <li>If they have consent to do so; or</li>
+                            <li>If it is necessary to fulfil a contractual obligation or as part of the employer/employee relationship; for example, processing the payroll; or</li>
+                            <li>the processing is necessary for legitimate interests pursued by New City Church MK, unless these are overridden by the interests, rights and freedoms of the data subject.</li>
+                        </ul>
+                        <p>If none of these conditions are satisfied, individuals should contact the Data Protection Compliance Manager before processing personal data.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Compliance with the Legislation <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>Employees who process data on our behalf have a responsibility for processing personal data in accordance with the Legislation. This includes the data protection principles in the Legislation. These state that personal data must:</p>
+                        <ul>
+                            <li>be obtained and used fairly, lawfully and transparently</li>
+                            <li>be obtained for specified, explicit and legitimate purposes and used only for those purposes</li>
+                            <li>be adequate, relevant and limited to the minimum necessary for those purposes</li>
+                            <li>be accurate and kept up to date (every reasonable endeavour should be used to ensure personal data that is not accurate is corrected or erased without delay)</li>
+                            <li>be processed in a manner that ensures its security (see Information Security policy at Appendix 1).</li>
+                            <li>not be kept for any longer than required for those purposes see Retention policy at Appendix 2).</li>
+                        </ul>
+                        <p>We will only share personal data with other organisations or people when we have a legal basis to do so and if we have informed the data subject about the possibility of the data being shared (in a privacy notice) unless there is a legal exemption from doing so.</p>
+                        <p>We will keep records of any information shared with a third party including a record of any exemption which has been applied.</p>
+                        <p>Employees should follow the Data Breach Procedure (at Appendix 3) if they think they have accidentally breached any provision of this Data Protection Policy.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Sensitive data <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>We will strive to ensure that sensitive data is accurately identified on collection so that proper safeguards can be put in place. Sensitive data means data consisting of information relating to an individual’s:</p>
+                        <ul>
+                            <li>Racial or ethnic origin</li>
+                            <li>Political opinions</li>
+                            <li>Religious beliefs</li>
+                            <li>Trade union membership</li>
+                            <li>Physical or mental health, and genetic information</li>
+                            <li>Sexual life</li>
+                            <li>Criminal offences</li>
+                        </ul>
+                        <p>Sensitive data may be processed in the course of our legitimate activities, but may not be passed to any third party without the express consent of the data subject.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Monitoring the use of personal data <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>We are committed to ensuring that this data protection policy is put into practice and that appropriate working practices are being followed. To this end the following steps will be taken:</p>
+                        <ul>
+                            <li>any Employees who deal with personal data are expected to be aware of data protection issues and to work towards continuous improvement of the proper processing of personal data;</li>
+                            <li>Employees who handle personal data on a regular basis or who process sensitive or other confidential personal data will be more closely monitored;</li>
+                            <li>All Employees must consider whether the personal data they hold is being processed in accordance with this policy. Particular regard should be had to ensure inaccurate, excessive or out of date data is disposed of in accordance with this policy;</li>
+                            <li>Employees must follow the Breaches Procedure (at Appendix 3) should they become aware of any breach of this policy;</li>
+                            <li>Employees will keep clear records of our processing activities and of the decisions we make concerning personal data (including reasons for the decisions) to show how we comply with the Legislation;</li>
+                            <li>Spot checks may be carried out;</li>
+                            <li>An annual report on the level of compliance with or variance from good data protection practices will be produced by the Data Protection Compliance Manager;</li>
+                            <li>Data breaches will be recorded and investigated to see what improvements can be made to prevent recurrences;</li>
+                            <li>We will only appoint data processors on the basis of a written contract that will require the processor to comply with all relevant legal requirements. We will continue to monitor the data processing, and compliance with the contract, throughout the duration of the contract.</li>
+                        </ul>
+                        <p><strong>Handling personal data and data security:</strong> This will be managed in accordance with our Information Security Policy (see Appendix 1).</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>The rights of individuals <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>The Legislation gives individuals certain rights to know what data is held about them and what it is used for. If personal data is collected directly from an individual, we will inform them in writing of their rights by providing them with a ‘Privacy Notice’ at the time the personal data is collected or as soon as possible afterwards.</p>
+                        <p>In principle everyone has the right to see copies of all personal data held about them. There is also a right to have any inaccuracies in data corrected or erased. Data subjects may also have a right of portability in respect of their personal data, and a right to be forgotten. Data subjects also have the right to prevent the processing of their data for direct marketing purposes.</p>
+                        <p>Any request for access to data under the Legislation should be made to Ashley Midwinter in writing. In accordance with the Legislation we will ensure that written requests for access to personal data are complied with within 30 days of receipt of a valid request (where permitted under the Legislation, we may take a further 30 days to respond but we will inform the individual of why this is necessary).</p>
+                        <p>When a written data subject access request is received the data subject will be given a description of a) the personal data, b) the purposes for which it is being processed, c) those people and organisations to whom the data may be disclosed, d) be provided with a copy of the information in an intelligible form.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Appendices & General Info <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p><strong>Changes to this policy:</strong> We reserve the right to change this policy at any time, including as needed to comply with changes in law. Where appropriate we will notify data subjects of those changes by mail or email.</p>
+                        <p>Policy adopted on 27/5/18 (Date of Church Trustees/Elders meeting)</p>
+                        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>APPENDIX 1 – Information Security Policy</li>
+                            <li>APPENDIX 2 – Records Retention Policy</li>
+                            <li>APPENDIX 3 – Data Breach Policy</li>
+                            <li>APPENDIX 4 – Complaints process</li>
+                        </ul>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-modern">
+    </footer>
+
+    <!-- INTERSECTION OBSERVER ANIMATION WATCHER ENGINE & LIVE CHECK -->
+    <script>
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
+            const navDot = document.getElementById("nav-live-dot");
+            
+            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                if (this.width === 320) {
+                    navDot.style.display = "inline-block";
+                } else {
+                    navDot.style.display = "none";
+                }
+            };
+            
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        function initReveal() {
+            const revealElements = document.querySelectorAll(".reveal");
+            
+            if (!window.IntersectionObserver) {
+                revealElements.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealElements.forEach(element => observer.observe(element));
+        }
+        
+        // Execute engines immediately when DOM settles
+        document.addEventListener("DOMContentLoaded", function() {
+            initReveal();
+            checkChurchLiveStatus();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exciting News: We are moving! | New City MK</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../NewCity/Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS (SAFETY NET)
+           ========================================== */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* ==========================================
+           INTERACTIVE ENGINE & TOOLTIP UI STYLES
+           ========================================== */
+        .post-footer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .meta-left-group {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .view-count, .like-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        /* Like Button Interactions */
+        .interactive-like-btn {
+            background: none;
+            border: none;
+            padding: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            border-radius: 50%;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .interactive-like-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .interactive-like-btn:hover {
+            color: #ef4444;
+            background: #fef2f2;
+            border-color: #fee2e2;
+        }
+
+        /* Active Like State (Liked) */
+        .interactive-like-btn.liked {
+            color: #ef4444;
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        .interactive-like-btn.liked i {
+            transform: scale(1.15);
+        }
+
+        /* Premium Share Buttons Architecture */
+        .share-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .share-btn:hover {
+            background: #f8fafc;
+            color: #0f172a;
+            border-color: #cbd5e1;
+        }
+
+        /* Custom Adaptive Toast Notification Layer */
+        .share-toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .share-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ==========================================
+           RESPONSIVE INTERACTIVE OVERRIDES
+           ========================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Base Navigation Structural Overrides */
+        .nav-flex {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 25px !important;
+        }
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
+        @media (max-width: 768px) {
+            .nav-flex {
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: center !important;
+                padding: 15px 20px !important;
+            }
+            .nav-right {
+                flex-direction: column !important;
+                gap: 14px !important;
+                width: 100% !important;
+                display: flex !important;
+            }
+            .nav-links {
+                display: flex !important;
+                justify-content: center !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 25px !important;
+                padding: 0 !important;
+                margin: 4px 0 !important;
+            }
+            .nav-links li a {
+                display: inline-block !important;
+                font-size: 1rem !important;
+            }
+            .post-footer-meta {
+                flex-direction: column !important;
+                gap: 20px !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+            .meta-left-group {
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .location-card {
+                flex-direction: column !important;
+                gap: 20px !important;
+                text-align: center !important;
+                padding: 20px !important;
+            }
+            .location-card .btn-primary {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        /* Chat Pop-up Responsive Adjustments */
+        @media (max-width: 400px) {
+            .chat-widget {
+                width: calc(100% - 30px) !important;
+                right: 15px !important;
+                bottom: 85px !important;
+                height: 450px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="container nav-flex">
+            <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../NewCity/index.html">Home</a></li>
+                    <li><a href="../NewCity/news.html">Back to News</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="post-layout">
+        <article class="container narrow">
+            <!-- Post Header -->
+            <header class="post-header reveal">
+                <div class="author-meta">
+                    <div class="author-thumb">
+                        <img src="../NewCity/props/richard.png" alt="Richard Wardman">
+                    </div>
+                    <div class="author-info">
+                        <strong>Richard Wardman</strong>
+                        <span>Aug 28, 2025 • 1 min read</span>
+                    </div>
+                </div>
+                <h1>Exciting News: We are moving!</h1>
+                <p class="lead">After five fantastic years of gathering at Monkston Primary School, we are thrilled to announce that starting from 7 September 2025, our Sunday meetings will be held at Oakgrove School.</p>
+            </header>
+
+            <!-- Featured Image with Caption -->
+            <figure class="post-figure reveal">
+                <img src="../NewCity/props/oakgrove.png" alt="Oakgrove School Theatre" style="max-width: 100%; height: auto; border-radius: 12px;">
+                <figcaption>The theatre at Oakgrove School - our new home for Sundays</figcaption>
+            </figure>
+
+            <!-- Post Content -->
+            <div class="post-content reveal">
+                <p>By God's grace, our church is growing, and we are excited to move to a larger venue with the capacity for further growth. We want to see God's kingdom growing, more people exploring the Christian faith and being baptised into the church.</p>
+
+                <p>For a long time, we've been praying for a venue to accommodate our growing needs, and God has kindly answered us by providing Oakgrove School.</p>
+
+                <p>There is ample space for parking, a brilliant welcome area that's perfect for mingling over coffee, and plenty of space for our growing children's work.</p>
+
+                <p>We're looking forward to welcoming you to our services at Oakgrove School from <strong>Sunday 7 September at 10.30am.</strong></p>
+
+                <!-- Location Block -->
+                <div class="location-card reveal">
+                    <div class="location-text">
+                        <h3>Oakgrove School</h3>
+                        <p>Venturer Gate, Milton Keynes, MK10 9JQ</p>
+                        <p class="w3w">what3words: <a href="https://what3words.com/runs.about.camp" target="_blank">///runs.about.camp</a></p>
+                    </div>
+                    <a href="https://maps.app.goo.gl/ipjANnEYpabMXv4p9" target="_blank" class="btn-primary" style="text-decoration: none;">Map to Oakgrove</a>
+                </div>
+            </div>
+
+            <!-- Post Footer -->
+            <footer class="post-footer-meta reveal">
+                <div class="meta-left-group">
+                    <div class="view-count">
+                        <i class="ph ph-eye"></i> 
+                        <span id="liveViewCounter">210</span> views
+                    </div>
+                    <div class="like-wrapper">
+                        <button class="interactive-like-btn" id="likeButton" onclick="handleLikeClick()">
+                            <i class="ph ph-heart" id="likeIcon"></i>
+                        </button>
+                        <span id="liveLikeCounter">42</span> likes
+                    </div>
+                </div>
+                
+                <div class="share-links">
+                    <button class="share-btn" onclick="executeShare('link')" title="Copy Article Link">
+                        <i class="ph ph-link"></i>
+                    </button>
+                    <button class="share-btn" onclick="executeShare('facebook')" title="Share on Facebook">
+                        <i class="ph ph-facebook-logo"></i>
+                    </button>
+                    <button class="share-btn" onclick="executeShare('whatsapp')" title="Share on WhatsApp">
+                        <i class="ph ph-whatsapp-logo"></i>
+                    </button>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
+    </div>
+
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+            <div class="chat-bubble">
+                To send us a message, first leave your contact info so we can get back to you.
+            </div>
+            
+            <form class="chat-form">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                    <i class="ph ph-info info-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Component Layer inside body -->
+    <div id="shareToast" class="share-toast">
+        <i class="ph ph-check-circle" style="color: #4ade80;"></i>
+        <span id="toastMessage">Link copied to clipboard!</span>
+    </div>
+ 
+    <footer class="footer-modern">
+    </footer>
+
+    <!-- REAL-TIME ENGINE + SCROLL REVEAL EXECUTION SCRIPTS -->
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+
+        // ==========================================
+        // DYNAMIC VIEW & LIKE DATA ENGINE
+        // ==========================================
+        const BASE_VIEWS = 210;
+        const BASE_LIKES = 42;
+        const STORAGE_KEY_VIEWS = 'ncc_moving_views';
+        const STORAGE_KEY_LIKES = 'ncc_moving_likes_count';
+        const STORAGE_KEY_HAS_LIKED = 'ncc_moving_has_liked';
+
+        function initDataEngine() {
+            let storedViews = localStorage.getItem(STORAGE_KEY_VIEWS);
+            let currentViews = storedViews ? parseInt(storedViews) : BASE_VIEWS;
+            
+            currentViews++;
+            localStorage.setItem(STORAGE_KEY_VIEWS, currentViews);
+            document.getElementById('liveViewCounter').innerText = currentViews;
+
+            let storedLikes = localStorage.getItem(STORAGE_KEY_LIKES);
+            let currentLikes = storedLikes ? parseInt(storedLikes) : BASE_LIKES;
+            document.getElementById('liveLikeCounter').innerText = currentLikes;
+
+            let hasLiked = localStorage.getItem(STORAGE_KEY_HAS_LIKED) === 'true';
+            const likeBtn = document.getElementById('likeButton');
+            const likeIcon = document.getElementById('likeIcon');
+            
+            if (hasLiked) {
+                likeBtn.classList.add('liked');
+                likeIcon.setAttribute('class', 'ph-fill ph-heart');
+            } else {
+                likeIcon.setAttribute('class', 'ph ph-heart');
+            }
+        }
+
+        function handleLikeClick() {
+            const likeBtn = document.getElementById('likeButton');
+            const likeIcon = document.getElementById('likeIcon');
+            let hasLiked = localStorage.getItem(STORAGE_KEY_HAS_LIKED) === 'true';
+            let currentLikes = parseInt(localStorage.getItem(STORAGE_KEY_LIKES)) || BASE_LIKES;
+
+            if (!hasLiked) {
+                currentLikes++;
+                localStorage.setItem(STORAGE_KEY_HAS_LIKED, 'true');
+                likeBtn.classList.add('liked');
+                likeIcon.setAttribute('class', 'ph-fill ph-heart');
+                showToast('Thanks for liking this update!');
+            } else {
+                currentLikes--;
+                localStorage.setItem(STORAGE_KEY_HAS_LIKED, 'false');
+                likeBtn.classList.remove('liked');
+                likeIcon.setAttribute('class', 'ph ph-heart');
+            }
+
+            localStorage.setItem(STORAGE_KEY_LIKES, currentLikes);
+            document.getElementById('liveLikeCounter').innerText = currentLikes;
+        }
+
+        // ==========================================
+        // SOCIAL SHARING HUB ROUTER
+        // ==========================================
+        function executeShare(platform) {
+            const currentUrl = window.location.href;
+            const articleTitle = "Exciting News: We are moving! | New City MK";
+
+            if (platform === 'link') {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(currentUrl).then(() => {
+                        showToast('Link copied to clipboard!');
+                    });
+                } else {
+                    const input = document.createElement('input');
+                    input.value = currentUrl;
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(input);
+                    showToast('Link copied to clipboard!');
+                }
+            } else if (platform === 'facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank', 'width=600,height=400');
+            } else if (platform === 'whatsapp') {
+                const textMessage = `${articleTitle} - ${currentUrl}`;
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMessage)}`, '_blank');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('shareToast');
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==========================================
+        // INTERSECTION OBSERVER CORE RUNNER
+        // ==========================================
+        function initReveal() {
+            const revealElements = document.querySelectorAll(".reveal");
+            
+            if (!window.IntersectionObserver) {
+                revealElements.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealElements.forEach(element => observer.observe(element));
+        }
+        
+        initReveal();
+        initDataEngine();
+        document.addEventListener("DOMContentLoaded", () => {
+            initReveal();
+            initDataEngine();
+        });
+    </script>
+</body>
+</html>

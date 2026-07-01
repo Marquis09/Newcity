@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Visit | New City MK</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../NewCity/Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           LIVE STATUS INDICATOR EFFECT
+           ========================================== */
+        .nav-live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-left: 6px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            animation: navPulse 1.5s infinite;
+        }
+
+        @keyframes navPulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+            }
+        }
+
+        /* Responsive CSS Overrides */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Navbar Responsiveness */
+        @media (max-width: 768px) {
+            .nav-flex {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 15px 20px;
+            }
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .sub-page-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Grids and Layout Adaptations */
+        @media (max-width: 900px) {
+            .info-grid-modern {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+            }
+            .pastor-cards {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+            }
+            .p-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .p-card .p-img {
+                margin: 20px auto 0 auto;
+            }
+            .p-info blockquote {
+                border-left: none !important;
+                border-top: 2px solid var(--brand);
+                padding: 10px 0 0 0 !important;
+            }
+        }
+
+        /* Video Padding Adjustments */
+        @media (max-width: 480px) {
+            .video-intro-section {
+                padding: 20px 0 !important;
+            }
+            .video-container {
+                border-radius: 12px !important;
+            }
+            .spotify-archive-card {
+                padding: 20px !important;
+            }
+        }
+
+        /* Chat UI Pop-up Adaptations */
+        @media (max-width: 400px) {
+            .chat-widget {
+                width: calc(100% - 30px) !important;
+                right: 15px !important;
+                bottom: 85px !important;
+                height: 450px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="container nav-flex">
+           <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../NewCity/index.html">Home</a></li>
+                    <li><a href="im-new.html" style="color: var(--brand);">I'm New</a></li>
+                    <li style="position: relative; display: inline-flex; align-items: center;">
+                        <a href="../NewCity/sermons.html">Sermons</a>
+                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                    </li>
+                    <li><a href="../NewCity/news.html">News</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Phase 1: The Arrival -->
+    <header class="sub-page-header">
+        <div class="container">
+            <span class="badge">Planning a visit?</span>
+            <h1>Welcome to <span class="text-gradient">New City Church</span></h1>
+            <p>We’d love you to join us in following Jesus. Everyone is welcome. We've put together this guide to help you know exactly what to expect this Sunday.</p>
+        </div>
+    </header>
+    <br>
+
+    <!-- New Introduction Video Section -->
+    <section class="video-intro-section reveal" style="padding: 40px 0; background: #f8fafc;">
+        <div class="container">
+            <div style="max-width: 700px; margin: 0 auto;">
+                
+                <!-- Added text block above video -->
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <h2 style="font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 10px;">Watch: What to expect on Sunday</h2>
+                    <p style="color: #475569; font-size: 1rem; line-height: 1.5; margin: 0;">Take a quick 2-minute tour to see what our gatherings look like before you arrive.</p>
+                </div>
+
+                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);">
+                    <!-- Replace 'VIDEO_ID' with your actual YouTube video ID -->
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/VIDEO_ID" 
+                        title="Welcome to New City Church MK"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-section" style="padding: 60px 0;">
+        <div class="container">
+            
+            <div class="info-grid-modern reveal">
+                <!-- Getting There - Clickable Map Card -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" class="info-box" style="text-decoration: none; color: inherit; display: block; transition: transform 0.2s ease;">
+                    <div class="icon-wrap"><i class="ph ph-map-pin"></i></div>
+                    <h3>Location</h3>
+                    <p>We meet on Sundays at Oakgrove School, Venturer Gate, Milton Keynes, MK10 9JQ. There are nearby bus routes.</p>
+                    <span style="color: var(--brand); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 4px; margin-top: 10px;">
+                        Open Directions <i class="ph ph-arrow-square-out"></i>
+                    </span>
+                </a>
+                
+                <!-- Parking -->
+                <div class="info-box">
+                    <div class="icon-wrap"><i class="ph ph-car"></i></div>
+                    <h3>Parking</h3>
+                    <p>There is lots of free parking available directly at the school. Our team will guide you right in.</p>
+                </div>
+                
+                <!-- When to arrive -->
+                <div class="info-box">
+                    <div class="icon-wrap"><i class="ph ph-clock"></i></div>
+                    <h3>The Best Place to Start?</h3>
+                    <p>Join us on a Sunday morning—our main gathering. Our service is filled with singing, prayer, Bible reading, and teaching. Please stay for tea and coffee afterwards to chat!</p>
+                </div>
+            </div>
+
+            <!-- Phase 2: The Experience -->
+            <div class="expectations-layout" style="margin-top: 60px;">
+                <div class="split-header reveal" style="text-align: center; margin-bottom: 40px;">
+                    <h2>What to Expect</h2>
+                    <p style="font-style: italic; color: #64748b; max-width: 700px; margin: 15px auto 0 auto; line-height: 1.6;">
+                        "Let the message of Christ dwell among you richly as you teach and admonish one another with all wisdom through psalms, hymns, and songs from the Spirit, singing to God with gratitude in your hearts.” 
+                        <strong style="display: block; font-style: normal; margin-top: 8px; font-size: 0.85rem; color: var(--brand);">— COLOSSIANS 3:16</strong>
+                    </p>
+                </div>
+
+                <div class="pastor-cards reveal" style="margin-bottom: 40px;">
+                    <!-- Card: Casual Atmosphere / Dress Code -->
+                    <div class="p-card">
+                        <div class="p-img" style="display:flex; align-items:center; justify-content:center; background: var(--dark); color: white; flex-shrink: 0;">
+                            <i class="ph ph-shirt-folded" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="p-info">
+                            <h3>Is there a dress code?</h3>
+                            <p style="text-transform: none;">There’s no dress code. We’re pretty informal. You’ll find some people in shorts, t-shirts, and flip-flops, others in suits, and plenty in between. Come as you are.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card: Kids Group Info -->
+                    <div class="p-card">
+                        <div class="p-img" style="display:flex; align-items:center; justify-content:center; background: var(--brand); color: white; flex-shrink: 0;">
+                            <i class="ph ph-smiley-wink" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="p-info">
+                            <h3>What’s available for the kids?</h3>
+                            <p style="text-transform: none;">Kids are very welcome at all our services and we don’t mind the noise they make. They can stay in for the whole service or join the kids group part way through—whatever they prefer to do.</p>
+                            
+                            <blockquote style="border-left: 2px solid var(--brand); padding-left: 10px; margin: 12px 0; font-style: italic; color: #64748b; font-size: 0.9rem;">
+                                "Jesus called the children to him and said, 'Let the little children come to me...'" — Luke 18:16
+                            </blockquote>
+                            
+                            <a href="../NewCity/props/safeguarding.pdf" style="color: var(--brand); text-decoration: none; font-weight: 800; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
+                                Read more about kids systems <i class="ph ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Modern Detail Info Blocks Layout Integration -->
+                <div class="spotify-archive-card reveal" style="background: #ffffff; text-align: left; padding: 40px; margin: 40px auto; max-width: 900px; box-sizing: border-box;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px;">
+                        
+                        <div>
+                            <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
+                                <i class="ph-fill ph-shield-check" style="color: var(--brand); font-size: 1.4rem;"></i> What We Believe
+                            </h4>
+                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">We are part of the Fellowship of Independent Evangelical Churches (FIEC), and so we subscribe to their Doctrinal Basis, which outlines what we believe.</p>
+                            <a href="https://fiec.org.uk/who-we-are/beliefs" target="_blank" style="color: var(--brand); text-decoration: none; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 4px;">Learn details <i class="ph ph-arrow-right"></i></a>
+                        </div>
+
+                        <div>
+                            <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
+                                <i class="ph-fill ph-compass" style="color: var(--brand); font-size: 1.4rem;"></i> Explore Faith
+                            </h4>
+                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;">We love that you want to explore more! The best place to start is with Christianity Explored, or come along to a Sunday morning service.</p>
+                        </div>
+
+                        <div>
+                            <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
+                                <i class="ph-fill ph-users-three" style="color: var(--brand); font-size: 1.4rem;"></i> Church Leaders
+                            </h4>
+                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">You can find out more about everyone who leads—as elders and team leaders—at New City Church by reaching out through the <strong>"Contact Us"</strong> button.</p>
+                        </div>
+
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 35px 0;">
+
+                    <div>
+                        <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
+                            <i class="ph-fill ph-calendar-blank" style="color: var(--brand); font-size: 1.4rem;"></i> What else is on at New City?
+                        </h4>
+                        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">We have a full range of events and groups that meet throughout each month. Please come along! We also have plenty of activities for kids during the week.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; color: #0f172a; font-weight: 700; font-size: 0.95rem;">
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Weekly Homegroups</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Youth Group</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Young Adults Group</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Kids' Club</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> DadTime</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Women’s Bible Study</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Mens’ Breakfasts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: The Call to Action -->
+            <div class="journey-cta reveal" style="margin-top: 40px;">
+                <div class="cta-content">
+                    <h2>Tap "Contact Us" to let us know you're coming!</h2>
+                    <p>If you'd like, we can have someone meet you at the door to show you around and introduce you to the community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
+    </div>
+
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+            <div class="chat-bubble">
+                To send us a message, first leave your contact info so we can get back to you.
+            </div>
+            
+            <form class="chat-form">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                    <i class="ph ph-info info-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-modern">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" style="text-decoration: none; display: block; background: var(--dark); padding: 45px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); transition: background-color 0.2s ease;">
+            <div class="container" style="cursor: pointer;">
+                <span style="font-size: 0.85rem; letter-spacing: 0.15em; color: var(--brand); font-weight: 800; display: block; margin-bottom: 6px;">FIND US AT (CLICK FOR NAVIGATION)</span>
+                <p style="font-size: 1.25rem; font-weight: 500; color: #ffffff; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
+                    Oakgrove School, Venturer Gate, Milton Keynes, MK10 9JQ 
+                    <i class="ph ph-navigation-arrow" style="color: var(--brand); font-size: 1.3rem;"></i>
+                </p>
+            </div>
+        </a>
+    </footer>
+
+    <!-- Scripts (Chat Widget, Animation Watcher & Live Check) -->
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
+            const navDot = document.getElementById("nav-live-dot");
+            
+            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                if (this.width === 320) {
+                    navDot.style.display = "inline-block";
+                } else {
+                    navDot.style.display = "none";
+                }
+            };
+            
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        // Scroll Animation Observer Setup
+        document.addEventListener("DOMContentLoaded", function() {
+            const revealElements = document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Fire off the background live check engine seamlessly
+            checkChurchLiveStatus();
+        });
+    </script>
+
+</body>
+</html>

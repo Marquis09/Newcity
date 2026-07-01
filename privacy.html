@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Notice | New City MK</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../NewCity/Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS (SAFETY NET)
+           ========================================== */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* ==========================================
+           LIVE STATUS INDICATOR EFFECT
+           ========================================== */
+        .nav-live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-left: 6px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            animation: navPulse 1.5s infinite;
+        }
+
+        @keyframes navPulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+            }
+        }
+
+        /* ==========================================
+           RESPONSIVE INTERACTIVE OVERRIDES
+           ========================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Base Navigation Structural Overrides */
+        .nav-flex {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 25px !important;
+        }
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
+        @media (max-width: 768px) {
+            .nav-flex {
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: center !important;
+                padding: 15px 20px !important;
+            }
+            .nav-right {
+                flex-direction: column !important;
+                gap: 14px !important;
+                width: 100% !important;
+                display: flex !important;
+            }
+            .nav-links {
+                display: flex !important;
+                justify-content: center !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 25px !important;
+                padding: 0 !important;
+                margin: 4px 0 !important;
+            }
+            .nav-links li a {
+                display: inline-block !important;
+                font-size: 1rem !important;
+            }
+            .btn-glass {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+            }
+            
+            /* Document Readability Improvements */
+            .policy-header {
+                padding: 60px 0 30px 0 !important;
+                text-align: center !important;
+            }
+            .policy-header h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2 !important;
+            }
+            .manager-box {
+                padding: 16px !important;
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            details summary {
+                padding: 14px 16px !important;
+                font-size: 1.05rem !important;
+            }
+            .details-content {
+                padding: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="container nav-flex">
+             <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../NewCity/index.html">Home</a></li>
+                    <li style="position: relative; display: inline-flex; align-items: center;">
+                        <a href="../NewCity/sermons.html">Sermons</a>
+                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                    </li>
+                    <li><a href="../NewCity/news.html">News</a></li>
+                </ul>
+                 <a href="../NewCity/imnew.html" class="btn-glass" style="background: var(--brand); color: white; border: none;">Plan Your Visit</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="policy-header">
+        <div class="container narrow reveal">
+            <h1>Privacy <span class="text-gradient">Notice</span></h1>
+            <p class="last-updated">How New City Church Milton Keynes (“we” / “us”) use your information.</p>
+        </div>
+    </header>
+
+    <section class="policy-content">
+        <div class="container narrow">
+            
+            <div class="policy-intro reveal">
+                <p>Your privacy is important to us. We are committed to safeguarding the privacy of your information. Under new data protection legislation, we need to let you know how we care for your information.</p>
+            </div>
+
+            <div class="accordion-group reveal">
+                
+                <details>
+                    <summary>Why are we collecting your data? <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>We collect personal data to enable the church to keep in touch with you, to provide pastoral support as appropriate, to monitor and assess the quality of our services and to comply with the law. In legal terms this is called ‘legitimate interests’.</p>
+                        <p>When it is required, we may also ask you for your consent to process your data. We do not share your information with others except as described in this notice.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Categories of information we collect <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>The categories of information that we may collect, hold and share include:</p>
+                        <ul>
+                            <li><strong>Personal information:</strong> such as name, address, telephone number and email address.</li>
+                            <li><strong>Characteristics:</strong> such as gender, ethnicity, language, nationality, country of birth.</li>
+                            <li><strong>Special categories:</strong> such as your religious beliefs, special medical or dietary needs.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Storing and Security of your data <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <h3>Storing your data</h3>
+                        <p>We will only retain your personal data for as long as necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, accounting or reporting requirements.</p>
+                        <p>We hold your data for varying lengths of time depending on the type of information in question but in doing so we always comply with Data Protection legislation. Details of retention periods are available in our retention policy which you can request by contacting us - see details below.</p>
+                        <p>We will contact you annually to check that the information we are holding is accurate and that you agree to us holding it.</p>
+                        
+                        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                        
+                        <h3>Security of your data</h3>
+                        <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, church officers or trustees who need to know. They will only process your personal data on our instructions.</p>
+                        <p>We have put in place procedures to deal with any suspected personal data breach and will notify you of any such occurrence that might affect you. We will also notify the Information Commissioner’s Office (ICO) where we are legally required to do so.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Who do we share your information with? <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>We will not share your information with third parties without your consent unless the law requires us to do so.</p>
+                        <p>Your contact details, but not information of a personal nature, may be made accessible to other members of the church family to facilitate mutual communication.</p>
+                        <p>You have full control over how your information is used, so you can choose not to share your details, or only certain details, with others in the church family.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Requesting access to your personal data <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>Under Data Protection legislation, you have the right to request access to information about you that we hold. To make a request for your personal information contact us - see details below.</p>
+                        <p>You also have the right to:</p>
+                        <ul>
+                            <li>object to processing of personal data that is likely to cause, or is causing, damage or distress;</li>
+                            <li>prevent processing for the purpose of direct marketing;</li>
+                            <li>object to decisions being taken by automated means;</li>
+                            <li>in certain circumstances, have inaccurate personal data rectified, blocked, erased or destroyed; and</li>
+                            <li>claim compensation for damages caused by a breach of the Data Protection regulations.</li>
+                        </ul>
+                        <p>If you have a concern about the way we are collecting or using your personal data, you should raise your concern with us in the first instance or directly to the Information Commissioner’s Office at <a href="https://ico.org.uk/concerns/" target="_blank">https://ico.org.uk/concerns/</a>.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Contact & Full Policies <i class="ph ph-caret-down"></i></summary>
+                    <div class="details-content">
+                        <p>You can read our full data protection policies on our church website: <a href="http://www.newcitychurch.co.uk">www.newcitychurch.co.uk</a>.</p>
+                        
+                        <div class="manager-box">
+                            <p><strong>Data Protection Compliance Manager:</strong><br>
+                            Ashley Midwinter<br>
+                            Phone: 07944 093464<br>
+                            Email: ashleyrmidminter@gmail.com</p>
+                            
+                            <p style="margin-top: 15px;"><strong>Pastor:</strong><br>
+                            Richard Wardman<br>
+                            Phone: 01908 665871<br>
+                            Email: richard@newcitychurch.co.uk</p>
+                        </div>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-modern">
+    </footer>
+
+    <script>
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
+            const navDot = document.getElementById("nav-live-dot");
+            
+            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                if (this.width === 320) {
+                    navDot.style.display = "inline-block";
+                } else {
+                    navDot.style.display = "none";
+                }
+            };
+            
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        function initReveal() {
+            const revealElements = document.querySelectorAll(".reveal");
+            
+            if (!window.IntersectionObserver) {
+                revealElements.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealElements.forEach(element => observer.observe(element));
+        }
+        
+        // Run functions when DOM is ready
+        document.addEventListener("DOMContentLoaded", function() {
+            initReveal();
+            checkChurchLiveStatus();
+        });
+    </script>
+
+</body>
+</html>

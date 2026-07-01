@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News | New City MK</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link class="styles-reference" rel="stylesheet" href="../NewCity/Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           LIVE STATUS INDICATOR EFFECT
+           ========================================== */
+        .nav-live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-left: 6px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            animation: navPulse 1.5s infinite;
+        }
+
+        @keyframes navPulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+            }
+        }
+
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS (SAFETY NET)
+           ========================================== */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* ==========================================
+           RESPONSIVE INTERACTIVE OVERRIDES
+           ========================================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Base Navigation Structural Overrides */
+        .nav-flex {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 25px !important;
+        }
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
+        @media (max-width: 768px) {
+            .nav-flex {
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: center !important;
+                padding: 15px 20px !important;
+            }
+            .nav-right {
+                flex-direction: column !important;
+                gap: 14px !important;
+                width: 100% !important;
+                display: flex !important;
+            }
+            .nav-links {
+                display: flex !important;
+                justify-content: center !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 25px !important;
+                padding: 0 !important;
+                margin: 4px 0 !important;
+            }
+            .nav-links li a {
+                display: inline-block !important;
+                font-size: 1rem !important;
+            }
+            .btn-glass {
+                width: 100% !important;
+                max-width: 320px !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+                display: block !important;
+            }
+        }
+
+        /* Chat Pop-up Responsive Adjustments */
+        @media (max-width: 400px) {
+            .chat-widget {
+                width: calc(100% - 30px) !important;
+                right: 15px !important;
+                bottom: 85px !important;
+                height: 450px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="container nav-flex">
+            <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li style="position: relative; display: inline-flex; align-items: center;">
+                        <a href="sermons.html">Sermons</a>
+                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                    </li>
+                    <li><a href="news.html" style="color: var(--brand);">News</a></li>
+                </ul>
+                <a href="../NewCity/imnew.html" class="btn-glass" style="background: var(--brand); color: white; border: none; text-decoration: none;">Plan Your Visit</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="news-header">
+        <div class="container reveal">
+            <span class="badge">Stay Updated</span>
+            <h1>Latest <span class="text-gradient">News</span></h1>
+            <div class="news-filter">
+                <a href="#" class="active">All Posts</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="news-feed">
+        <div class="container">
+            <article class="news-card reveal">
+                <div class="news-img">
+                    <img src="../NewCity/props/news.png" alt="Moving News">
+                </div>
+                <div class="news-body">
+                    <div class="author-meta">
+                        <div class="author-thumb">
+                            <img src="../NewCity/props/richard.png" alt="Richard Wardman">
+                        </div>
+                        <div class="author-info">
+                            <strong>Richard Wardman</strong>
+                            <span>Aug 28, 2025 • 1 min read</span>
+                        </div>
+                    </div>
+                    
+                    <h2 class="news-title">Exciting News: We are moving!</h2>
+                    <p class="news-excerpt">After five fantastic years of gathering at Monkston Primary School, we are thrilled to announce that starting from 7 September 2025, our...</p>
+                    
+                    <div class="news-cta">
+                        <a href="../NewCity/postnews.html" class="btn-primary-small">Read Full Article</a>
+                    </div>
+                    
+                    <div class="news-footer">
+                        <div class="view-count">
+                            <i class="ph ph-eye"></i> 209 views
+                        </div>
+                        <div class="news-actions">
+                            <button class="like-btn"><i class="ph ph-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
+    </div>
+
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+            <div class="chat-bubble">
+                To send us a message, first leave your contact info so we can get back to you.
+            </div>
+            
+            <form class="chat-form">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                    <i class="ph ph-info info-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-modern">
+    </footer>
+
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+
+        function initReveal() {
+            const revealElements = document.querySelectorAll(".reveal");
+            
+            if (!window.IntersectionObserver) {
+                revealElements.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealElements.forEach(element => observer.observe(element));
+        }
+
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; // Put your actual UC... channel string here
+            const navDot = document.getElementById("nav-live-dot");
+            
+            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            // Background cross-origin check targeting the dynamic live thumbnail image
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                // When a channel is live, YouTube renders a valid 320px wide thumbnail frame
+                if (this.width === 320) {
+                    navDot.style.display = "inline-block"; // Show the pulsating dot
+                } else {
+                    navDot.style.display = "none"; // Hide it cleanly if offline
+                }
+            };
+            
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none"; // Fail-safe fallback closure
+            };
+        }
+        
+        // Execute setups on lifecycle initiation
+        document.addEventListener("DOMContentLoaded", function() {
+            initReveal();
+            checkChurchLiveStatus();
+        });
+    </script>
+
+</body>
+</html>
