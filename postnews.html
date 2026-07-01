@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exciting News: We are moving! | New City MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="../NewCity/Styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         /* ==========================================
@@ -237,8 +237,8 @@
             <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
             <div class="nav-right">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="news.html">Back to News</a></li>
+                    <li><a href="../NewCity/index.html">Home</a></li>
+                    <li><a href="../NewCity/news.html">Back to News</a></li>
                 </ul>
             </div>
         </div>
@@ -246,10 +246,11 @@
 
     <main class="post-layout">
         <article class="container narrow">
+            <!-- Post Header -->
             <header class="post-header reveal">
                 <div class="author-meta">
                     <div class="author-thumb">
-                        <img src="props/richard.png" alt="Richard Wardman">
+                        <img src="../NewCity/props/richard.png" alt="Richard Wardman">
                     </div>
                     <div class="author-info">
                         <strong>Richard Wardman</strong>
@@ -260,11 +261,13 @@
                 <p class="lead">After five fantastic years of gathering at Monkston Primary School, we are thrilled to announce that starting from 7 September 2025, our Sunday meetings will be held at Oakgrove School.</p>
             </header>
 
+            <!-- Featured Image with Caption -->
             <figure class="post-figure reveal">
-                <img src="props/oakgrove.png" alt="Oakgrove School Theatre" style="max-width: 100%; height: auto; border-radius: 12px;">
+                <img src="../NewCity/props/oakgrove.png" alt="Oakgrove School Theatre" style="max-width: 100%; height: auto; border-radius: 12px;">
                 <figcaption>The theatre at Oakgrove School - our new home for Sundays</figcaption>
             </figure>
 
+            <!-- Post Content -->
             <div class="post-content reveal">
                 <p>By God's grace, our church is growing, and we are excited to move to a larger venue with the capacity for further growth. We want to see God's kingdom growing, more people exploring the Christian faith and being baptised into the church.</p>
 
@@ -274,6 +277,7 @@
 
                 <p>We're looking forward to welcoming you to our services at Oakgrove School from <strong>Sunday 7 September at 10.30am.</strong></p>
 
+                <!-- Location Block -->
                 <div class="location-card reveal">
                     <div class="location-text">
                         <h3>Oakgrove School</h3>
@@ -284,6 +288,7 @@
                 </div>
             </div>
 
+            <!-- Post Footer -->
             <footer class="post-footer-meta reveal">
                 <div class="meta-left-group">
                     <div class="view-count">
@@ -344,6 +349,7 @@
         </div>
     </div>
 
+    <!-- Toast Component Layer inside body -->
     <div id="shareToast" class="share-toast">
         <i class="ph ph-check-circle" style="color: #4ade80;"></i>
         <span id="toastMessage">Link copied to clipboard!</span>
@@ -352,6 +358,7 @@
     <footer class="footer-modern">
     </footer>
 
+    <!-- REAL-TIME ENGINE + SCROLL REVEAL EXECUTION SCRIPTS -->
     <script>
         function toggleChat() {
             const chat = document.getElementById('chatWidget');
