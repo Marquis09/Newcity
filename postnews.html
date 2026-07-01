@@ -9,17 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         /* ==========================================
-           SCROLL REVEAL ANIMATIONS (SAFETY NET)
+           SCROLL REVEAL ANIMATIONS (FIXED EFFECT)
            ========================================== */
         .reveal {
-            opacity: 0 !important;
-            transform: translateY(30px) !important;
+            opacity: 0;
+            transform: translateY(30px);
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .reveal.active {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ==========================================
@@ -246,7 +246,6 @@
 
     <main class="post-layout">
         <article class="container narrow">
-            <!-- Post Header -->
             <header class="post-header reveal">
                 <div class="author-meta">
                     <div class="author-thumb">
@@ -261,13 +260,11 @@
                 <p class="lead">After five fantastic years of gathering at Monkston Primary School, we are thrilled to announce that starting from 7 September 2025, our Sunday meetings will be held at Oakgrove School.</p>
             </header>
 
-            <!-- Featured Image with Caption -->
             <figure class="post-figure reveal">
                 <img src="props/oakgrove.png" alt="Oakgrove School Theatre" style="max-width: 100%; height: auto; border-radius: 12px;">
                 <figcaption>The theatre at Oakgrove School - our new home for Sundays</figcaption>
             </figure>
 
-            <!-- Post Content -->
             <div class="post-content reveal">
                 <p>By God's grace, our church is growing, and we are excited to move to a larger venue with the capacity for further growth. We want to see God's kingdom growing, more people exploring the Christian faith and being baptised into the church.</p>
 
@@ -277,18 +274,16 @@
 
                 <p>We're looking forward to welcoming you to our services at Oakgrove School from <strong>Sunday 7 September at 10.30am.</strong></p>
 
-                <!-- Location Block -->
                 <div class="location-card reveal">
                     <div class="location-text">
                         <h3>Oakgrove School</h3>
                         <p>Venturer Gate, Milton Keynes, MK10 9JQ</p>
                         <p class="w3w">what3words: <a href="https://what3words.com/runs.about.camp" target="_blank">///runs.about.camp</a></p>
                     </div>
-                    <a href="https://maps.app.goo.gl/ipjANnEYpabMXv4p9" target="_blank" class="btn-primary" style="text-decoration: none;">Map to Oakgrove</a>
+                    <a href="https://maps.google.com" target="_blank" class="btn-primary" style="text-decoration: none;">Map to Oakgrove</a>
                 </div>
             </div>
 
-            <!-- Post Footer -->
             <footer class="post-footer-meta reveal">
                 <div class="meta-left-group">
                     <div class="view-count">
@@ -323,7 +318,7 @@
         <span>Contact Us</span>
     </div>
 
-    <div class="chat-widget" id="chatWidget">
+    <div class="chat-widget" id="chatWidget" style="display: none;">
         <div class="chat-header">
             <span>New City Church MK</span>
             <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
@@ -349,7 +344,6 @@
         </div>
     </div>
 
-    <!-- Toast Component Layer inside body -->
     <div id="shareToast" class="share-toast">
         <i class="ph ph-check-circle" style="color: #4ade80;"></i>
         <span id="toastMessage">Link copied to clipboard!</span>
@@ -358,7 +352,6 @@
     <footer class="footer-modern">
     </footer>
 
-    <!-- REAL-TIME ENGINE + SCROLL REVEAL EXECUTION SCRIPTS -->
     <script>
         function toggleChat() {
             const chat = document.getElementById('chatWidget');
@@ -369,9 +362,6 @@
             }
         }
 
-        // ==========================================
-        // DYNAMIC VIEW & LIKE DATA ENGINE
-        // ==========================================
         const BASE_VIEWS = 210;
         const BASE_LIKES = 42;
         const STORAGE_KEY_VIEWS = 'ncc_moving_views';
@@ -425,9 +415,6 @@
             document.getElementById('liveLikeCounter').innerText = currentLikes;
         }
 
-        // ==========================================
-        // SOCIAL SHARING HUB ROUTER
-        // ==========================================
         function executeShare(platform) {
             const currentUrl = window.location.href;
             const articleTitle = "Exciting News: We are moving! | New City MK";
@@ -463,9 +450,6 @@
             }, 3000);
         }
 
-        // ==========================================
-        // INTERSECTION OBSERVER CORE RUNNER
-        // ==========================================
         function initReveal() {
             const revealElements = document.querySelectorAll(".reveal");
             
@@ -485,9 +469,7 @@
 
             revealElements.forEach(element => observer.observe(element));
         }
-        
-        initReveal();
-        initDataEngine();
+
         document.addEventListener("DOMContentLoaded", () => {
             initReveal();
             initDataEngine();
