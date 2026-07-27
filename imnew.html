@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
-    
+    <link rel="icon" type="image/png" href="../props/logonav.png">
     <style>
         /* ==========================================
            LIVE STATUS INDICATOR EFFECT
@@ -112,26 +112,119 @@
                 height: 450px !important;
             }
         }
+        /* NAV WRAPPER */
+.nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:white;
+    z-index:999;
+}
+
+/* INNER CONTAINER */
+.nav-container{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* LOGO */
+.logo{
+    font-size:1.3rem;
+    font-weight:800;
+    text-decoration:none;
+    color:#0f172a;
+    letter-spacing:-0.5px;
+}
+
+.logo span{
+    color:#a11f5c;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:28px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    font-weight:500;
+    color:#0f172a;
+    font-size:0.95rem;
+    position:relative;
+    transition:0.2s ease;
+}
+
+/* hover underline effect */
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0%;
+    height:2px;
+    background:#a11f5c;
+    transition:0.25s ease;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* active link */
+.nav-links a.active{
+    color:#a11f5c;
+}
+
+/* BUTTON */
+.nav-button{
+    padding:12px 20px;
+    background:#8b2f5f;
+    color:white;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:600;
+    box-shadow:0 10px 25px rgba(139,47,95,0.25);
+    transition:0.2s ease;
+}
+
+.nav-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 35px rgba(139,47,95,0.35);
+}
     </style>
 </head>
 <body>
 
     <nav class="nav">
-        <div class="container nav-flex">
-           <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="im-new.html" style="color: var(--brand);">I'm New</a></li>
-                    <li style="position: relative; display: inline-flex; align-items: center;">
-                        <a href="sermons.html">Sermons</a>
-                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-                    </li>
-                    <li><a href="news.html">News</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="nav-container">
+
+       <a href="index.html" class="logo">
+      <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
+      NEW CITY <span>MK</span>
+    </a>
+        <ul class="nav-links">
+
+            <li><a href="index.html">Home</a></li>
+            <li><a href="whatwebelieve.html">What We Believe</a></li>
+            <li><a href="sermons.html">Sermons</a></li>
+            <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+            <li><a href="churchlife.html">Church Life</a></li>
+            <li><a href="news.html">News</a></li>
+
+        </ul>
+
+        <a href="imnew.html" class="nav-button">
+            You are welcome
+        </a>
+
+    </div>
+</nav>
 
     <!-- Phase 1: The Arrival -->
     <header class="sub-page-header">
@@ -298,106 +391,149 @@
         </div>
     </section>
 
-    <div class="chat-trigger" onclick="toggleChat()">
-        <i class="ph ph-chat-centered-text"></i>
-        <span>Contact Us</span>
-    </div>
 
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-header">
-            <span>New City Church MK</span>
-            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
-        </div>
-        <div class="chat-body">
-            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
-            <div class="chat-bubble">
-                To send us a message, first leave your contact info so we can get back to you.
+   <div class="chat-trigger" onclick="toggleChat()">
+    <i class="ph ph-chat-centered-text"></i>
+    <span>Contact Us</span>
+</div>
+
+<div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+        <span>New City Church MK</span>
+        <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="chat-body">
+        <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+        <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
+        
+        <form class="chat-form" id="contactForm">
+            <div class="input-group">
+                <label>Name</label>
+                <input type="text" id="userName" required>
             </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="userEmail" required>
+            </div>
+            <div class="input-group">
+                <label>Message</label>
+                <textarea id="userMessage" required style="width: 100%;"></textarea>
+            </div>
+            <button type="submit" class="chat-submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+   <footer class="footer-modern" style="padding: 3rem 1rem; text-align: center;">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+        
+        <!-- LOGO SECTION -->
+        <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+        </div>
+
+        <!-- MOBILE-FRIENDLY BUTTON -->
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" 
+           target="_blank" 
+           class="clean-map-btn"
+           style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1); padding: 1.25rem 2rem; border-radius: 12px; text-decoration: none; transition: all 0.2s ease; width: 100%; max-width: 500px; box-sizing: border-box;">
             
-            <form class="chat-form">
-                <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" required>
-                    <i class="ph ph-info info-icon"></i>
-                </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" required>
-                </div>
-                <button type="submit" class="chat-submit">Submit</button>
-            </form>
-        </div>
-    </div>
-
-    <footer class="footer-modern">
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" style="text-decoration: none; display: block; background: var(--dark); padding: 45px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); transition: background-color 0.2s ease;">
-            <div class="container" style="cursor: pointer;">
-                <span style="font-size: 0.85rem; letter-spacing: 0.15em; color: var(--brand); font-weight: 800; display: block; margin-bottom: 6px;">FIND US AT (CLICK FOR NAVIGATION)</span>
-                <p style="font-size: 1.25rem; font-weight: 500; color: #ffffff; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
-                    Oakgrove School, Venturer Gate, Milton Keynes, MK10 9JQ 
-                    <i class="ph ph-navigation-arrow" style="color: var(--brand); font-size: 1.3rem;"></i>
-                </p>
-            </div>
+            <span style="font-size: 0.75rem; letter-spacing: 0.12em; color: var(--brand); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">
+                Find Us At (Click for Navigation)
+            </span>
+            
+            <span style="font-size: 1.05rem; font-weight: 500; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.4;">
+                Oakgrove School, Venturer Gate, MK10 9JQ 
+                <i class="ph ph-navigation-arrow" style="color: var(--brand); font-size: 1.1rem;"></i>
+            </span>
+            
         </a>
-    </footer>
+
+    </div>
+</footer>
+
+<!-- SIMPLE HOVER & TOUCH TARGET EFFECTS -->
+<style>
+    .clean-map-btn:hover {
+        background: #27374d;
+        border-color: rgba(255, 255, 255, 0.25);
+    }
+    .clean-map-btn:active {
+        transform: scale(0.98);
+    }
+</style>
 
     <!-- Scripts (Chat Widget, Animation Watcher & Live Check) -->
-    <script>
-        function toggleChat() {
-            const chat = document.getElementById('chatWidget');
-            if (chat.style.display === 'flex') {
-                chat.style.display = 'none';
+  <script>
+    function toggleChat() {
+        const chat = document.getElementById('chatWidget');
+        if (chat.style.display === 'flex') {
+            chat.style.display = 'none';
+        } else {
+            chat.style.display = 'flex';
+        }
+    }
+
+    function checkChurchLiveStatus() {
+        const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
+        const navDot = document.getElementById("nav-live-dot");
+        
+        if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+        const liveImgChecker = new Image();
+        liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+        liveImgChecker.onload = function() {
+            if (this.width === 320) {
+                navDot.style.display = "inline-block";
             } else {
-                chat.style.display = 'flex';
-            }
-        }
-
-        function checkChurchLiveStatus() {
-            const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
-            const navDot = document.getElementById("nav-live-dot");
-            
-            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
-
-            const liveImgChecker = new Image();
-            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
-
-            liveImgChecker.onload = function() {
-                if (this.width === 320) {
-                    navDot.style.display = "inline-block";
-                } else {
-                    navDot.style.display = "none";
-                }
-            };
-            
-            liveImgChecker.onerror = function() {
                 navDot.style.display = "none";
-            };
-        }
+            }
+        };
+        
+        liveImgChecker.onerror = function() {
+            navDot.style.display = "none";
+        };
+    }
 
-        // Scroll Animation Observer Setup
-        document.addEventListener("DOMContentLoaded", function() {
-            const revealElements = document.querySelectorAll(".reveal");
+    // Scroll Animation Observer Setup
+    document.addEventListener("DOMContentLoaded", function() {
+        const revealElements = document.querySelectorAll(".reveal");
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                        observer.unobserve(entry.target); 
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                    observer.unobserve(entry.target); 
+                }
             });
-
-            revealElements.forEach(element => {
-                observer.observe(element);
-            });
-
-            // Fire off the background live check engine seamlessly
-            checkChurchLiveStatus();
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
         });
-    </script>
 
+        revealElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Fire off the background live check engine seamlessly
+        checkChurchLiveStatus();
+
+        // Contact Form Email Handler
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                const name = document.getElementById('userName').value;
+                const email = document.getElementById('userEmail').value;
+                const message = document.getElementById('userMessage').value;
+                const subject = "New Inquiry from " + name;
+                const body = "Name: " + name + "%0AEmail: " + email + "%0A%0AMessage:%0A" + message;
+                window.location.href = "mailto:info@newcitychurch.co.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                contactForm.reset();
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Church Life | New City MK</title>
+<link rel="icon" type="image/png" href="../props/logonav.png">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------------- RESET ---------------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(161,31,92,.08), transparent 35%),
+        radial-gradient(circle at top right, rgba(86,74,214,.06), transparent 35%),
+        #fafafa;
+    color:#111;
+}
+
+/* ---------------- CONTAINER ---------------- */
+.events-container{
+    max-width:1200px;
+    margin:auto;
+    padding:0 24px;
+}
+
+/* ---------------- HEADER ---------------- */
+.events-header{
+    text-align:center;
+    padding:120px 20px 70px;
+}
+
+.badge{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(161,31,92,.1);
+    color:#a11f5c;
+    font-weight:700;
+    font-size:.85rem;
+    margin-bottom:24px;
+}
+
+.events-header h1{
+    font-size:clamp(2.2rem,5vw,3.5rem);
+    line-height:1.1;
+    margin-bottom:18px;
+    font-weight:800;
+}
+
+.text-gradient{
+    background:linear-gradient(135deg,#a11f5c,#6b5cff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip: text;
+}
+
+.events-header p{
+    max-width:700px;
+    margin:auto;
+    color:#666;
+    font-size:1.1rem;
+    line-height:1.8;
+}
+
+/* ---------------- QUICK CARDS ---------------- */
+.quick-links{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+    margin-bottom:50px;
+}
+
+.quick-card{
+    background:white;
+    border-radius:28px;
+    padding:35px;
+    box-shadow:0 20px 40px rgba(0,0,0,.05);
+    border:1px solid rgba(0,0,0,.04);
+    opacity:0;
+    transform:translateY(40px);
+    transition:.6s ease;
+}
+
+.quick-card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.quick-card:hover{
+    transform:translateY(-8px);
+}
+
+.quick-card i{
+    font-size:2.5rem;
+    color:#a11f5c;
+    margin-bottom:18px;
+}
+
+/* ---------------- FILTERS ---------------- */
+.filters{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+}
+
+.filter-btn{
+    padding:10px 16px;
+    border-radius:999px;
+    border:1px solid rgba(161,31,92,.25);
+    background:white;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.filter-btn.active,
+.filter-btn:hover{
+    background:#a11f5c;
+    color:white;
+}
+
+/* ---------------- CALENDAR CARD (MODERN UI) ---------------- */
+.calendar-card{
+    background:white;
+    border-radius:28px;
+    box-shadow:0 25px 60px rgba(0,0,0,.08);
+    margin-bottom:80px;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(40px);
+    transition:.6s ease;
+}
+
+.calendar-card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Fake Google Calendar top bar */
+.calendar-topbar{
+    background:#f8f9fa;
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #eee;
+}
+
+.calendar-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+}
+
+.calendar-actions{
+    display:flex;
+    gap:8px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#ddd;
+}
+
+/* Calendar wrapper */
+.calendar-wrapper{
+    padding:12px;
+    background:#fff;
+}
+
+.calendar-wrapper iframe{
+    width:100%;
+    height:600px; /* CHANGED */
+    border:none;
+    border-radius:14px;
+}
+
+/* footer under calendar */
+.calendar-footer{
+    padding:18px 30px 30px; /* CHANGED */
+    text-align:center;
+}
+
+.calendar-footer h3{
+    margin-bottom:10px;
+}
+
+.calendar-footer p{
+    color:#666;
+    max-width:600px;
+    margin:0 auto 20px;
+    line-height:1.6;
+}
+
+.calendar-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.cal-btn{
+    padding:10px 18px;
+    border-radius:999px;
+    background:#a11f5c;
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.cal-btn.secondary{
+    background:white;
+    border:1px solid rgba(161,31,92,.3);
+    color:#a11f5c;
+}
+
+/* ---------------- ANIMATION HELPERS ---------------- */
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:.7s ease;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ---------------- MOBILE ---------------- */
+@media(max-width:768px){
+    .calendar-wrapper iframe{
+        height:650px;
+    }
+}
+
+/* NAV WRAPPER */
+.nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:white;
+    z-index:999;
+}
+
+/* INNER CONTAINER */
+.nav-container{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* LOGO */
+.logo{
+    font-size:1.3rem;
+    font-weight:800;
+    text-decoration:none;
+    color:#0f172a;
+    letter-spacing:-0.5px;
+}
+
+.logo span{
+    color:#a11f5c;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:28px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    font-weight:500;
+    color:#0f172a;
+    font-size:0.95rem;
+    position:relative;
+    transition:0.2s ease;
+}
+
+/* hover underline effect */
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0%;
+    height:2px;
+    background:#a11f5c;
+    transition:0.25s ease;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* active link */
+.nav-links a.active{
+    color:#a11f5c;
+}
+
+/* BUTTON */
+.nav-button{
+    padding:12px 20px;
+    background:#8b2f5f;
+    color:white;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:600;
+    box-shadow:0 10px 25px rgba(139,47,95,0.25);
+    transition:0.2s ease;
+}
+
+.nav-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 35px rgba(139,47,95,0.35);
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+    <div class="nav-container">
+
+        <a href="index.html" class="logo">
+      <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
+      NEW CITY <span>MK</span>
+    </a>
+
+        <ul class="nav-links">
+
+            <li><a href="index.html">Home</a></li>
+            <li><a href="whatwebelieve.html">What We Believe</a></li>
+            <li><a href="sermons.html">Sermons</a></li>
+            <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+            <li><a href="churchlife.html" class="active">Church Life</a></li>
+            <li><a href="news.html">News</a></li>
+
+        </ul>
+
+        <a href="imnew.html" class="nav-button">
+            Plan Your Visit
+        </a>
+
+    </div>
+</nav>
+
+<header class="events-header">
+    <div class="events-container">
+        <span class="badge">What's On</span>
+
+        <h1>
+            <span class="text-gradient">Church Life</span> at New City
+        </h1>
+
+        <p>
+            Discover everything happening across the life of New City.
+            Whether you're looking for community, opportunities to serve,
+            events for your family or ways to grow in faith.
+        </p>
+    </div>
+</header>
+
+<main class="events-container">
+
+    <section class="quick-links reveal">
+        <div class="quick-card">
+            <i class="ph-fill ph-users-three"></i>
+            <h3>Life Groups</h3>
+            <p>Find friendship, support and discipleship during the week.</p>
+        </div>
+
+        <div class="quick-card">
+            <i class="ph-fill ph-hand-heart"></i>
+            <h3>Serve Teams</h3>
+            <p>Use your gifts and help build the church together.</p>
+        </div>
+
+        <div class="quick-card">
+            <i class="ph-fill ph-baby"></i>
+            <h3>Kids & Youth</h3>
+            <p>Helping the next generation know and follow Jesus.</p>
+        </div>
+    </section>
+
+    <div class="filters reveal">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Youth</button>
+        <button class="filter-btn">Events</button>
+        <button class="filter-btn">Services</button>
+    </div>
+
+    <section class="calendar-card reveal">
+
+        <div class="calendar-topbar">
+            <div class="calendar-title">
+                <i class="ph-bold ph-calendar-blank"></i>
+                Church Calendar
+            </div>
+
+            <div class="calendar-actions">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <div class="calendar-wrapper">
+            <iframe
+                src="https://newcitychurchmk.churchsuite.com/-/calendar/ac8499c4-cc28-494f-86f9-92f4071979d3">
+            </iframe>
+        </div>
+
+        <div class="calendar-footer">
+            <h3>Stay Connected</h3>
+            <p>
+                Join a group, serve on a team, or come along to one of our weekly gatherings.
+            </p>
+
+            <div class="calendar-buttons">
+                <a href="imnew.html" class="cal-btn">I'm New</a>
+                <a href="news.html" class="cal-btn secondary">Get Involved</a>
+                <a href="sermons.html" class="cal-btn secondary">Watch Sermons</a>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+
+
+
+<script>
+
+const revealEls = document.querySelectorAll(".reveal, .quick-card, .calendar-card");
+
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+},{threshold:0.15});
+
+revealEls.forEach(el=>observer.observe(el));
+
+const buttons = document.querySelectorAll(".filter-btn");
+
+buttons.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        buttons.forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+    });
+});
+
+</script>
+
+</body>
+</html>

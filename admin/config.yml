@@ -1,0 +1,19 @@
+backend:
+  name: test-repo
+
+media_folder: "props"
+public_folder: "props"
+
+collections:
+  - name: "news"
+    label: "News Articles"
+    folder: "_news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Unique URL Slug", name: "title_slug", widget: "string"}
+      - {label: "Article Title", name: "title", widget: "string"}
+      - {label: "Author Name", name: "author", widget: "string", default: "Richard Wardman"}
+      - {label: "Publish Date", name: "date", widget: "string", default: "2026-06-06"}
+      - {label: "Short Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Main Article Content", name: "body", widget: "markdown"}

@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../props/logonav.png">
     <style>
         /* ==========================================
            SCROLL REVEAL ANIMATIONS (SAFETY NET)
@@ -153,155 +154,188 @@
             opacity: 0.9;
             transform: translateY(-1px);
         }
+        /* NAV WRAPPER */
+.nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:white;
+    z-index:999;
+}
+
+/* INNER CONTAINER */
+.nav-container{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* LOGO */
+.logo{
+    font-size:1.3rem;
+    font-weight:800;
+    text-decoration:none;
+    color:#0f172a;
+    letter-spacing:-0.5px;
+}
+
+.logo span{
+    color:#a11f5c;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:28px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    font-weight:500;
+    color:#0f172a;
+    font-size:0.95rem;
+    position:relative;
+    transition:0.2s ease;
+}
+
+/* hover underline effect */
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0%;
+    height:2px;
+    background:#a11f5c;
+    transition:0.25s ease;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* active link */
+.nav-links a.active{
+    color:#a11f5c;
+}
+
+/* BUTTON */
+.nav-button{
+    padding:12px 20px;
+    background:#8b2f5f;
+    color:white;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:600;
+    box-shadow:0 10px 25px rgba(139,47,95,0.25);
+    transition:0.2s ease;
+}
+
+.nav-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 35px rgba(139,47,95,0.35);
+}
     </style>
 </head>
 <body>
 
-    <nav class="nav">
-        <div class="container nav-flex">
-            <a href="index.html" class="logo" style="text-decoration: none;">NEW CITY <span>MK</span></a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="imnew.html">I'm New</a></li>
-                    <li style="position: relative; display: inline-flex; align-items: center;">
-                        <a href="sermons.html">Sermons</a>
-                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-                    </li>
-                    <li><a href="news.html">News</a></li>
-                </ul>
-                <a href="giving.html" class="btn-glass active">Give</a>
-            </div>
-        </div>
-    </nav>
+     <nav class="nav">
+    <div class="nav-container">
+
+       <a href="index.html" class="logo">
+      <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
+      NEW CITY <span>MK</span>
+    </a>
+        <ul class="nav-links">
+
+            <li><a href="index.html">Home</a></li>
+            <li><a href="whatwebelieve.html">What We Believe</a></li>
+            <li><a href="sermons.html">Sermons</a></li>
+            <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+            <li><a href="churchlife.html">Church Life</a></li>
+            <li><a href="news.html">News</a></li>
+
+        </ul>
+
+        <a href="giving.html" class="nav-button">
+            Give
+        </a>
+
+    </div>
+</nav>
 
     <header class="giving-header-v2">
-        <div class="container">
-            <div class="giving-flex">
-                
-                <div class="giving-text-side reveal">
-                    <span class="badge">Supporting the vision</span>
-                    <h1>Your giving makes <br><span class="text-gradient">a difference</span></h1>
-                    <p>Thank you for your donation! Your partnership helps us see God's kingdom grow in Milton Keynes and beyond.</p>
-                    
-                    <div class="giving-stats-mini">
-                        <div class="stat"><i class="ph ph-heart-fill"></i><span>Secure</span></div>
-                        <div class="stat"><i class="ph ph-shield-check-fill"></i><span>Private</span></div>
-                        <div class="stat"><i class="ph ph-leaf-fill"></i><span>Impactful</span></div>
-                    </div>
-                </div>
-
-                <div class="giving-card-v2 reveal">
-                    <div class="card-inner">
-                        <div class="card-top-row">
-                            <span class="give-online-text">GIVE ONLINE</span>
-                            <span class="secure-badge-pill">SECURE <i class="ph-fill ph-lock-key"></i></span>
-                        </div>
-                        
-                        <div class="donation-body">
-                            <div class="amount-box-large">
-                                <span class="currency-symbol">£</span>
-                                <input type="number" id="donate-amount" placeholder="0.00" step="0.01" min="1">
-                            </div>
-
-                            <div class="stacked-selectors">
-                                <div class="select-row">
-                                    <label>Fund</label>
-                                    <select id="donate-fund">
-                                        <option value="General">Regular Giving (general fund)</option>
-                                        <option value="Mission">Mission & Outreach</option>
-                                        <option value="Building">Building & Development</option>
-                                    </select>
-                                </div>
-                                <div class="select-row">
-                                    <label>Frequency</label>
-                                    <select id="donate-frequency">
-                                        <option value="One-off">One-off</option>
-                                        <option value="Monthly">Monthly</option>
-                                    </select>
-                                </div>
-                                <div class="select-row">
-                                    <label>Method</label>
-                                    <select id="donate-method">
-                                        <option value="Card">Card</option>
-                                        <option value="Bank Transfer">Bank Transfer</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="email-section">
-                                <label>Email <span class="required">*</span></label>
-                                <p class="helper-text">If you've previously used this email, we'll send you a security code to verify your identity.</p>
-                                <input type="email" id="donate-email" placeholder="you@example.com" class="full-input" required>
-                            </div>
-
-                            <div class="consent-section">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" id="donate-giftaid">
-                                    <span class="checkmark"></span>
-                                    I am a UK tax payer and wish Gift Aid to be claimed
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" id="donate-consent" required>
-                                    <span class="checkmark"></span>
-                                    I accept your <a href="dataprotection.html" target="_blank">Data Protection Policy</a>
-                                </label>
-                            </div>
-
-                            <button id="btn-submit-donation" class="btn-proceed-grey" disabled>Proceed</button>
-                            
-                            <p class="charity-num">Registered Charity No. 1187160. <br> All donations are processed securely.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </header>
-    <br>
-
-    <section class="bank-transfer-section">
-        <div class="container narrow reveal">
-            <div class="bank-pill" id="bank-info-pill">
-                <div class="bank-icon"><i class="ph ph-bank"></i></div>
-                <div class="bank-info">
-                    <h3>Prefer Bank Transfer?</h3>
-                    <p>New City Church MK  •  Sort Code: <strong>20-57-40</strong>  •  Account: <strong>33654219</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="chat-trigger" onclick="toggleChat()">
-        <i class="ph ph-chat-centered-text"></i>
-        <span>Contact Us</span>
-    </div>
-
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-header">
-            <span>New City Church MK</span>
-            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
-        </div>
-        <div class="chat-body">
-            <div class="chat-timestamp" id="chat-time">TODAY</div>
-            <div class="chat-bubble" id="chat-response-text">
-                To send us a message, first leave your contact info so we can get back to you.
-            </div>
+    <div class="container">
+        <div class="giving-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 50px;">
             
-            <form class="chat-form" id="church-chat-form" onsubmit="handleChatSubmit(event)">
-                <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" id="chat-name" required>
-                    <i class="ph ph-info info-icon"></i>
+            <!-- Left Text Side -->
+            <div class="giving-text-side reveal active" style="opacity: 1; flex: 1;">
+                <span class="badge">Supporting the vision</span>
+                <h1>Your giving makes <br><span class="text-gradient">a difference</span></h1>
+                <p>Thank you for your donation! Your partnership helps us see God's kingdom grow in Milton Keynes and beyond.</p>
+                
+                <div class="giving-stats-mini">
+                    <div class="stat"><i class="ph ph-heart-fill"></i><span>Secure</span></div>
+                    <div class="stat"><i class="ph ph-shield-check-fill"></i><span>Private</span></div>
+                    <div class="stat"><i class="ph ph-leaf-fill"></i><span>Impactful</span></div>
                 </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="chat-email" required>
+            </div>
+
+            <!-- Right Card Side (Wider, Natural Proportion) -->
+            <div class="giving-card-v2 reveal active" style="opacity: 1; flex: 1.2; max-width: 540px; width: 100%;">
+                <div class="card-inner" style="padding: 32px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.04); border: 1px solid rgba(0, 0, 0, 0.03); overflow: hidden;">
+                    <div class="card-top-row" style="display: flex; justify-content: space-between; margin-bottom: 24px;">
+                        <span class="give-online-text" style="font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; color: #666;">GIVE ONLINE</span>
+                        <span class="secure-badge-pill" style="font-weight: 800; font-size: 0.75rem; background: #f4f4f5; padding: 4px 10px; border-radius: 20px; color: #111; display: inline-flex; align-items: center; gap: 4px;">SECURE <i class="ph-fill ph-lock-key"></i></span>
+                    </div>
+                    
+                    <div class="donation-body">
+                        <iframe
+                            src="https://newcitychurchmk.churchsuite.com/donate"
+                            frameborder="0"
+                            scrolling="yes"
+                            style="
+                                width: 100%;
+                                height: 700px;
+                                border: 0;
+                                display: block;
+                                overflow: hidden;
+                            ">
+                        </iframe>
+                    </div>
                 </div>
-                <button type="submit" class="chat-submit">Submit</button>
-            </form>
+            </div>
+
         </div>
     </div>
+</header>
+<br>
+
+<section class="bank-transfer-section">
+    <div class="container narrow reveal active" style="opacity: 1;">
+        <div class="bank-pill" id="bank-info-pill">
+            <div class="bank-icon"><i class="ph ph-bank"></i></div>
+            <div class="bank-info">
+                <h3>Prefer Bank Transfer?</h3>
+                <p>New City Church MK  •  Sort Code: <strong>20-57-40</strong>  •  Account: <strong>33654219</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+
+    <footer class="footer-modern">
+
+    <!-- LOGO SECTION WITH YOUR PATHS -->
+    <div class="container" style="margin-top: -3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+        <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+    </div>
+
+    </footer>
  
     <script>
         // --- LIVE CHECK SERVICE ENGINE ---
@@ -383,21 +417,6 @@
                 }
             }
         });
-
-        // --- CHAT INTERACTION ENGINE ---
-        function toggleChat() {
-            const chat = document.getElementById('chatWidget');
-            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function handleChatSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('chat-name').value;
-            
-            document.getElementById('church-chat-form').style.display = 'none';
-            const responseBox = document.getElementById('chat-response-text');
-            responseBox.innerHTML = `Thank you, <strong>${name}</strong>! Your contact request details have been logged safely. A member of our MK ministry team will email you shortly.`;
-        }
 
         // Set modern readable dynamic timestamp inside chat panel
         const now = new Date();

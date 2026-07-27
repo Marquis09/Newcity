@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New City MK - Admin Dashboard</title>
+  <link href="config.yml" type="text/yaml" rel="cms-config-url" />
+  
+  <!-- Phosphor Icons for input graphics -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    /* Reset and base structure */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    #login-gate {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      z-index: 99999;
+    }
+
+    /* Branded modern card design */
+    .login-box {
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    /* Modern Logo container matching your site branding layout */
+    .brand-logo-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .brand-logo-container span {
+      color: #df1660; /* Accent styling matching your site design */
+      margin-left: 4px;
+    }
+
+    .login-box p.subtitle {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    /* Modern input layouts */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 18px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #334155;
+      background-color: #f8fafc;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .login-box input:focus {
+      border-color: #0f172a;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Elegant, premium button */
+    .login-box button {
+      width: 100%;
+      padding: 13px;
+      background: #0f172a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .login-box button:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    /* Error Text banner */
+    #error-msg {
+      color: #e11d48;
+      font-size: 13px;
+      margin-top: 14px;
+      display: none;
+      background: #fff1f2;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ffe4e6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- The Modernized Branded Login Box -->
+  <div id="login-gate">
+    <div class="login-box">
+      
+      <!-- Your exact branding elements seamlessly dropped in -->
+      <div class="brand-logo-container">
+        <img src="../props/adminlogo.jpg" alt="Logo" height="150
+        " style="vertical-align: middle; margin-right: 8px;">
+    
+      </div>
+      
+      <p class="subtitle">Admin Portal Dashboard</p>
+      
+      <div class="input-wrapper">
+        <i class="ph ph-user"></i>
+        <input type="text" id="username" placeholder="Username" autocomplete="off">
+      </div>
+      
+      <div class="input-wrapper">
+        <i class="ph ph-lock-key"></i>
+        <input type="password" id="password" placeholder="Password">
+      </div>
+      
+      <button onclick="checkCredentials()">Sign In</button>
+      <p id="error-msg"><i class="ph ph-warning-circle" style="vertical-align: middle; margin-right: 4px;"></i> Incorrect details. Please try again.</p>
+    </div>
+  </div>
+
+  <script>
+    function checkCredentials() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      const errorEl = document.getElementById('error-msg');
+
+      if (user === "pastor" && pass === "NewCityPassword2026") {
+        document.getElementById('login-gate').style.display = 'none';
+        
+        // Load the full layout system
+        const cmsScript = document.createElement('script');
+        cmsScript.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+        
+        cmsScript.onload = function() {
+            // Tells Decap to use your main CSS file for previews once unlocked
+            if (typeof CMS !== 'undefined') {
+                CMS.registerPreviewStyle("../css/style.css"); 
+            }
+        };
+        
+        document.body.appendChild(cmsScript);
+      } else {
+        errorEl.style.display = 'block';
+      }
+    }
+  </script>
+
+</body>
+</html>
