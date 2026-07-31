@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <p>I have completely redesigned that bottom section to give it a fresh, clean, and modern look that matches your site's color palette perfectly—replacing the heavy maroon block with an elegant white card featuring soft borders, a subtle icon badge, and a high-contrast call-to-action button.</p>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Your Visit | New City Church MK</title>
@@ -252,11 +251,24 @@
             box-shadow: var(--shadow-hover);
         }
 
+        /* Highlighted Location Card Variant */
+        .info-box.highlighted {
+            border: 2px solid var(--primary);
+            background: linear-gradient(180deg, var(--primary-light) 0%, var(--white) 100%);
+            box-shadow: var(--shadow-hover);
+        }
+
         .icon-wrap {
             font-size: 2.2rem;
             color: var(--primary);
             margin-bottom: 16px;
-            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .info-box h3 {
@@ -553,31 +565,6 @@
             text-align: center;
         }
 
-        .clean-map-btn {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.25rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            width: 100%;
-            max-width: 500px;
-            box-sizing: border-box;
-        }
-
-        .clean-map-btn:hover {
-            background: #27374d;
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        .clean-map-btn:active {
-            transform: scale(0.98);
-        }
-
         /* Tablet & Mobile Viewports */
         @media (max-width: 768px) {
             .mobile-menu-toggle {
@@ -724,8 +711,8 @@
         <div class="container">
             
             <div class="info-grid-modern reveal">
-                <!-- Getting There - Clickable Map Card -->
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" class="info-box show" style="text-decoration: none; color: inherit; display: block;">
+                <!-- Getting There - Highlighted & Clickable Map Card -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" class="info-box highlighted show" style="text-decoration: none; color: inherit; display: block;">
                     <div class="icon-wrap"><i class="ph ph-map-pin"></i></div>
                     <h3>Location</h3>
                     <p>We meet on Sundays at Oakgrove School, Venturer Gate, Milton Keynes, MK10 9JQ. There are nearby bus routes.</p>
@@ -814,7 +801,7 @@
                             <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
                                 <i class="ph-fill ph-users-three" style="color: var(--primary); font-size: 1.4rem;"></i> Church Leaders
                             </h4>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">You can find out more about everyone who leads—as elders and team leaders—at New City Church by reaching out through the <strong>"Contact Us"</strong> button.</p>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">You can find out more about everyone who leads—as elders and team leaders—alignment with New City Church by reaching out through the <strong>"Contact Us"</strong> button.</p>
                         </div>
 
                     </div>
@@ -886,25 +873,19 @@
 
     <!-- FOOTER -->
     <footer class="footer-modern">
-        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+        <div class="container wide" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
             
             <!-- LOGO SECTION -->
             <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
                 <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
             </div>
 
-            <!-- MOBILE-FRIENDLY BUTTON -->
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" 
-               target="_blank" 
-               class="clean-map-btn">
-                <span style="font-size: 0.75rem; letter-spacing: 0.12em; color: var(--primary); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">
-                    Find Us At (Click for Navigation)
-                </span>
-                <span style="font-size: 1.05rem; font-weight: 500; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.4;">
-                    Oakgrove School, Venturer Gate, MK10 9JQ 
-                    <i class="ph ph-navigation-arrow" style="color: var(--primary); font-size: 1.1rem;"></i>
-                </span>
-            </a>
+            <!-- Footer Google Maps Link Button -->
+            <div>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" class="nav-button" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="ph ph-map-pin"></i> Get Directions to Oakgrove School
+                </a>
+            </div>
 
             <div style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
                 <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
