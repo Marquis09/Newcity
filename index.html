@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
     <style>
-        /* Mobile Navigation Overlay & Core Layout Rules */
+        /* Core Layout Rules */
         .nav {
             position: fixed;
             top: 0;
@@ -450,17 +450,18 @@
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 40px;
+            grid-template-columns: 1.2fr 2fr;
+            gap: 60px;
+            align-items: start;
         }
         .f-brand p {
             line-height: 1.6;
             margin: 0;
         }
         .f-links {
-            display: flex;
-            gap: 60px;
-            justify-content: flex-end;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
         }
         .link-group {
             display: flex;
@@ -599,15 +600,15 @@
             }
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 32px;
+                gap: 40px;
             }
             .f-links {
-                justify-content: flex-start;
-                gap: 40px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
             }
         }
 
-        /* Mobile Viewports */
+        /* Mobile Viewports (Polished Left-Aligned Nav, Compact Hero & Cards, Structured Footer) */
         @media (max-width: 768px) {
             .mobile-menu-toggle {
                 display: block;
@@ -620,8 +621,11 @@
             .mobile-plan-btn {
                 display: block;
                 margin-top: 10px;
+                width: 100%;
+                text-align: center;
             }
 
+            /* Sleek, left-aligned dropdown menu drawer */
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -629,43 +633,192 @@
                 width: 100%;
                 background: #ffffff;
                 flex-direction: column;
-                align-items: center;
-                padding: 24px 0;
-                gap: 20px;
+                align-items: flex-start;
+                padding: 20px 28px 28px 28px;
+                gap: 16px;
                 box-shadow: 0 15px 30px rgba(0,0,0,0.08);
                 border-top: 1px solid #f1f5f9;
                 display: none !important; 
+                box-sizing: border-box;
             }
 
             .nav-links.active {
                 display: flex !important; 
             }
 
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid #f8fafc;
+                padding-bottom: 12px;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                font-size: 1.05rem;
+                width: 100%;
+                text-align: left;
+                padding: 4px 0;
+            }
+
+            .nav-links a::after {
+                display: none; 
+            }
+
+            /* Middle Section Layout Optimizations for Mobile */
+            .hero-modern {
+                padding: 90px 0 40px 0;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.1rem;
+                margin: 6px 0 14px 0;
+            }
+
+            .hero-text p {
+                font-size: 0.98rem;
+                margin-bottom: 18px;
+            }
+
+            .hero-btns {
+                gap: 12px;
+                margin-top: 16px;
+            }
+
+            .btn-primary {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .info-card-float {
+                bottom: 16px;
+                left: 16px;
+                right: 16px;
+                padding: 12px 16px;
+                gap: 10px;
+            }
+
+            .info-card-float i {
+                font-size: 1.4rem;
+            }
+
+            .info-card-float div {
+                font-size: 0.9rem;
+            }
+
+            .video-intro-section {
+                padding: 40px 0 !important;
+            }
+
+            .video-text-content h2 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+
+            .video-text-content p {
+                font-size: 0.95rem;
+            }
+
+            .bento-section {
+                padding: 40px 0;
+            }
+
             .bento-grid-transformed {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
-            .bento-tile { min-height: 260px; }
-            .lumia-live-wrapper { position: relative; height: auto; animation: none; }
-            .lumia-face { height: auto; padding: 24px; }
-            .lumia-face.face-alt-loop { display: none; } 
+            
+            .bento-tile { 
+                min-height: 240px; 
+            }
+            
+            .lumia-live-wrapper { 
+                position: relative; 
+                height: auto; 
+                animation: none; 
+            }
+            
+            .lumia-face { 
+                height: auto; 
+                padding: 20px; 
+            }
+            
+            .lumia-face.face-alt-loop { 
+                display: none; 
+            } 
+
+            .bento-tile-content h3 {
+                font-size: 1.25rem;
+            }
+
+            .bento-tile-content p {
+                font-size: 0.88rem;
+            }
+
             .span-tall, .span-wide, .span-full {
                 grid-column: span 1;
                 grid-row: span 1;
             }
-            .hero-text h1 {
-                font-size: 2.2rem;
+
+            /* Staff block adjustments inside bento full-width grid on mobile */
+            .bento-tile.span-full {
+                padding: 20px !important;
+                gap: 20px !important;
             }
+
+            .bento-tile.span-full > div:last-child {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .bento-tile.span-full div[style*="background: #f8fafc"] {
+                padding: 16px !important;
+                gap: 14px !important;
+            }
+
+            .bento-tile.span-full img {
+                width: 60px !important;
+                height: 60px !important;
+            }
+
             .glass-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                padding: 20px 0;
             }
+
+            .service-item {
+                padding: 16px 12px;
+            }
+
+            .service-item i {
+                font-size: 1.6rem;
+                margin-bottom: 6px;
+            }
+
+            .service-item h4 {
+                font-size: 0.75rem;
+            }
+
+            /* Clean 2-column structure for footer links on mobile */
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 32px;
+                gap: 36px;
             }
+            
             .f-links {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); 
                 gap: 24px;
+                text-align: left;
             }
+
+            .f-brand {
+                text-align: left;
+            }
+            
             .chat-widget {
                 width: calc(100% - 32px);
                 right: 16px;
@@ -708,7 +861,7 @@
                 <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
                 <li><a href="churchlife.html">Church Life</a></li>
                 <li><a href="news.html">News</a></li>
-                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button">Plan Your Visit</a></li>
+                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
             </ul>
 
             <a href="imnew.html" class="nav-button desktop-plan-btn">
