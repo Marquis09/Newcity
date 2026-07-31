@@ -251,7 +251,7 @@
             margin: 0;
         }
 
-        /* Live Stream Banner */
+        /* Live Stream Banner & Fallback Styling */
         .live-stream-banner {
             background: var(--bg-light);
             border: 1px solid var(--border-color);
@@ -289,6 +289,43 @@
             line-height: 1.6;
         }
 
+        /* Offline Fallback Banner Container */
+        .video-fallback-message {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .video-fallback-message span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        .video-fallback-message i {
+            color: #38bdf8;
+            font-size: 1.2rem;
+        }
+        .video-fallback-message a {
+            color: #ffffff;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .video-fallback-message a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
         /* Fluid 16:9 Video Layout Wrapper */
         .video-responsive {
             position: relative;
@@ -296,7 +333,7 @@
             height: 0;
             overflow: hidden;
             max-width: 100%;
-            border-radius: var(--radius-sm);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
             box-shadow: var(--shadow-subtle);
             background: #000;
         }
@@ -340,6 +377,10 @@
         }
         .spotify-widget-container {
             margin: 24px 0;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
         .archive-footer-text p {
             color: var(--text-muted);
@@ -576,6 +617,11 @@
             .live-stream-banner, .spotify-archive-card {
                 padding: 24px 20px;
             }
+            .video-fallback-message {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
         }
 
         @media (max-width: 400px) {
@@ -585,6 +631,15 @@
                 bottom: 85px;
                 height: 450px;
             }
+        }
+        .hero-visual .main-img {
+            transform: rotate(-2deg);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .hero-visual .main-img:hover {
+            transform: scale(1.05) rotate(1deg);
         }
     </style>
 </head>
@@ -627,8 +682,8 @@
                 <span class="badge">Acts 2:42</span>
                 <h1 class="quote-text">"They devoted themselves to the <span class="text-gradient">apostles' teaching</span> and to fellowship..."</h1>
             </div>
-            <div class="hero-visual">
-                <img src="props/sermons.png" alt="Sermon Teaching" class="main-img" style="transform: rotate(-2deg);">
+            <div class="hero-visual" style="overflow: hidden; border-radius: 20px;">
+                <img src="props/sermons.png" alt="Sermon Teaching" class="main-img">
             </div>
         </div>
     </header>
@@ -650,7 +705,7 @@
                 </div>
             </div>
 
-            <!-- LIVE STREAM BANNER -->
+            <!-- LIVE STREAM BANNER WITH OFFLINE FALLBACK MESSAGE -->
             <div class="live-stream-banner reveal">
                 <div class="live-status">
                     <span class="live-dot"></span>
@@ -659,6 +714,14 @@
                 <h2>Join Our Service Online Now</h2>
                 <p>Watch our Sunday services live right here. Engage with the community and worship with us in real-time.</p>
                 
+                <!-- Fallback Banner displayed above/before stream active -->
+                <div class="video-fallback-message">
+                    <span>
+                        <i class="ph ph-info"></i> No live feed right now — check back Sunday or browse past messages below.
+                    </span>
+                    <a href="https://www.youtube.com/@NewCityChurchMK" target="_blank">View Channel</a>
+                </div>
+
                 <div class="video-responsive">
                     <iframe 
                         src="https://www.youtube-nocookie.com/embed/live_stream?channel=UCq2XD-fV0Y6WHdfUXUf483w" 
@@ -669,20 +732,20 @@
                 </div>
             </div>
 
-            <!-- PREMIUM SPOTIFY ARCHIVE CARD LAYOUT -->
+            <!-- PREMIUM SPOTIFY ARCHIVE CARD LAYOUT (Showing Latest + Previous Library via 580px height) -->
             <div class="spotify-archive-card reveal">
                 <div class="archive-header">
                     <i class="ph-fill ph-headphones-stereo archive-icon"></i>
                     <h2>Catch Up On Past Sermons</h2>
-                    <p>Missed a Sunday or want to revisit a past series? Listen to our full library of teachings directly below, or subscribe to our channel on the Spotify app to take them on the go.</p>
+                    <p>Missed a Sunday or want to revisit a past series? Browse our latest upload and previous teachings below, or subscribe on Spotify to take them on the go.</p>
                 </div>
 
                 <div class="spotify-widget-container">
                     <iframe 
-                        style="border-radius:12px" 
+                        style="border-radius:16px; border: none;" 
                         src="https://open.spotify.com/embed/show/75WXBMPcikeJTQfy2PWjLV?utm_source=generator&theme=0" 
                         width="100%" 
-                        height="400" 
+                        height="580" 
                         allowfullscreen="" 
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                         loading="lazy">
@@ -693,7 +756,6 @@
                     <p>New episodes are published every Sunday afternoon. If you are blessed by these messages, consider hitting the <strong>Follow</strong> button inside your Spotify app to stay up to date and share them with a friend!</p>
                 </div>
             </div>
-
         </div>
     </section>
 
