@@ -567,31 +567,75 @@
     transform:translateY(-2px);
     box-shadow:0 15px 35px rgba(139,47,95,0.35);
 }
+/* Mobile Navigation & Hamburger Styling */
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: #0f172a;
+        cursor: pointer;
+    }
+
+    .mobile-plan-btn {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-menu-toggle {
+            display: block;
+        }
+        
+        .desktop-plan-btn {
+            display: none;
+        }
+
+        .mobile-plan-btn {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0;
+            gap: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
     </style>
 </head>
 <br>
 <body>
 
-    <nav class="nav">
+   <nav class="nav">
     <div class="nav-container">
 
-       <a href="index.html" class="logo">
-      <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
-      NEW CITY <span>MK</span>
-    </a>
+        <a href="index.html" class="logo">
+          <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
+          NEW CITY <span>MK</span>
+        </a>
 
-        <ul class="nav-links">
+        <!-- Mobile Hamburger Button -->
+        <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="ph ph-list"></i>
+        </button>
 
+        <ul class="nav-links" id="navLinks">
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="whatwebelieve.html">What We Believe</a></li>
             <li><a href="sermons.html">Sermons</a></li>
             <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
             <li><a href="churchlife.html">Church Life</a></li>
             <li><a href="news.html">News</a></li>
-
+            <!-- Plan Your Visit button inside mobile view -->
+            <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button">Plan Your Visit</a></li>
         </ul>
 
-        <a href="imnew.html" class="nav-button">
+        <a href="imnew.html" class="nav-button desktop-plan-btn">
             Plan Your Visit
         </a>
 
@@ -867,6 +911,22 @@
 </footer>
 
 <script>
+
+const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = menuToggle.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('ph-list');
+            icon.classList.add('ph-x');
+        } else {
+            icon.classList.remove('ph-x');
+            icon.classList.add('ph-list');
+        }
+    });
+
     function toggleChat() {
         const chat = document.getElementById('chatWidget');
         if (chat.style.display === 'flex') {
