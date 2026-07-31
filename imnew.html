@@ -1,110 +1,651 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <p>I have completely redesigned that bottom section to give it a fresh, clean, and modern look that matches your site's color palette perfectly—replacing the heavy maroon block with an elegant white card featuring soft borders, a subtle icon badge, and a high-contrast call-to-action button.</p>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan Your Visit | New City MK</title>
+    <title>Plan Your Visit | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
+
     <style>
-        /* ==========================================
-           LIVE STATUS INDICATOR EFFECT
-           ========================================== */
+        :root {
+            --primary: #8b2f5f;
+            --primary-dark: #6e244a;
+            --primary-light: #fdf2f6;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Core Navigation Rules with Friendly Hover Indicator */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--primary-light);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .mobile-plan-btn {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s ease;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after, 
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-button {
+            padding: 10px 22px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            transition: all 0.25s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            background: var(--primary-dark);
+        }
+
         .nav-live-indicator {
             width: 8px;
             height: 8px;
-            background-color: #ff0000;
+            background-color: #ef4444;
             border-radius: 50%;
             margin-left: 6px;
             display: inline-block;
-            position: relative;
-            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             animation: navPulse 1.5s infinite;
         }
 
         @keyframes navPulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-            }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* Responsive CSS Overrides */
+        /* Container Rules */
         .container {
-            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            margin: auto;
+            padding: 0 24px;
             box-sizing: border-box;
         }
 
-        /* Navbar Responsiveness */
-        @media (max-width: 768px) {
-            .nav-flex {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-                padding: 15px 20px;
-            }
-            .nav-links {
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-            .sub-page-header h1 {
-                font-size: 2rem;
-            }
+        /* Reveal animation */
+        .reveal, .info-box, .p-card, .spotify-archive-card {
+            opacity: 0 !important;
+            transform: translateY(25px) !important;
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.show, .info-box.show, .p-card.show, .spotify-archive-card.show {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
-        /* Grids and Layout Adaptations */
-        @media (max-width: 900px) {
-            .info-grid-modern {
-                grid-template-columns: 1fr !important;
-                gap: 20px;
+        /* Sub Page Header */
+        .sub-page-header {
+            text-align: center;
+            padding: 140px 20px 40px;
+            background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .sub-page-header h1 {
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), #b33975);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-page-header p {
+            max-width: 700px;
+            margin: auto;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        /* Info Grid Modern */
+        .info-grid-modern {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .info-box {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139,47,95,0.3);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .icon-wrap {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .info-box h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .info-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Pastor Cards Experience */
+        .pastor-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .p-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .p-card .p-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .p-info h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .p-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Spotify Archive Card Modern Layout */
+        .spotify-archive-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        /* Gorgeous Minimal Clean Light CTA Box */
+        .journey-cta {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 55px 35px;
+            text-align: center;
+            box-shadow: var(--shadow-subtle);
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-cta:hover {
+            border-color: rgba(139, 47, 95, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .journey-cta-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+
+        .journey-cta h2 {
+            font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
+            letter-spacing: -0.02em;
+            max-width: 700px;
+        }
+
+        .journey-cta p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 580px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .journey-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 26px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(139, 47, 95, 0.2);
+            transition: all 0.25s ease;
+            margin-top: 6px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .journey-cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(139, 47, 95, 0.3);
+        }
+
+        /* Chat Widget Styles */
+        .chat-trigger {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(139,47,95,0.3);
+            z-index: 999;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .chat-trigger:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 24px;
+            width: 360px;
+            height: 500px;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 40px rgba(15,23,42,0.15);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-body {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+            background: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-timestamp {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 4px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .chat-bubble {
+            background: white;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            line-height: 1.5;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .chat-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .input-group input, .input-group textarea {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .input-group textarea {
+            height: 70px;
+            resize: none;
+        }
+
+        .chat-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .chat-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer Modern Layout */
+        .footer-modern {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        .clean-map-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .clean-map-btn:hover {
+            background: #27374d;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .clean-map-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Tablet & Mobile Viewports */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
             }
-            .pastor-cards {
-                grid-template-columns: 1fr !important;
-                gap: 20px;
+
+            .desktop-plan-btn {
+                display: none;
             }
+
+            .mobile-plan-btn {
+                display: block;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                border-top: 1px solid var(--border-color);
+                display: none !important; 
+                box-sizing: border-box;
+            }
+
+            .nav-links.active {
+                display: flex !important; 
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 12px;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: left;
+                padding: 4px 0;
+            }
+
+            .nav-links a::after {
+                display: none; 
+            }
+
+            .sub-page-header {
+                padding: 110px 0 30px 0;
+            }
+            
             .p-card {
                 flex-direction: column;
+                align-items: center;
                 text-align: center;
             }
-            .p-card .p-img {
-                margin: 20px auto 0 auto;
-            }
-            .p-info blockquote {
-                border-left: none !important;
-                border-top: 2px solid var(--brand);
-                padding: 10px 0 0 0 !important;
-            }
-        }
 
-        /* Video Padding Adjustments */
-        @media (max-width: 480px) {
-            .video-intro-section {
-                padding: 20px 0 !important;
-            }
-            .video-container {
-                border-radius: 12px !important;
-            }
-            .spotify-archive-card {
-                padding: 20px !important;
-            }
-        }
-
-        /* Chat UI Pop-up Adaptations */
-        @media (max-width: 400px) {
             .chat-widget {
                 width: calc(100% - 30px) !important;
                 right: 15px !important;
@@ -112,143 +653,61 @@
                 height: 450px !important;
             }
         }
-        /* NAV WRAPPER */
-.nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:white;
-    z-index:999;
-}
-
-/* INNER CONTAINER */
-.nav-container{
-    max-width:1200px;
-    margin:auto;
-    padding:18px 24px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-/* LOGO */
-.logo{
-    font-size:1.3rem;
-    font-weight:800;
-    text-decoration:none;
-    color:#0f172a;
-    letter-spacing:-0.5px;
-}
-
-.logo span{
-    color:#a11f5c;
-}
-
-/* LINKS */
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:28px;
-}
-
-.nav-links a{
-    text-decoration:none;
-    font-weight:500;
-    color:#0f172a;
-    font-size:0.95rem;
-    position:relative;
-    transition:0.2s ease;
-}
-
-/* hover underline effect */
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-6px;
-    width:0%;
-    height:2px;
-    background:#a11f5c;
-    transition:0.25s ease;
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-/* active link */
-.nav-links a.active{
-    color:#a11f5c;
-}
-
-/* BUTTON */
-.nav-button{
-    padding:12px 20px;
-    background:#8b2f5f;
-    color:white;
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:600;
-    box-shadow:0 10px 25px rgba(139,47,95,0.25);
-    transition:0.2s ease;
-}
-
-.nav-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(139,47,95,0.35);
-}
     </style>
 </head>
+
 <body>
 
+    <!-- FIXED NAVIGATION -->
     <nav class="nav">
-    <div class="nav-container">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="../props/logonav.png" alt="Logo" height="42" style="vertical-align: middle; margin-right: 8px;">
+                NEW CITY <span>MK</span>
+            </a>
 
-       <a href="index.html" class="logo">
-      <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
-      NEW CITY <span>MK</span>
-    </a>
-        <ul class="nav-links">
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <i class="ph ph-list"></i>
+            </button>
 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="whatwebelieve.html">What We Believe</a></li>
-            <li><a href="sermons.html">Sermons</a></li>
-            <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-            <li><a href="churchlife.html">Church Life</a></li>
-            <li><a href="news.html">News</a></li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="whatwebelieve.html">What We Believe</a></li>
+                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
+                <li><a href="churchlife.html">Church Life</a></li>
+                <li><a href="news.html">News</a></li>
+                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
+            </ul>
 
-        </ul>
+            <a href="imnew.html" class="nav-button desktop-plan-btn">
+               Welcome to New City MK
+            </a>
+        </div>
+    </nav>
 
-        <a href="imnew.html" class="nav-button">
-            You are welcome
-        </a>
-
-    </div>
-</nav>
+    <br>
 
     <!-- Phase 1: The Arrival -->
-    <header class="sub-page-header">
+    <header class="sub-page-header reveal">
         <div class="container">
             <span class="badge">Planning a visit?</span>
             <h1>Welcome to <span class="text-gradient">New City Church</span></h1>
             <p>We’d love you to join us in following Jesus. Everyone is welcome. We've put together this guide to help you know exactly what to expect this Sunday.</p>
         </div>
     </header>
-    <br>
 
     <!-- New Introduction Video Section -->
     <section class="video-intro-section reveal" style="padding: 40px 0; background: #f8fafc;">
         <div class="container">
             <div style="max-width: 700px; margin: 0 auto;">
                 
-                <!-- Added text block above video -->
                 <div style="text-align: center; margin-bottom: 25px;">
-                    <h2 style="font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 10px;">Watch: What to expect on Sunday</h2>
-                    <p style="color: #475569; font-size: 1rem; line-height: 1.5; margin: 0;">Take a quick 2-minute tour to see what our gatherings look like before you arrive.</p>
+                    <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">Watch: What to expect on Sunday</h2>
+                    <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5; margin: 0;">Take a quick 2-minute tour to see what our gatherings look like before you arrive.</p>
                 </div>
 
                 <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);">
-                    <!-- Replace 'VIDEO_ID' with your actual YouTube video ID -->
                     <iframe 
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                         src="https://www.youtube.com/embed/VIDEO_ID" 
@@ -266,24 +725,24 @@
             
             <div class="info-grid-modern reveal">
                 <!-- Getting There - Clickable Map Card -->
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" class="info-box" style="text-decoration: none; color: inherit; display: block; transition: transform 0.2s ease;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" class="info-box show" style="text-decoration: none; color: inherit; display: block;">
                     <div class="icon-wrap"><i class="ph ph-map-pin"></i></div>
                     <h3>Location</h3>
                     <p>We meet on Sundays at Oakgrove School, Venturer Gate, Milton Keynes, MK10 9JQ. There are nearby bus routes.</p>
-                    <span style="color: var(--brand); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 4px; margin-top: 10px;">
+                    <span style="color: var(--primary); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 4px; margin-top: 10px;">
                         Open Directions <i class="ph ph-arrow-square-out"></i>
                     </span>
                 </a>
                 
                 <!-- Parking -->
-                <div class="info-box">
+                <div class="info-box show">
                     <div class="icon-wrap"><i class="ph ph-car"></i></div>
                     <h3>Parking</h3>
                     <p>There is lots of free parking available directly at the school. Our team will guide you right in.</p>
                 </div>
                 
                 <!-- When to arrive -->
-                <div class="info-box">
+                <div class="info-box show">
                     <div class="icon-wrap"><i class="ph ph-clock"></i></div>
                     <h3>The Best Place to Start?</h3>
                     <p>Join us on a Sunday morning—our main gathering. Our service is filled with singing, prayer, Bible reading, and teaching. Please stay for tea and coffee afterwards to chat!</p>
@@ -294,246 +753,249 @@
             <div class="expectations-layout" style="margin-top: 60px;">
                 <div class="split-header reveal" style="text-align: center; margin-bottom: 40px;">
                     <h2>What to Expect</h2>
-                    <p style="font-style: italic; color: #64748b; max-width: 700px; margin: 15px auto 0 auto; line-height: 1.6;">
+                    <p style="font-style: italic; color: var(--text-muted); max-width: 700px; margin: 15px auto 0 auto; line-height: 1.6;">
                         "Let the message of Christ dwell among you richly as you teach and admonish one another with all wisdom through psalms, hymns, and songs from the Spirit, singing to God with gratitude in your hearts.” 
-                        <strong style="display: block; font-style: normal; margin-top: 8px; font-size: 0.85rem; color: var(--brand);">— COLOSSIANS 3:16</strong>
+                        <strong style="display: block; font-style: normal; margin-top: 8px; font-size: 0.85rem; color: var(--primary);">— COLOSSIANS 3:16</strong>
                     </p>
                 </div>
 
                 <div class="pastor-cards reveal" style="margin-bottom: 40px;">
                     <!-- Card: Casual Atmosphere / Dress Code -->
-                    <div class="p-card">
-                        <div class="p-img" style="display:flex; align-items:center; justify-content:center; background: var(--dark); color: white; flex-shrink: 0;">
+                    <div class="p-card show">
+                        <div class="p-img">
                             <i class="ph ph-shirt-folded" style="font-size: 2rem;"></i>
                         </div>
                         <div class="p-info">
                             <h3>Is there a dress code?</h3>
-                            <p style="text-transform: none;">There’s no dress code. We’re pretty informal. You’ll find some people in shorts, t-shirts, and flip-flops, others in suits, and plenty in between. Come as you are.</p>
+                            <p>There’s no dress code. We’re pretty informal. You’ll find some people in shorts, t-shirts, and flip-flops, others in suits, and plenty in between. Come as you are.</p>
                         </div>
                     </div>
 
                     <!-- Card: Kids Group Info -->
-                    <div class="p-card">
-                        <div class="p-img" style="display:flex; align-items:center; justify-content:center; background: var(--brand); color: white; flex-shrink: 0;">
+                    <div class="p-card show">
+                        <div class="p-img" style="background: var(--primary); color: white;">
                             <i class="ph ph-smiley-wink" style="font-size: 2rem;"></i>
                         </div>
                         <div class="p-info">
                             <h3>What’s available for the kids?</h3>
-                            <p style="text-transform: none;">Kids are very welcome at all our services and we don’t mind the noise they make. They can stay in for the whole service or join the kids group part way through—whatever they prefer to do.</p>
+                            <p>Kids are very welcome at all our services and we don’t mind the noise they make. They can stay in for the whole service or join the kids group part way through—whatever they prefer to do.</p>
                             
-                            <blockquote style="border-left: 2px solid var(--brand); padding-left: 10px; margin: 12px 0; font-style: italic; color: #64748b; font-size: 0.9rem;">
+                            <blockquote style="border-left: 2px solid var(--primary); padding-left: 10px; margin: 12px 0; font-style: italic; color: var(--text-muted); font-size: 0.9rem;">
                                 "Jesus called the children to him and said, 'Let the little children come to me...'" — Luke 18:16
                             </blockquote>
                             
-                            <a href="props/safeguarding.pdf" style="color: var(--brand); text-decoration: none; font-weight: 800; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
-                                Read our safe guarding policy <i class="ph ph-arrow-right"></i>
+                            <a href="props/safeguarding.pdf" style="color: var(--primary); text-decoration: none; font-weight: 800; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
+                                Read our Safeguarding policy <i class="ph ph-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Secondary Modern Detail Info Blocks Layout Integration -->
-                <div class="spotify-archive-card reveal" style="background: #ffffff; text-align: left; padding: 40px; margin: 40px auto; max-width: 900px; box-sizing: border-box;">
+                <div class="spotify-archive-card reveal show">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px;">
                         
                         <div>
                             <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
-                                <i class="ph-fill ph-shield-check" style="color: var(--brand); font-size: 1.4rem;"></i> What We Believe
+                                <i class="ph-fill ph-shield-check" style="color: var(--primary); font-size: 1.4rem;"></i> What We Believe
                             </h4>
-                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">We are part of the Fellowship of Independent Evangelical Churches (FIEC), and so we subscribe to their Doctrinal Basis, which outlines what we believe.</p>
-                            <a href="https://fiec.org.uk/who-we-are/beliefs" target="_blank" style="color: var(--brand); text-decoration: none; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 4px;">Learn details <i class="ph ph-arrow-right"></i></a>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">We are part of the Fellowship of Independent Evangelical Churches (FIEC), and so we subscribe to their Doctrinal Basis, which outlines what we believe.</p>
+                            <a href="https://fiec.org.uk/who-we-are/beliefs" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 4px;">Learn details <i class="ph ph-arrow-right"></i></a>
                         </div>
 
                         <div>
                             <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
-                                <i class="ph-fill ph-compass" style="color: var(--brand); font-size: 1.4rem;"></i> Explore Faith
+                                <i class="ph-fill ph-compass" style="color: var(--primary); font-size: 1.4rem;"></i> Explore Faith
                             </h4>
-                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;">We love that you want to explore more! The best place to start is with Christianity Explored, or come along to a Sunday morning service.</p>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We love that you want to explore more! The best place to start is with Christianity Explored, or come along to a Sunday morning service.</p>
                         </div>
 
                         <div>
                             <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
-                                <i class="ph-fill ph-users-three" style="color: var(--brand); font-size: 1.4rem;"></i> Church Leaders
+                                <i class="ph-fill ph-users-three" style="color: var(--primary); font-size: 1.4rem;"></i> Church Leaders
                             </h4>
-                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">You can find out more about everyone who leads—as elders and team leaders—at New City Church by reaching out through the <strong>"Contact Us"</strong> button.</p>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">You can find out more about everyone who leads—as elders and team leaders—at New City Church by reaching out through the <strong>"Contact Us"</strong> button.</p>
                         </div>
 
                     </div>
 
-                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 35px 0;">
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 35px 0;">
 
                     <div>
                         <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;">
-                            <i class="ph-fill ph-calendar-blank" style="color: var(--brand); font-size: 1.4rem;"></i> What else is on at New City?
+                            <i class="ph-fill ph-calendar-blank" style="color: var(--primary); font-size: 1.4rem;"></i> What else is on at New City?
                         </h4>
-                        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">We have a full range of events and groups that meet throughout each month. Please come along! We also have plenty of activities for kids during the week.</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">We have a full range of events and groups that meet throughout each month. Please come along! We also have plenty of activities for kids during the week.</p>
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; color: #0f172a; font-weight: 700; font-size: 0.95rem;">
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Weekly Homegroups</div>
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Youth Group</div>
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Young Adults Group</div>
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Kids' Club</div>
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> DadTime</div>
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Women’s Bible Study</div>
-                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--brand);"></i> Mens’ Breakfasts</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; color: var(--text-main); font-weight: 700; font-size: 0.95rem;">
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Weekly Homegroups</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Youth Group</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Young Adults Group</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Kids' Club</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> DadTime</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Women’s Bible Study</div>
+                            <div style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Men’s Breakfasts</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Phase 3: The Call to Action -->
-            <div class="journey-cta reveal" style="margin-top: 40px;">
-                <div class="cta-content">
-                    <h2>Tap "Contact Us" to let us know you're coming!</h2>
-                    <p>If you'd like, we can have someone meet you at the door to show you around and introduce you to the community.</p>
+            <!-- Phase 3: Brand New Polished Minimal Light CTA Box -->
+            <div class="journey-cta reveal">
+                <div class="journey-cta-icon">
+                    <i class="ph ph-chat-circle-dots"></i>
                 </div>
+                <h2>Planning to visit? Tap "Contact Us".</h2>
+                <p>"We'll be happy to meet you at the door and show you around."</p>
             </div>
         </div>
     </section>
 
-
-   <div class="chat-trigger" onclick="toggleChat()">
-    <i class="ph ph-chat-centered-text"></i>
-    <span>Contact Us</span>
-</div>
-
-<div class="chat-widget" id="chatWidget">
-    <div class="chat-header">
-        <span>New City Church MK</span>
-        <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+    <!-- Chat Widget Integration -->
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
     </div>
-    <div class="chat-body">
-        <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
-        <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
-        
-        <form class="chat-form" id="contactForm">
-            <div class="input-group">
-                <label>Name</label>
-                <input type="text" id="userName" required>
-            </div>
-            <div class="input-group">
-                <label>Email</label>
-                <input type="email" id="userEmail" required>
-            </div>
-            <div class="input-group">
-                <label>Message</label>
-                <textarea id="userMessage" required style="width: 100%;"></textarea>
-            </div>
-            <button type="submit" class="chat-submit">Submit</button>
-        </form>
-    </div>
-</div>
 
-   <footer class="footer-modern" style="padding: 3rem 1rem; text-align: center;">
-    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
-        
-        <!-- LOGO SECTION -->
-        <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
-            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
         </div>
-
-        <!-- MOBILE-FRIENDLY BUTTON -->
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" 
-           target="_blank" 
-           class="clean-map-btn"
-           style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1); padding: 1.25rem 2rem; border-radius: 12px; text-decoration: none; transition: all 0.2s ease; width: 100%; max-width: 500px; box-sizing: border-box;">
+        <div class="chat-body">
+            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+            <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
             
-            <span style="font-size: 0.75rem; letter-spacing: 0.12em; color: var(--brand); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">
-                Find Us At (Click for Navigation)
-            </span>
-            
-            <span style="font-size: 1.05rem; font-weight: 500; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.4;">
-                Oakgrove School, Venturer Gate, MK10 9JQ 
-                <i class="ph ph-navigation-arrow" style="color: var(--brand); font-size: 1.1rem;"></i>
-            </span>
-            
-        </a>
-
+            <form class="chat-form" id="contactForm">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea id="userMessage" required></textarea>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
+        </div>
     </div>
-</footer>
 
-<!-- SIMPLE HOVER & TOUCH TARGET EFFECTS -->
-<style>
-    .clean-map-btn:hover {
-        background: #27374d;
-        border-color: rgba(255, 255, 255, 0.25);
-    }
-    .clean-map-btn:active {
-        transform: scale(0.98);
-    }
-</style>
+    <!-- FOOTER -->
+    <footer class="footer-modern">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+            
+            <!-- LOGO SECTION -->
+            <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+            </div>
 
-    <!-- Scripts (Chat Widget, Animation Watcher & Live Check) -->
-  <script>
-    function toggleChat() {
-        const chat = document.getElementById('chatWidget');
-        if (chat.style.display === 'flex') {
-            chat.style.display = 'none';
-        } else {
-            chat.style.display = 'flex';
-        }
-    }
+            <!-- MOBILE-FRIENDLY BUTTON -->
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" 
+               target="_blank" 
+               class="clean-map-btn">
+                <span style="font-size: 0.75rem; letter-spacing: 0.12em; color: var(--primary); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">
+                    Find Us At (Click for Navigation)
+                </span>
+                <span style="font-size: 1.05rem; font-weight: 500; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.4;">
+                    Oakgrove School, Venturer Gate, MK10 9JQ 
+                    <i class="ph ph-navigation-arrow" style="color: var(--primary); font-size: 1.1rem;"></i>
+                </span>
+            </a>
 
-    function checkChurchLiveStatus() {
-        const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
-        const navDot = document.getElementById("nav-live-dot");
-        
-        if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+            <div style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
+                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            </div>
+        </div>
+    </footer>
 
-        const liveImgChecker = new Image();
-        liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+    <!-- JS ENGINES -->
+    <script>
+        // Mobile Navigation Menu Toggle Script
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
 
-        liveImgChecker.onload = function() {
-            if (this.width === 320) {
-                navDot.style.display = "inline-block";
-            } else {
-                navDot.style.display = "none";
-            }
-        };
-        
-        liveImgChecker.onerror = function() {
-            navDot.style.display = "none";
-        };
-    }
-
-    // Scroll Animation Observer Setup
-    document.addEventListener("DOMContentLoaded", function() {
-        const revealElements = document.querySelectorAll(".reveal");
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("active");
-                    observer.unobserve(entry.target); 
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
+                } else {
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        });
-
-        revealElements.forEach(element => {
-            observer.observe(element);
-        });
-
-        // Fire off the background live check engine seamlessly
-        checkChurchLiveStatus();
-
-        // Contact Form Email Handler
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                const name = document.getElementById('userName').value;
-                const email = document.getElementById('userEmail').value;
-                const message = document.getElementById('userMessage').value;
-                const subject = "New Inquiry from " + name;
-                const body = "Name: " + name + "%0AEmail: " + email + "%0A%0AMessage:%0A" + message;
-                window.location.href = "mailto:info@newcitychurch.co.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-                contactForm.reset();
-            });
         }
-    });
-</script>
+
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE";
+            const navDot = document.getElementById("nav-live-dot");
+            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
+            };
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        function initReveal() {
+            const revealEls = document.querySelectorAll(".reveal, .info-box, .p-card, .spotify-archive-card");
+            if (!window.IntersectionObserver) {
+                revealEls.forEach(el => el.classList.add('show'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealEls.forEach(element => observer.observe(element));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initReveal();
+            checkChurchLiveStatus();
+
+            // Contact Form Email Handler
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    const name = document.getElementById('userName').value;
+                    const email = document.getElementById('userEmail').value;
+                    const message = document.getElementById('userMessage').value;
+                    const subject = "New Inquiry from " + name;
+                    const body = "Name: " + name + "%0AEmail: " + email + "%0A%0AMessage:%0A" + message;
+                    window.location.href = "mailto:info@newcitychurch.co.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
