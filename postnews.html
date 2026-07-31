@@ -70,6 +70,22 @@
             color: var(--primary);
         }
 
+        /* Mobile Menu Toggle Button */
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--primary-light);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
@@ -495,7 +511,53 @@
             text-align: center;
         }
 
+        /* Responsive Mobile Navigation Rules */
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                border-top: 1px solid var(--border-color);
+                display: none; 
+                box-sizing: border-box;
+            }
+
+            .nav-links.active {
+                display: flex; 
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 12px;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: left;
+                padding: 4px 0;
+            }
+
+            .nav-links a::after {
+                display: none; 
+            }
+
             .location-card {
                 flex-direction: column;
                 align-items: flex-start;
@@ -509,7 +571,7 @@
 
 <body>
 
-    <!-- FIXED NAVIGATION (Home & Back to News only) -->
+    <!-- FIXED NAVIGATION -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -517,7 +579,12 @@
                 NEW CITY <span>MK</span>
             </a>
 
-            <ul class="nav-links">
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="news.html">Back to News</a></li>
             </ul>
@@ -646,6 +713,24 @@
 
     <!-- JAVASCRIPT ENGINES -->
     <script>
+        // Mobile Navigation Menu Toggle Script
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
+                } else {
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
+                }
+            });
+        }
+
         function toggleChat() {
             const chat = document.getElementById('chatWidget');
             chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
