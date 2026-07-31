@@ -3,443 +3,686 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Give | New City MK</title>
+    <title>Give | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
+
     <style>
-        /* ==========================================
-           SCROLL REVEAL ANIMATIONS (SAFETY NET)
-           ========================================== */
-        .reveal {
-            opacity: 0 !important;
-            transform: translateY(30px) !important;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
-        }
-        .reveal.active {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+        :root {
+            --primary: #8b2f5f;
+            --primary-dark: #6e244a;
+            --primary-light: #fdf2f6;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
         }
 
-        /* ==========================================
-           LIVE STATUS INDICATOR EFFECT
-           ========================================== */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Fixed Navigation Header */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            box-sizing: border-box;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 36px;
+            width: auto;
+            display: block;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--primary-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            color: var(--primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mobile-give-btn {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s ease;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after, 
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-button {
+            padding: 10px 22px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            transition: all 0.25s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            background: var(--primary-dark);
+        }
+
         .nav-live-indicator {
             width: 8px;
             height: 8px;
-            background-color: #ff0000;
+            background-color: #ef4444;
             border-radius: 50%;
             margin-left: 6px;
             display: inline-block;
-            position: relative;
-            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             animation: navPulse 1.5s infinite;
         }
 
         @keyframes navPulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-            }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* ==========================================
-           RESPONSIVE INTERACTIVE OVERRIDES
-           ========================================== */
+        /* Container Rules */
         .container {
-            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            margin: auto;
+            padding: 0 24px;
             box-sizing: border-box;
         }
 
-        /* Base Navigation Structural Overrides */
-        .nav-flex {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
+        /* Reveal animations */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(25px) !important;
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
-        .nav-right {
-            display: flex !important;
-            align-items: center !important;
-            gap: 25px !important;
-        }
-        .nav-links {
-            display: flex !important;
-            list-style: none !important;
-            gap: 20px !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        .reveal.show {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
-        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
-        @media (max-width: 768px) {
-            .nav-flex {
-                flex-direction: column !important;
-                gap: 12px !important;
-                text-align: center !important;
-                padding: 15px 20px !important;
-            }
-            .nav-right {
-                flex-direction: column !important;
-                gap: 14px !important;
-                width: 100% !important;
-                display: flex !important;
-            }
-            .nav-links {
-                display: flex !important;
-                justify-content: center !important;
-                flex-direction: row !important;
-                flex-wrap: wrap !important;
-                gap: 25px !important;
-                padding: 0 !important;
-                margin: 4px 0 !important;
-            }
-            .nav-links li a {
-                display: inline-block !important;
-                font-size: 1rem !important;
-            }
-            
-            /* Giving Layout Adjustments */
-            .giving-flex {
-                flex-direction: column !important;
-                gap: 40px !important;
-                text-align: center !important;
-            }
-            .giving-stats-mini {
-                justify-content: center !important;
-            }
-            .giving-card-v2 {
-                width: 100% !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
-            .bank-pill {
-                flex-direction: column !important;
-                text-align: center !important;
-                gap: 16px !important;
-                padding: 24px 16px !important;
-            }
+        /* Giving Layout Header & Hero */
+        .giving-hero {
+            padding: 130px 0 60px 0;
+            background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
         }
 
-        /* Chat Pop-up Responsive Adjustments */
-        @media (max-width: 400px) {
-            .chat-widget {
-                width: calc(100% - 30px) !important;
-                right: 15px !important;
-                bottom: 85px !important;
-                height: 450px !important;
-            }
+        .giving-grid {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 48px;
         }
 
-        /* Active State Style for the Interactive Button */
-        .btn-proceed-active {
-            background: var(--brand, #111) !important;
-            color: #fff !important;
-            cursor: pointer !important;
+        .giving-info {
+            flex: 1;
+            padding-top: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .giving-info h1 {
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            line-height: 1.15;
+            margin-bottom: 18px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), #b33975);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .giving-info p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            max-width: 520px;
+        }
+
+        .giving-stats-mini {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .stat-pill i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* ChurchSuite Iframe Card */
+        .giving-card-wrapper {
+            flex: 1.25;
+            max-width: 560px;
+            width: 100%;
+        }
+
+        .giving-card-inner {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .giving-card-inner:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .give-online-tag {
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+
+        .secure-badge-pill {
+            font-weight: 800;
+            font-size: 0.75rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .churchsuite-iframe {
+            width: 100%;
+            height: 680px;
+            border: 0;
+            display: block;
+            border-radius: var(--radius-sm);
+        }
+
+        /* Bank Transfer Block */
+        .bank-transfer-section {
+            padding: 40px 0 80px 0;
+        }
+
+        .bank-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: var(--shadow-subtle);
             transition: all 0.3s ease;
+            max-width: 900px;
+            margin: auto;
         }
-        .btn-proceed-active:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
+
+        .bank-card:hover {
+            border-color: rgba(139, 47, 95, 0.3);
+            box-shadow: var(--shadow-hover);
         }
-        /* NAV WRAPPER */
-.nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:white;
-    z-index:999;
-}
 
-/* INNER CONTAINER */
-.nav-container{
-    max-width:1200px;
-    margin:auto;
-    padding:18px 24px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
+        .bank-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
 
-/* LOGO */
-.logo{
-    font-size:1.3rem;
-    font-weight:800;
-    text-decoration:none;
-    color:#0f172a;
-    letter-spacing:-0.5px;
-}
+        .bank-info h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0 0 6px 0;
+            color: var(--text-main);
+        }
 
-.logo span{
-    color:#a11f5c;
-}
+        .bank-info p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
 
-/* LINKS */
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:28px;
-}
+        .bank-info strong {
+            color: var(--text-main);
+            letter-spacing: 0.02em;
+        }
 
-.nav-links a{
-    text-decoration:none;
-    font-weight:500;
-    color:#0f172a;
-    font-size:0.95rem;
-    position:relative;
-    transition:0.2s ease;
-}
+        /* Modern Dark Footer */
+        .footer-modern {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
 
-/* hover underline effect */
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-6px;
-    width:0%;
-    height:2px;
-    background:#a11f5c;
-    transition:0.25s ease;
-}
+        .clean-map-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
 
-.nav-links a:hover::after{
-    width:100%;
-}
+        .clean-map-btn:hover {
+            background: #27374d;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
 
-/* active link */
-.nav-links a.active{
-    color:#a11f5c;
-}
+        .clean-map-btn:active {
+            transform: scale(0.98);
+        }
 
-/* BUTTON */
-.nav-button{
-    padding:12px 20px;
-    background:#8b2f5f;
-    color:white;
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:600;
-    box-shadow:0 10px 25px rgba(139,47,95,0.25);
-    transition:0.2s ease;
-}
+        /* Mobile Adjustments */
+        @media (max-width: 868px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
 
-.nav-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(139,47,95,0.35);
-}
+            .desktop-give-btn {
+                display: none;
+            }
+
+            .mobile-give-btn {
+                display: block;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 24px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                border-top: 1px solid var(--border-color);
+                display: none !important;
+                box-sizing: border-box;
+            }
+
+            .nav-links.active {
+                display: flex !important;
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 12px;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: left;
+                padding: 4px 0;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .giving-grid {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .giving-info {
+                text-align: center;
+                padding-top: 0;
+            }
+
+            .giving-info p {
+                margin: 0 auto 24px auto;
+            }
+
+            .giving-stats-mini {
+                justify-content: center;
+            }
+
+            .giving-card-wrapper {
+                max-width: 100%;
+            }
+
+            .bank-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 20px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-     <nav class="nav">
-    <div class="nav-container">
+    <!-- FIXED NAVIGATION HEADER -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="../props/logonav.png" alt="Logo" onerror="this.style.display='none';">
+                NEW CITY <span>MK</span>
+            </a>
 
-       <a href="index.html" class="logo">
-      <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
-      NEW CITY <span>MK</span>
-    </a>
-        <ul class="nav-links">
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <i class="ph ph-list"></i>
+            </button>
 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="whatwebelieve.html">What We Believe</a></li>
-            <li><a href="sermons.html">Sermons</a></li>
-            <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-            <li><a href="churchlife.html">Church Life</a></li>
-            <li><a href="news.html">News</a></li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="whatwebelieve.html">What We Believe</a></li>
+                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
+                <li><a href="churchlife.html">Church Life</a></li>
+                <li><a href="news.html">News</a></li>
+                <li class="mobile-give-btn"><a href="giving.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Give</a></li>
+            </ul>
 
-        </ul>
+            <a href="giving.html" class="nav-button desktop-give-btn">
+                Give
+            </a>
+        </div>
+    </nav>
 
-        <a href="giving.html" class="nav-button">
-            Give
-        </a>
-
-    </div>
-</nav>
-
-    <header class="giving-header-v2">
-    <div class="container">
-        <div class="giving-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 50px;">
-            
-            <!-- Left Text Side -->
-            <div class="giving-text-side reveal active" style="opacity: 1; flex: 1;">
-                <span class="badge">Supporting the vision</span>
-                <h1>Your giving makes <br><span class="text-gradient">a difference</span></h1>
-                <p>Thank you for your donation! Your partnership helps us see God's kingdom grow in Milton Keynes and beyond.</p>
+    <!-- HERO / GIVING SECTION -->
+    <section class="giving-hero">
+        <div class="container">
+            <div class="giving-grid">
                 
-                <div class="giving-stats-mini">
-                    <div class="stat"><i class="ph ph-heart-fill"></i><span>Secure</span></div>
-                    <div class="stat"><i class="ph ph-shield-check-fill"></i><span>Private</span></div>
-                    <div class="stat"><i class="ph ph-leaf-fill"></i><span>Impactful</span></div>
-                </div>
-            </div>
-
-            <!-- Right Card Side (Wider, Natural Proportion) -->
-            <div class="giving-card-v2 reveal active" style="opacity: 1; flex: 1.2; max-width: 540px; width: 100%;">
-                <div class="card-inner" style="padding: 32px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.04); border: 1px solid rgba(0, 0, 0, 0.03); overflow: hidden;">
-                    <div class="card-top-row" style="display: flex; justify-content: space-between; margin-bottom: 24px;">
-                        <span class="give-online-text" style="font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; color: #666;">GIVE ONLINE</span>
-                        <span class="secure-badge-pill" style="font-weight: 800; font-size: 0.75rem; background: #f4f4f5; padding: 4px 10px; border-radius: 20px; color: #111; display: inline-flex; align-items: center; gap: 4px;">SECURE <i class="ph-fill ph-lock-key"></i></span>
-                    </div>
+                <!-- Left Details Content -->
+                <div class="giving-info reveal">
+                    <span class="badge">Supporting the vision</span>
+                    <h1>Your giving makes <br><span class="text-gradient">a real difference</span></h1>
+                    <p>Thank you for your generous support! Your partnership enables us to share the gospel, serve our community, and see God's kingdom grow in Milton Keynes and beyond.</p>
                     
-                    <div class="donation-body">
+                    <div class="giving-stats-mini">
+                        <div class="stat-pill"><i class="ph-fill ph-lock-key"></i> <span>Secure</span></div>
+                        <div class="stat-pill"><i class="ph-fill ph-shield-check"></i> <span>Encrypted</span></div>
+                        <div class="stat-pill"><i class="ph-fill ph-heart"></i> <span>Impactful</span></div>
+                    </div>
+                </div>
+
+                <!-- Right Giving Embed Card -->
+                <div class="giving-card-wrapper reveal">
+                    <div class="giving-card-inner">
+                        <div class="card-header-bar">
+                            <span class="give-online-tag">GIVE ONLINE</span>
+                            <span class="secure-badge-pill">
+                                <i class="ph-fill ph-lock-key"></i> SECURE
+                            </span>
+                        </div>
+                        
                         <iframe
                             src="https://newcitychurchmk.churchsuite.com/donate"
-                            frameborder="0"
+                            class="churchsuite-iframe"
                             scrolling="yes"
-                            style="
-                                width: 100%;
-                                height: 700px;
-                                border: 0;
-                                display: block;
-                                overflow: hidden;
-                            ">
+                            title="New City Church MK Donation Portal">
                         </iframe>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </div>
-</header>
-<br>
-
-<section class="bank-transfer-section">
-    <div class="container narrow reveal active" style="opacity: 1;">
-        <div class="bank-pill" id="bank-info-pill">
-            <div class="bank-icon"><i class="ph ph-bank"></i></div>
-            <div class="bank-info">
-                <h3>Prefer Bank Transfer?</h3>
-                <p>New City Church MK  •  Sort Code: <strong>20-57-40</strong>  •  Account: <strong>33654219</strong></p>
             </div>
         </div>
-    </div>
-</section>
-<br>
+    </section>
 
+    <!-- BANK TRANSFER DIRECT METHOD SECTION -->
+    <section class="bank-transfer-section">
+        <div class="container">
+            <div class="bank-card reveal">
+                <div class="bank-icon">
+                    <i class="ph ph-bank"></i>
+                </div>
+                <div class="bank-info">
+                    <h3>Prefer Direct Bank Transfer?</h3>
+                    <p>
+                        New City Church MK &nbsp;•&nbsp; Sort Code: <strong>20-57-40</strong> &nbsp;•&nbsp; Account: <strong>33654219</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="footer-modern">
-
-    <!-- LOGO SECTION WITH YOUR PATHS -->
-    <div class="container" style="margin-top: -3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-        <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
-    </div>
-
-    </footer>
- 
-    <script>
-        // --- LIVE CHECK SERVICE ENGINE ---
-        function checkChurchLiveStatus() {
-            const channelId = "YOUR_CHANNEL_ID_HERE"; // Replace with your real YouTube channel ID
-            const navDot = document.getElementById("nav-live-dot");
-            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
-
-            const img = new Image();
-            img.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
-            img.onload = function() {
-                if (this.width === 320) { navDot.style.display = "inline-block"; }
-                else { navDot.style.display = "none"; }
-            };
-            img.onerror = function() { navDot.style.display = "none"; };
-        }
-
-        // --- GIVING SYSTEM CONTROLLER ---
-        // Paste your Stripe customizable checkout URL here once available:
-        const STRIPE_CHECKOUT_URL = "https://donate.stripe.com/STRIPE_LINK_HERE";
-
-        const amountInput = document.getElementById('donate-amount');
-        const emailInput = document.getElementById('donate-email');
-        const methodSelect = document.getElementById('donate-method');
-        const consentCheckbox = document.getElementById('donate-consent');
-        const submitBtn = document.getElementById('btn-submit-donation');
-        const bankPill = document.getElementById('bank-info-pill');
-
-        function validateDonationForm() {
-            const amount = parseFloat(amountInput.value);
-            const emailIsValid = emailInput.checkValidity() && emailInput.value.trim() !== "";
-            const consentGiven = consentCheckbox.checked;
-            const amountIsValid = !isNaN(amount) && amount > 0;
-
-            if (amountIsValid && emailIsValid && consentGiven) {
-                submitBtn.removeAttribute('disabled');
-                submitBtn.className = 'btn-proceed-grey btn-proceed-active';
-            } else {
-                submitBtn.setAttribute('disabled', 'true');
-                submitBtn.className = 'btn-proceed-grey';
-            }
-        }
-
-        // Dynamic Text Adjustments based on method
-        methodSelect.addEventListener('change', function() {
-            if (this.value === 'Bank Transfer') {
-                submitBtn.innerText = 'View Bank Details';
-                bankPill.style.border = "2px solid var(--brand, #111)";
-            } else {
-                submitBtn.innerText = 'Proceed to Payment';
-                bankPill.style.border = "none";
-            }
-        });
-
-        // Event listeners to watch inputs live
-        amountInput.addEventListener('input', validateDonationForm);
-        emailInput.addEventListener('input', validateDonationForm);
-        consentCheckbox.addEventListener('change', validateDonationForm);
-
-        // Submit Redirection Handling
-        submitBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const amount = parseFloat(amountInput.value).toFixed(2);
-            const method = methodSelect.value;
-            const fund = document.getElementById('donate-fund').value;
-            const email = emailInput.value.trim();
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
             
-            if (method === 'Bank Transfer') {
-                // Scroll down smoothly to bank information block
-                bankPill.scrollIntoView({ behavior: 'smooth' });
-                bankPill.style.animation = "navPulse 1s ease-out 2";
-            } else {
-                if (STRIPE_CHECKOUT_URL.includes("STRIPE_LINK_HERE")) {
-                    // Fallback notice if the live keys aren't updated yet
-                    alert(`Form validated perfectly! To send a live £${amount} payment to the ${fund} fund, substitute the placeholder 'STRIPE_LINK_HERE' link inside the script segment.`);
+            <!-- LOGO SECTION -->
+            <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+            </div>
+
+            <!-- MOBILE-FRIENDLY GOOGLE MAPS DIRECT BUTTON -->
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" 
+               target="_blank" 
+               class="clean-map-btn">
+                <span style="font-size: 0.75rem; letter-spacing: 0.12em; color: var(--primary); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">
+                    Find Us At (Click for Navigation)
+                </span>
+                <span style="font-size: 1.05rem; font-weight: 500; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.4;">
+                    Oakgrove School, Venturer Gate, MK10 9JQ 
+                    <i class="ph ph-navigation-arrow" style="color: var(--primary); font-size: 1.1rem;"></i>
+                </span>
+            </a>
+
+            <div style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
+                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS ENGINES -->
+    <script>
+        // Mobile Navigation Toggle Controller
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
                 } else {
-                    // Route user cleanly out to payment platform with pre-filled donor email
-                    window.location.href = `${STRIPE_CHECKOUT_URL}?prefilled_email=${encodeURIComponent(email)}`;
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
                 }
-            }
-        });
+            });
+        }
 
-        // Set modern readable dynamic timestamp inside chat panel
-        const now = new Date();
-        document.getElementById('chat-time').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + " • TODAY";
+        // YouTube Live Status Checker Engine
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; 
+            const navDot = document.getElementById("nav-live-dot");
+            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
 
-        // --- INTERSECTION OBSERVER ANIMATION WATCHER ENGINE ---
+            const liveImg = new Image();
+            liveImg.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImg.onload = function() {
+                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
+            };
+            liveImg.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        // Intersection Observer Reveal Animation Engine
         function initReveal() {
-            const revealElements = document.querySelectorAll(".reveal");
+            const revealEls = document.querySelectorAll(".reveal");
             if (!window.IntersectionObserver) {
-                revealElements.forEach(el => el.classList.add('active'));
+                revealEls.forEach(el => el.classList.add('show'));
                 return;
             }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                        observer.unobserve(entry.target); 
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
-            revealElements.forEach(element => observer.observe(element));
+
+            revealEls.forEach(element => observer.observe(element));
         }
-        
+
         document.addEventListener("DOMContentLoaded", function() {
             initReveal();
             checkChurchLiveStatus();
