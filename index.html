@@ -1018,7 +1018,122 @@
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-    </style>
+       /* --- 1. Background Hero Video (Stays in background) --- */
+.hero-modern.video-hero {
+    position: relative;
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 140px 0 80px 0;
+    box-sizing: border-box;
+}
+
+.hero-modern.video-hero .video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.hero-modern.video-hero .bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-modern.video-hero .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.hero-modern.video-hero .hero-grid {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+
+/* --- 2. YouTube Split Section Layout --- */
+.video-intro-section {
+    padding: 80px 0;
+    background: var(--bg-light, #f8fafc);
+}
+
+.video-split-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: var(--white, #ffffff);
+    padding: 40px;
+    border-radius: var(--radius-lg, 28px);
+    border: 1px solid var(--border-color, #e2e8f0);
+    box-shadow: var(--shadow-subtle, 0 10px 30px rgba(15, 23, 42, 0.04));
+}
+
+/* Responsive container for the YouTube iframe */
+.yt-video-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    border-radius: var(--radius-md, 20px);
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.yt-video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-text-content h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-main, #0f172a);
+    margin-bottom: 12px;
+}
+
+.video-text-content p {
+    font-size: 1.05rem;
+    color: var(--text-muted, #475569);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Mobile Responsiveness for Split Section */
+@media (max-width: 900px) {
+    .video-split-container {
+        flex-direction: column;
+        padding: 24px;
+        gap: 24px;
+    }
+    
+    .yt-video-container {
+        max-width: 100%;
+    }
+}
+   </style>
 </head>
 <body>
 
@@ -1053,38 +1168,48 @@
 
     <br>
 
-    <!-- Warm Modern Hero Section -->
-    <header class="hero-modern">
-        <div class="container hero-grid reveal">
-            <div class="hero-text">
-                <span class="badge">YOU'RE WARMLY INVITED</span>
-                <h1>TO FOLLOW <span class="text-gradient">JESUS</span></h1>
-                <p>Join us in following Jesus together or come along to find out more about God. You’re welcome exactly as you are!</p>
-                <div class="hero-btns">
-                    <a href="imnew.html" class="btn-primary">Plan Your Visit</a>
-                    <a href="sermons.html" class="btn-text">Watch Latest Sermon <i class="ph ph-play-circle" style="font-size: 1.2rem;"></i></a>
-                </div>
+<!-- Warm Modern Hero Section with Background Video -->
+<header class="hero-modern video-hero">
+    <!-- Background Video Elements -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="props/back.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="background: linear-gradient(70deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.7) 100%);"></div>
+    </div>
+
+    <!-- Foreground Content -->
+    <div class="container hero-grid reveal hero-content-wrapper">
+        <div class="hero-text">
+            <span class="badge">YOU'RE WARMLY INVITED</span>
+            <h1>TO FOLLOW <span class="text-gradient">JESUS</span></h1>
+            <p>Join us in following Jesus together or come along to find out more about God. You’re welcome exactly as you are!</p>
+            <div class="hero-btns">
+                <a href="imnew.html" class="btn-primary">Plan Your Visit</a>
+                <a href="sermons.html" class="btn-text">Watch Latest Sermon <i class="ph ph-play-circle" style="font-size: 1.2rem;"></i></a>
             </div>
-            <div class="hero-visual">
-                <div class="image-stack">
-                    <img src="props/children.png" alt="New City Church Worship" class="main-img">
-                    <div class="info-card-float">
-                        <i class="ph ph-calendar-blank"></i>
-                        <div>
-                            <strong>Sundays</strong><br>
-                            <span style="color: var(--text-muted); font-size: 0.9rem;">10:30am & 5:00pm</span>
-                        </div>
+        </div>
+        <div class="hero-visual">
+            <div class="image-stack">
+                <img src="props/children.png" alt="New City Church Worship" class="main-img">
+                <div class="info-card-float">
+                    <i class="ph ph-calendar-blank"></i>
+                    <div>
+                        <strong>Sundays</strong><br>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">10:30am & 5:00pm</span>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <!-- Video Introduction Split Section -->
+<br>
+<!-- Video Introduction Split Section -->
     <section class="video-intro-section">
         <div class="container">
             <div class="video-split-container reveal">
-                <div class="video-container">
+                <div class="yt-video-container">
                     <iframe 
                         src="https://www.youtube.com/embed/ciPIWh0NNcM?si=9XiMuY_VvXx70ax3" 
                         title="Welcome to New City Church MK"
