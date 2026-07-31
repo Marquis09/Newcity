@@ -7,14 +7,108 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
-   <link rel="icon" type="image/png" href="../props/logonav.png">
-   <style>
-        /* Mobile Navigation Overlay Bug Fix */
+    <link rel="icon" type="image/png" href="../props/logonav.png">
+    <style>
+        /* Mobile Navigation Overlay & Core Layout Rules */
         .nav {
-            position: relative;
-            z-index: 1000;
+            position: fixed;
+            top: 0;
+            width: 100%;
             background: #ffffff;
+            z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: #a11f5c;
+        }
+
+        /* Mobile Hamburger Toggle Button */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #0f172a;
+            cursor: pointer;
+        }
+
+        .mobile-plan-btn {
+            display: none;
+        }
+
+        /* LINKS */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #0f172a;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0%;
+            height: 2px;
+            background: #a11f5c;
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #a11f5c;
+        }
+
+        /* BUTTON */
+        .nav-button {
+            padding: 12px 20px;
+            background: #8b2f5f;
+            color: white;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(139,47,95,0.25);
+            transition: 0.2s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(139,47,95,0.35);
         }
 
         /* LIVE STATUS INDICATOR EFFECT */
@@ -91,7 +185,6 @@
             grid-auto-rows: minmax(280px, auto);
         }
 
-        /* The Live Tile Frame */
         .bento-tile {
             position: relative;
             border-radius: 24px;
@@ -105,13 +198,11 @@
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
         }
 
-        /* Genuine Lumia interaction: tilt down slightly on hover */
         .bento-tile:hover {
             transform: scale(0.98);
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
         }
 
-        /* 24-Second Slow Smooth Lumia Animation Engine */
         .lumia-live-wrapper {
             position: absolute;
             top: 0;
@@ -123,12 +214,10 @@
             animation: lumiaSlowSlideVertical 24s infinite cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        /* Freezes sliding motion completely when hovering over the parent tile */
         .bento-tile:hover .lumia-live-wrapper {
             animation-play-state: paused;
         }
 
-        /* Alternating delay patterns so tiles cycle out of sync naturally */
         .delay-group-a { animation-delay: 6s; }
         .delay-group-b { animation-delay: 12s; }
         .delay-group-c { animation-delay: 18s; }
@@ -145,14 +234,12 @@
             overflow: hidden;
         }
 
-        /* 24-Second Keyframe Engine */
         @keyframes lumiaSlowSlideVertical {
             0%, 45% { transform: translateY(0); }
             50%, 95% { transform: translateY(-50%); }
             100% { transform: translateY(0); }
         }
 
-        /* Visual Media Setup */
         .bento-bg-img {
             position: absolute;
             top: 0;
@@ -163,7 +250,6 @@
             z-index: 1;
         }
 
-        /* Immersive background gradient overlay for typography readability */
         .bento-overlay {
             position: absolute;
             top: 0;
@@ -174,7 +260,6 @@
             z-index: 2;
         }
 
-        /* Tile Text Core Layering */
         .bento-tile-content {
             position: relative;
             z-index: 3;
@@ -196,7 +281,6 @@
             line-height: 1.5;
         }
 
-        /* UI Pills / Badges */
         .category-pill {
             align-self: flex-start;
             position: relative;
@@ -215,9 +299,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .pill-brand { background: var(--brand); color: white; border: none; }
+        .pill-brand { background: #8b2f5f; color: white; border: none; }
 
-        /* Action Arrow Indicators */
         .tile-action-arrow {
             display: inline-flex;
             align-items: center;
@@ -231,14 +314,11 @@
             opacity: 0.9;
         }
 
-        /* Responsive Grid Configurations */
         .span-tall { grid-row: span 2; }
         .span-wide { grid-column: span 2; }
         .span-full { grid-column: span 3; }
 
-        /* ==========================================
-            ADDITIONAL GLOBAL RESPONSIVE RULES (FALLBACKS)
-           ========================================== */
+        /* Global Layout Blocks */
         .container {
             width: 100%;
             max-width: 1200px;
@@ -247,22 +327,8 @@
             padding-right: 20px;
             box-sizing: border-box;
         }
-        .nav-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-        .nav-right, .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
         .hero-modern {
-            padding: 80px 0;
+            padding: 120px 0 80px 0;
             background: #ffffff;
         }
         .hero-grid {
@@ -271,11 +337,57 @@
             gap: 40px;
             align-items: center;
         }
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+            margin: 10px 0 20px 0;
+            letter-spacing: -0.03em;
+        }
+        .hero-text .text-gradient {
+            color: #8b2f5f;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .badge {
+            background: #f1f5f9;
+            color: #8b2f5f;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
         .hero-btns {
             display: flex;
             gap: 16px;
             margin-top: 24px;
             flex-wrap: wrap;
+            align-items: center;
+        }
+        .btn-primary {
+            padding: 12px 24px;
+            background: #8b2f5f;
+            color: white;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(139,47,95,0.25);
+            transition: 0.2s ease;
+        }
+        .btn-text {
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         .image-stack {
             position: relative;
@@ -284,6 +396,7 @@
             width: 100%;
             border-radius: 24px;
             display: block;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
         .info-card-float {
             position: absolute;
@@ -297,6 +410,10 @@
             align-items: center;
             gap: 12px;
         }
+        .info-card-float i {
+            font-size: 1.8rem;
+            color: #8b2f5f;
+        }
         .glass-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -309,25 +426,64 @@
             background: rgba(255,255,255,0.8);
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .service-item i {
+            font-size: 2rem;
+            color: #8b2f5f;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .service-item h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: #0f172a;
+            margin: 0;
+            font-weight: 800;
+        }
+        
+        /* Footer Layout Styles */
+        .footer-modern {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 80px 0 40px 0;
         }
         .footer-grid {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 40px;
         }
+        .f-brand p {
+            line-height: 1.6;
+            margin: 0;
+        }
         .f-links {
             display: flex;
             gap: 60px;
+            justify-content: flex-end;
         }
         .link-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
+        .link-group h4 {
+            color: #ffffff;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
         .link-group a {
             text-decoration: none;
-            color: #475569;
+            color: #94a3b8;
+            transition: color 0.2s ease;
+            font-size: 0.95rem;
         }
+        .link-group a:hover {
+            color: #ffffff;
+        }
+
+        /* Interactive Floating Chat Widget */
         .chat-trigger {
             position: fixed;
             bottom: 24px;
@@ -341,6 +497,7 @@
             gap: 8px;
             cursor: pointer;
             z-index: 999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         .chat-widget {
             position: fixed;
@@ -363,15 +520,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 700;
         }
         .close-chat {
             background: none;
             border: none;
             color: white;
             cursor: pointer;
+            font-size: 1.2rem;
         }
         .chat-body {
             padding: 16px;
+        }
+        .chat-timestamp {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
         }
         .chat-bubble {
             background: #f1f5f9;
@@ -379,6 +546,8 @@
             border-radius: 12px;
             margin-bottom: 16px;
             font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.4;
         }
         .input-group {
             margin-bottom: 12px;
@@ -386,14 +555,27 @@
             flex-direction: column;
             gap: 4px;
         }
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #475569;
+        }
+        .input-group input, .input-group textarea {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
         .chat-submit {
             width: 100%;
             padding: 10px;
-            background: #0f172a;
+            background: #8b2f5f;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            font-weight: 600;
         }
 
         /* Tablet Viewports */
@@ -415,10 +597,50 @@
             .glass-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .f-links {
+                justify-content: flex-start;
+                gap: 40px;
+            }
         }
 
         /* Mobile Viewports */
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .desktop-plan-btn {
+                display: none;
+            }
+
+            .mobile-plan-btn {
+                display: block;
+                margin-top: 10px;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 0;
+                gap: 20px;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                border-top: 1px solid #f1f5f9;
+                display: none !important; 
+            }
+
+            .nav-links.active {
+                display: flex !important; 
+            }
+
             .bento-grid-transformed {
                 grid-template-columns: 1fr;
             }
@@ -430,19 +652,8 @@
                 grid-column: span 1;
                 grid-row: span 1;
             }
-            .nav-flex {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-            .nav-right {
-                flex-direction: column;
-                gap: 12px;
-                width: 100%;
-            }
-            .nav-links {
-                flex-direction: row;
-                justify-content: center;
+            .hero-text h1 {
+                font-size: 2.2rem;
             }
             .glass-grid {
                 grid-template-columns: 1fr;
@@ -455,23 +666,15 @@
                 flex-direction: column;
                 gap: 24px;
             }
-            /* targets inline styles within the pastor bento element safely */
-            .bento-grid-transformed > div[style*="padding: 40px"] {
-                padding: 20px !important;
-            }
-            .bento-grid-transformed div[style*="grid-template-columns"] {
-                grid-template-columns: 1fr !important;
-            }
-            .bento-grid-transformed div[style*="display: flex; gap: 20px"] {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+            .chat-widget {
+                width: calc(100% - 32px);
+                right: 16px;
+                left: 16px;
+                bottom: 80px;
             }
         }
 
-        /* ==========================================
-            SCROLL REVEAL ANIMATIONS (SAFETY NET)
-           ========================================== */
+        /* SCROLL REVEAL ANIMATIONS */
         .reveal {
             opacity: 0 !important;
             transform: translateY(30px) !important;
@@ -482,167 +685,37 @@
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-        /* NAV WRAPPER */
-.nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:white;
-    z-index:999;
-}
-
-/* INNER CONTAINER */
-.nav-container{
-    max-width:1200px;
-    margin:auto;
-    padding:18px 24px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-/* LOGO */
-.logo{
-    font-size:1.3rem;
-    font-weight:800;
-    text-decoration:none;
-    color:#0f172a;
-    letter-spacing:-0.5px;
-}
-
-.logo span{
-    color:#a11f5c;
-}
-
-/* LINKS */
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:28px;
-}
-
-.nav-links a{
-    text-decoration:none;
-    font-weight:500;
-    color:#0f172a;
-    font-size:0.95rem;
-    position:relative;
-    transition:0.2s ease;
-}
-
-/* hover underline effect */
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-6px;
-    width:0%;
-    height:2px;
-    background:#a11f5c;
-    transition:0.25s ease;
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-/* active link */
-.nav-links a.active{
-    color:#a11f5c;
-}
-
-/* BUTTON */
-.nav-button{
-    padding:12px 20px;
-    background:#8b2f5f;
-    color:white;
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:600;
-    box-shadow:0 10px 25px rgba(139,47,95,0.25);
-    transition:0.2s ease;
-}
-
-.nav-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(139,47,95,0.35);
-}
-/* Mobile Navigation & Hamburger Styling */
-    .mobile-menu-toggle {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.8rem;
-        color: #0f172a;
-        cursor: pointer;
-    }
-
-    .mobile-plan-btn {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-        .mobile-menu-toggle {
-            display: block;
-        }
-        
-        .desktop-plan-btn {
-            display: none;
-        }
-
-        .mobile-plan-btn {
-            display: block;
-            margin-top: 10px;
-        }
-
-        .nav-links {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 0;
-            gap: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
     </style>
 </head>
-<br>
 <body>
 
-   <nav class="nav">
-    <div class="nav-container">
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 6px;">
+                NEW CITY <span>MK</span>
+            </a>
 
-        <a href="index.html" class="logo">
-          <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
-          NEW CITY <span>MK</span>
-        </a>
+            <!-- Mobile Hamburger Toggle Button -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <i class="ph ph-list"></i>
+            </button>
 
-        <!-- Mobile Hamburger Button -->
-        <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-            <i class="ph ph-list"></i>
-        </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="whatwebelieve.html">What We Believe</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                <li><a href="churchlife.html">Church Life</a></li>
+                <li><a href="news.html">News</a></li>
+                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button">Plan Your Visit</a></li>
+            </ul>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="whatwebelieve.html">What We Believe</a></li>
-            <li><a href="sermons.html">Sermons</a></li>
-            <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-            <li><a href="churchlife.html">Church Life</a></li>
-            <li><a href="news.html">News</a></li>
-            <!-- Plan Your Visit button inside mobile view -->
-            <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button">Plan Your Visit</a></li>
-        </ul>
-
-        <a href="imnew.html" class="nav-button desktop-plan-btn">
-            Plan Your Visit
-        </a>
-
-    </div>
-</nav>
-<br>
-<br>
+            <a href="imnew.html" class="nav-button desktop-plan-btn">
+                Plan Your Visit
+            </a>
+        </div>
+    </nav>
 
     <header class="hero-modern">
         <div class="container hero-grid reveal">
@@ -661,7 +734,7 @@
                     <div class="info-card-float">
                         <i class="ph ph-calendar-blank"></i>
                         <div>
-                            <strong>Sundays</strong>
+                            <strong>Sundays</strong><br>
                             <span>10:30am & 5:00pm</span>
                         </div>
                     </div>
@@ -671,25 +744,25 @@
     </header>
 
     <section class="video-intro-section" style="padding: 80px 0; background: #f8fafc;">
-    <div class="container">
-        <div class="video-split-container reveal">
-            <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); width: 100%;">
-                <iframe 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                    src="https://www.youtube.com/embed/ciPIWh0NNcM?si=9XiMuY_VvXx70ax3" 
-                    title="Welcome to New City Church MK"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            <div class="video-text-content">
-                <h2>Join us on Sundays!</h2>
-                <p>Join us to worship God, be encouraged in following Jesus, and build community with other Christians. Stay to chat over tea and coffee after the morning service too.</p>
+        <div class="container">
+            <div class="video-split-container reveal">
+                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); width: 100%;">
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/ciPIWh0NNcM?si=9XiMuY_VvXx70ax3" 
+                        title="Welcome to New City Church MK"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-text-content">
+                    <h2>Join us on Sundays!</h2>
+                    <p>Join us to worship God, be encouraged in following Jesus, and build community with other Christians. Stay to chat over tea and coffee after the morning service too.</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="services-overlap">
         <div class="container">
@@ -706,7 +779,7 @@
         <div class="container">
             <div class="bento-grid-transformed">
                 
-                <a class="bento-tile span-tall reveal">
+                <a class="bento-tile span-tall reveal" href="#">
                     <div class="lumia-live-wrapper">
                         <div class="lumia-face">
                             <img src="props/children.png" alt="Children and Youth" class="bento-bg-img">
@@ -724,13 +797,13 @@
                             <div class="bento-tile-content">
                                 <h3>Safe & Friendly</h3>
                                 <p>All leaders receive comprehensive safeguarding training and are thoroughly DBS checked.</p>
-                                <span class="tile-action-arrow">Kids Schedule</i></span>
+                                <span class="tile-action-arrow">Kids Schedule</span>
                             </div>
                         </div>
                     </div>
                 </a>
 
-                <a class="bento-tile span-wide reveal">
+                <a class="bento-tile span-wide reveal" href="#">
                     <div class="lumia-live-wrapper delay-group-a">
                         <div class="lumia-face">
                             <img src="props/exploring.png" alt="Exploring Christianity" class="bento-bg-img">
@@ -748,13 +821,13 @@
                             <div class="bento-tile-content">
                                 <h3>Totally Free</h3>
                                 <p>Come exactly as you are to look into what the Bible says about Jesus Christ.</p>
-                                <span class="tile-action-arrow">Learn More</i></span>
+                                <span class="tile-action-arrow">Learn More</span>
                             </div>
                         </div>
                     </div>
                 </a>
 
-                <a class="bento-tile reveal">
+                <a class="bento-tile reveal" href="#">
                     <div class="lumia-live-wrapper delay-group-b">
                         <div class="lumia-face">
                             <img src="props/homegroups.png" alt="Homegroups" class="bento-bg-img">
@@ -772,13 +845,13 @@
                             <div class="bento-tile-content">
                                 <h3>Belonging</h3>
                                 <p>Gathering in homes around Milton Keynes to study, talk, and share life.</p>
-                                <span class="tile-action-arrow">Midweek Info</i></span>
+                                <span class="tile-action-arrow">Midweek Info</span>
                             </div>
                         </div>
                     </div>
                 </a>
 
-                <a class="bento-tile reveal">
+                <a class="bento-tile reveal" href="#">
                     <div class="lumia-live-wrapper delay-group-c">
                         <div class="lumia-face">
                             <img src="props/prayer.png" alt="Prayer at New City" class="bento-bg-img">
@@ -808,7 +881,7 @@
                         <p style="color: #475569; margin: 0; font-size: 1rem; line-height: 1.5;">We’d love to hear from you! Drop us a line, and we’ll get back to you quickly.</p>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; width: 100%;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; width: 100%;">
                         <div style="display: flex; gap: 20px; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; align-items: flex-start;">
                             <img src="props/richard.png" alt="Richard Wardman" style="width: 80px; height: 80px; object-fit: cover; border-radius: 16px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
                             <div>
@@ -833,178 +906,172 @@
         </div>
     </section>
 
-   <div class="chat-trigger" onclick="toggleChat()">
-    <i class="ph ph-chat-centered-text"></i>
-    <span>Contact Us</span>
-</div>
-
-<div class="chat-widget" id="chatWidget">
-    <div class="chat-header">
-        <span>New City Church MK</span>
-        <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
     </div>
-    <div class="chat-body">
-        <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
-        <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
-        
-        <form class="chat-form" id="contactForm">
-            <div class="input-group">
-                <label>Name</label>
-                <input type="text" id="userName" required>
-            </div>
-            <div class="input-group">
-                <label>Email</label>
-                <input type="email" id="userEmail" required>
-            </div>
-            <div class="input-group">
-                <label>Message</label>
-                <textarea id="userMessage" required style="width: 100%;"></textarea>
-            </div>
-            <button type="submit" class="chat-submit">Submit</button>
-        </form>
-    </div>
-</div>
 
-<footer class="footer-modern">
-    <div class="container footer-grid">
-        <div class="f-brand">
-            <h3 style="color:white; margin-bottom: 1rem;">FIND US AT</h3>
-            <p>Oakgrove School<br>Venturer Gate<br>Milton Keynes<br>MK10 9JQ</p>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
-                <a href="mailto:info@newcitychurch.co.uk" style="color:var(--brand-light);">info@newcitychurch.co.uk</a>
-                
-                <!-- FACEBOOK LINK WITH SVG ICON -->
-                <a href="https://www.facebook.com/NewCityChurchMK/?ref=embed_page#" target="_blank" style="color:var(--brand-light); display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;">
-                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                    </svg>
-                    Follow us on Facebook
-                </a>
-            </div>
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
         </div>
-        <div class="f-links">
-            <div class="link-group">
-                <h4>EXPLORE</h4>
-                <a href="imnew.html">I'm New</a>
-                <a href="sermons.html">Sermons</a>
-                <a href="giving.html" style="color: #94a3b8;">Giving</a>
-            </div>
-            <div class="link-group">
-                <h4>POLICIES</h4>
-                <a href="dataprotection.html">Data Protection</a>
-                <a href="props/safeguarding.pdf" target="_blank">• Safeguarding</a>
-                <a href="privacy.html">Privacy Notice</a>
-                <a href="props/complaints.pdf" target="_blank">• Complaints Policy</a>
-            </div>
+        <div class="chat-body">
+            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
+            <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
+            
+            <form class="chat-form" id="contactForm">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea id="userMessage" rows="3" required style="width: 100%; box-sizing: border-box;"></textarea>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
         </div>
     </div>
 
-    <!-- LOGO SECTION WITH YOUR PATHS -->
-    <div class="container" style="margin-top: 3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-        <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
-        <img src="../props/logofooter2.jpg.png" alt="Affiliated to FIEC" style="height: 40px; width: auto; opacity: 0.8;">
-    </div>
+    <footer class="footer-modern">
+        <div class="container footer-grid">
+            <div class="f-brand">
+                <h3 style="color:white; margin-bottom: 1rem; font-size: 1rem; letter-spacing: 0.05em;">FIND US AT</h3>
+                <p>Oakgrove School<br>Venturer Gate<br>Milton Keynes<br>MK10 9JQ</p>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+                    <a href="mailto:info@newcitychurch.co.uk" style="color:#cbd5e1;">info@newcitychurch.co.uk</a>
+                    
+                    <a href="https://www.facebook.com/NewCityChurchMK/?ref=embed_page#" target="_blank" style="color:#cbd5e1; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                        Follow us on Facebook
+                    </a>
+                </div>
+            </div>
+            <div class="f-links">
+                <div class="link-group">
+                    <h4>EXPLORE</h4>
+                    <a href="imnew.html">I'm New</a>
+                    <a href="sermons.html">Sermons</a>
+                    <a href="giving.html" style="color: #94a3b8;">Giving</a>
+                </div>
+                <div class="link-group">
+                    <h4>POLICIES</h4>
+                    <a href="dataprotection.html">Data Protection</a>
+                    <a href="props/safeguarding.pdf" target="_blank">• Safeguarding</a>
+                    <a href="privacy.html">Privacy Notice</a>
+                    <a href="props/complaints.pdf" target="_blank">• Complaints Policy</a>
+                </div>
+            </div>
+        </div>
 
-    <div class="container" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #1e293b; color: #64748b; font-size: 0.8rem;">
-        <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
-    </div>
-</footer>
+        <div class="container" style="margin-top: 3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+            <img src="../props/logofooter2.jpg.png" alt="Affiliated to FIEC" style="height: 40px; width: auto; opacity: 0.8;">
+        </div>
 
-<script>
+        <div class="container" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #1e293b; color: #64748b; font-size: 0.8rem;">
+            <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+        </div>
+    </footer>
 
-const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+    <script>
+        // Mobile Navigation Menu Toggle Script
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const icon = menuToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.remove('ph-list');
-            icon.classList.add('ph-x');
-        } else {
-            icon.classList.remove('ph-x');
-            icon.classList.add('ph-list');
-        }
-    });
-
-    function toggleChat() {
-        const chat = document.getElementById('chatWidget');
-        if (chat.style.display === 'flex') {
-            chat.style.display = 'none';
-        } else {
-            chat.style.display = 'flex';
-        }
-    }
-
-    function initReveal() {
-        const revealElements = document.querySelectorAll(".reveal");
-        
-        if (!window.IntersectionObserver) {
-            revealElements.forEach(el => el.classList.add('active'));
-            return;
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("active");
-                    observer.unobserve(entry.target); 
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
+                } else {
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
                 }
             });
-        }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
-
-        revealElements.forEach(element => observer.observe(element));
-    }
-
-    function checkChurchLiveStatus() {
-        const channelId = "YOUR_CHANNEL_ID_HERE"; 
-        const navDot = document.getElementById("nav-live-dot");
-        
-        if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
-
-        const liveImgChecker = new Image();
-        liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
-
-        liveImgChecker.onload = function() {
-            if (this.width === 320) {
-                navDot.style.display = "inline-block";
-            } else {
-                navDot.style.display = "none";
-            }
-        };
-        
-        liveImgChecker.onerror = function() {
-            navDot.style.display = "none";
-        };
-    }
-
-    // Initialize all features on DOM load
-    document.addEventListener("DOMContentLoaded", function() {
-        initReveal();
-        checkChurchLiveStatus();
-
-        // Contact Form Email Handler
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-
-                const name = document.getElementById('userName').value;
-                const email = document.getElementById('userEmail').value;
-                const message = document.getElementById('userMessage').value;
-
-                const subject = "New Inquiry from " + name;
-                const body = "Name: " + name + "%0AEmail: " + email + "%0A%0AMessage:%0A" + message;
-
-                // Launch user's email client
-                window.location.href = "mailto:info@newcitychurch.co.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-
-                // Reset the form after submitting
-                contactForm.reset();
-            });
         }
-    });
-</script>
-   
+
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+
+        function initReveal() {
+            const revealElements = document.querySelectorAll(".reveal");
+            
+            if (!window.IntersectionObserver) {
+                revealElements.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+            revealElements.forEach(element => observer.observe(element));
+        }
+
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; 
+            const navDot = document.getElementById("nav-live-dot");
+            
+            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImgChecker = new Image();
+            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function() {
+                if (this.width === 320) {
+                    navDot.style.display = "inline-block";
+                } else {
+                    navDot.style.display = "none";
+                }
+            };
+            
+            liveImgChecker.onerror = function() {
+                navDot.style.display = "none";
+            };
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initReveal();
+            checkChurchLiveStatus();
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+
+                    const name = document.getElementById('userName').value;
+                    const email = document.getElementById('userEmail').value;
+                    const message = document.getElementById('userMessage').value;
+
+                    const subject = "New Inquiry from " + name;
+                    const body = "Name: " + name + "%0AEmail: " + email + "%0A%0AMessage:%0A" + message;
+
+                    window.location.href = "mailto:info@newcitychurch.co.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
