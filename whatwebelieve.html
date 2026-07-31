@@ -3,19 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What We Believe | New City MK</title>
+    <title>What We Believe | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
 
     <style>
+        :root {
+            --primary: #8b2f5f;
+            --primary-dark: #6e244a;
+            --primary-light: #fdf2f6;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Core Navigation Rules with Friendly Hover Indicator */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--primary-light);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .mobile-plan-btn {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s ease;
+            padding: 8px 0;
+        }
+
+        /* Upgraded desktop hover underline effect */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after, 
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-button {
+            padding: 10px 22px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            transition: all 0.25s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            background: var(--primary-dark);
+        }
+
+        .nav-live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            margin-left: 6px;
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            animation: navPulse 1.5s infinite;
+        }
+
+        @keyframes navPulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* Container Rules */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 24px;
+            padding-right: 24px;
+            box-sizing: border-box;
+        }
+
+        .container.narrow {
+            max-width: 800px;
+        }
+
         /* Reveal animation */
         .reveal {
             opacity: 0 !important;
-            transform: translateY(30px) !important;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            transform: translateY(25px) !important;
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
         .reveal.active {
             opacity: 1 !important;
@@ -25,229 +194,312 @@
         /* Unique header */
         .belief-header {
             text-align: center;
-            padding: 70px 0 40px 0;
+            padding: 140px 0 40px 0;
+            background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
         }
         .belief-header h1 {
             font-size: 3rem;
             font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+            margin: 0 0 10px 0;
+        }
+        .belief-header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Policy / Main Content */
+        .policy-content {
+            padding: 20px 0 80px 0;
         }
 
         /* Bible verse highlight */
         .bible-verse {
-            background: #f7f3ff;
-            border-left: 5px solid #8b2f5f;
-            padding: 18px 22px;
-            margin: 25px 0;
-            border-radius: 10px;
+            background: var(--primary-light);
+            border-left: 5px solid var(--primary);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
             font-style: italic;
+            color: var(--text-main);
+            line-height: 1.6;
         }
         .bible-verse span {
             display: block;
-            margin-top: 8px;
-            font-weight: 600;
+            margin-top: 10px;
+            font-weight: 700;
             font-style: normal;
-            color: #8b2f5f;
+            color: var(--primary);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         /* Collapsible boxes */
         details {
-            background: #fafafa;
-            border-radius: 14px;
-            border: 1px solid #eee;
-            margin-bottom: 20px;
-            padding: 0;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-subtle);
             overflow: hidden;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        details:hover {
+            border-color: rgba(139,47,95,0.3);
+            box-shadow: var(--shadow-hover);
         }
         summary {
-            padding: 18px 22px;
-            font-size: 1.2rem;
+            padding: 20px 24px;
+            font-size: 1.15rem;
             font-weight: 700;
             cursor: pointer;
             list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: var(--text-main);
+        }
+        summary::-webkit-details-marker {
+            display: none;
         }
         summary i {
-            font-size: 22px;
-            transition: 0.3s ease;
+            font-size: 20px;
+            color: var(--primary);
+            transition: transform 0.3s ease;
         }
         details[open] summary i {
             transform: rotate(180deg);
         }
         .details-content {
-            padding: 0 22px 22px 22px;
-            line-height: 1.65;
+            padding: 0 24px 24px 24px;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        .details-content p {
+            margin: 0 0 12px 0;
+        }
+        .details-content p:last-child {
+            margin-bottom: 0;
         }
 
-        /* Photo Wall Grid */
+        /* Team & Photo Wall Grid */
+        .belief-section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 32px;
-            margin-top: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
         }
 
         .team-card {
             text-align: center;
-            padding: 20px;
-            background: #fafafa;
-            border-radius: 16px;
-            border: 1px solid #eee;
-            transition: 0.2s ease;
+            padding: 28px 20px;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.3s ease;
         }
 
         .team-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-color: rgba(139,47,95,0.3);
+            box-shadow: var(--shadow-hover);
         }
 
         .team-photo {
-            width: 95px;
-            height: 95px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e5e5e5, #f0f0f0);
-            margin: 0 auto 12px auto;
+            background: var(--primary-light);
+            margin: 0 auto 16px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #ddd;
+            border: 2px solid rgba(139,47,95,0.15);
         }
 
         .team-photo i {
-            font-size: 42px;
-            color: #777;
+            font-size: 38px;
+            color: var(--primary);
         }
 
         .team-card h4 {
-            margin: 0;
-            font-size: 1.15rem;
-            font-weight: 700;
+            margin: 0 0 4px 0;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
         .team-card p {
-            margin: 6px 0 0 0;
-            font-size: 0.95rem;
-            opacity: 0.8;
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Visit Callout Box */
+        .visit-highlight {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 40px 32px;
+            margin: 60px auto 20px auto;
+            border-radius: var(--radius-md);
+            text-align: center;
+            max-width: 720px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .visit-highlight p {
+            margin: 0 0 20px 0;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--text-muted);
         }
 
         /* Bottom button */
         .bottom-button {
             display: inline-block;
-            margin: 40px auto 60px auto;
-            padding: 14px 26px;
-            background: #8b2f5f;
+            padding: 14px 28px;
+            background: var(--primary);
             color: white;
-            border-radius: 14px;
+            border-radius: var(--radius-sm);
             font-weight: 600;
             text-decoration: none;
             box-shadow: 0 10px 25px rgba(139,47,95,0.25);
-            transition: 0.2s ease;
+            transition: all 0.25s ease;
         }
         .bottom-button:hover {
             transform: translateY(-2px);
+            background: var(--primary-dark);
             box-shadow: 0 15px 35px rgba(139,47,95,0.35);
         }
-             /* LINKS */
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:28px;
-}
 
-.nav-links a{
-    text-decoration:none;
-    font-weight:500;
-    color:#0f172a;
-    font-size:0.95rem;
-    position:relative;
-    transition:0.2s ease;
-}
+        /* Footer Modern Layout */
+        .footer-modern {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
 
-/* hover underline effect */
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-6px;
-    width:0%;
-    height:2px;
-    background:#a11f5c;
-    transition:0.25s ease;
-}
+        /* Tablet & Mobile Viewports */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
 
-.nav-links a:hover::after{
-    width:100%;
-}
+            .desktop-plan-btn {
+                display: none;
+            }
 
-/* active link */
-.nav-links a.active{
-    color:#a11f5c;
-}
+            .mobile-plan-btn {
+                display: block;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
 
-/* BUTTON */
-.nav-button{
-    padding:12px 20px;
-    background:#8b2f5f;
-    color:white;
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:600;
-    box-shadow:0 10px 25px rgba(139,47,95,0.25);
-    transition:0.2s ease;
-}
+            /* Friendly Slide-Down Mobile Drawer Menu */
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                border-top: 1px solid var(--border-color);
+                display: none !important; 
+                box-sizing: border-box;
+            }
 
-.nav-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(139,47,95,0.35);
-}
-.visit-highlight {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(139,47,95,0.15);
-    padding: 30px 32px;
-    margin: 60px auto 40px auto;
-    border-radius: 18px;
-    text-align: center;
-    max-width: 720px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-}
+            .nav-links.active {
+                display: flex !important; 
+            }
 
-.visit-highlight p {
-    margin: 10px 0;
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: #2b2b2b;
-}
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 12px;
+            }
 
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
 
+            .nav-links a {
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: left;
+                padding: 4px 0;
+            }
+
+            .nav-links a::after {
+                display: none; 
+            }
+
+            .belief-header {
+                padding: 110px 0 30px 0;
+            }
+            .belief-header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <!-- FIXED NAVIGATION -->
-   
     <nav class="nav">
-        <div class="container nav-flex">
-          <a href="index.html" class="logo">
-      <img src="../props/logonav2.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
-      NEW CITY <span>MK</span>
-    </a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="whatwebelieve.html" class="active">What We Believe</a></li>
-                    <li style="position: relative; display: inline-flex; align-items: center;">
-                        <a href="sermons.html">Sermons</a>
-                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-                    </li>
-                    <li><a href="churchlife.html">Church Life</a></li>
-                    <li><a href="news.html">News</a></li>
-                </ul>
-                <a href="imnew.html" class="nav-button">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="../props/logonav.png" alt="Logo" height="42" style="vertical-align: middle; margin-right: 8px;">
+                NEW CITY <span>MK</span>
+            </a>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="whatwebelieve.html" class="active">What We Believe</a></li>
+                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
+                <li><a href="churchlife.html">Church Life</a></li>
+                <li><a href="news.html">News</a></li>
+                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
+            </ul>
+
+            <a href="imnew.html" class="nav-button desktop-plan-btn">
                 Plan Your Visit
-                </a>
-            </div>
+            </a>
         </div>
     </nav>
 
@@ -269,11 +521,7 @@
                     <summary>About Us <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
                         <p>Inviting everyone to follow Jesus.</p>
-                        <br>
-                        <p>Our mission is simple:</p>
-                        <br>
-                        <p>Inviting everyone to follow Jesus.</p>
-                        <br>
+                        <p>Our mission is simple: Inviting everyone to follow Jesus.</p>
                         <p>Everything we do flows from that mission. We want people across Milton Keynes to hear the good news of Jesus Christ, put their trust in him, and grow as his disciples.</p>
 
                         <div class="bible-verse">
@@ -292,7 +540,6 @@
                     <summary>We proclaim Jesus <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
                         <p>Jesus Christ is at the centre of our church.</p>
-                        <br>
                         <p>Whether someone is exploring the Christian faith for the first time or has been following Jesus for many years, we want them to know him more deeply. We believe that forgiveness, hope, purpose and eternal life are found in him alone.</p>
                     </div>
                 </details>
@@ -303,9 +550,7 @@
                     <summary>We invite everyone <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
                         <p>The gospel is good news for everyone.</p>
-                        <br>
                         <p>Whoever you are, whatever your background, and wherever you are on your journey, you are welcome to come and discover Jesus with us.</p>
-                        <br>
                         <p>We want to be a church where people find genuine friendship, loving community, and the opportunity to explore what it means to follow Christ.</p>
                     </div>
                 </details>
@@ -316,7 +561,6 @@
                     <summary>We teach God's Word <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
                         <p>We believe that the Bible is God's living and trustworthy Word.</p>
-                        <br>
                         <p>That's why faithful Bible teaching is at the heart of everything we do. As we hear God's Word together, he changes us—helping us know Christ more clearly, love him more deeply, and live for him more faithfully.</p>
                     </div>
                 </details>
@@ -327,9 +571,7 @@
                     <summary>We make mature disciples <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
                         <p>Following Jesus is a lifelong journey.</p>
-                        <br>
                         <p>Our aim is not simply to fill a room on Sundays, but to help people become mature followers of Christ who love God, serve others, and make disciples themselves.</p>
-                        <br>
                         <p>We encourage one another to grow in faith, obedience, prayer, holiness, and joyful service as we become more like Jesus.</p>
                     </div>
                 </details>
@@ -340,7 +582,6 @@
                     <summary>We live for God's glory <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
                         <p>Everything we do is ultimately for God.</p>
-                        <br>
                         <p>As we worship together, serve our community, care for one another, and share the good news of Jesus, our prayer is that God would be honoured and glorified in all things.</p>
                     </div>
                 </details>
@@ -356,105 +597,100 @@
                 </details>
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
+            <div style="height: 40px;"></div>
 
             <!-- ELDERS -->
             <div class="belief-section reveal">
-               <h2 style="text-align:center;">Elders</h2>
-               <br>
+                <h2 style="text-align:center;">Elders</h2>
                 <div class="team-grid">
-
                     <div class="team-card">
                         <div class="team-photo"><i class="ph ph-user"></i></div>
                         <h4>Gavin Naylor</h4>
                         <p>Elder</p>
                     </div>
-
                     <div class="team-card">
                         <div class="team-photo"><i class="ph ph-user"></i></div>
                         <h4>Steve Riisnaes</h4>
                         <p>Elder</p>
                     </div>
-
                     <div class="team-card">
                         <div class="team-photo"><i class="ph ph-user"></i></div>
                         <h4>Mark Sewall</h4>
                         <p>Co-Pastor / Elder</p>
                     </div>
-
                     <div class="team-card">
                         <div class="team-photo"><i class="ph ph-user"></i></div>
                         <h4>Richard Wardman</h4>
                         <p>Lead Pastor / Elder</p>
                     </div>
-
                 </div>
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
+            <div style="height: 40px;"></div>
 
             <!-- DEACONS -->
             <div class="belief-section reveal">
                 <h2 style="text-align:center;">Deacons</h2>
-               <br>
                 <div class="team-grid">
-
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>David Frost</h4><p>Sunday Ministries</p></div>
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Adam Gledhill</h4><p>Finance</p></div>
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Krystal Gledhill</h4><p>Administration</p></div>
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Eoin Diver</h4><p>Care Coordination</p></div>
-
                 </div>
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
+            <div style="height: 40px;"></div>
 
             <!-- LEADERS -->
             <div class="belief-section reveal">
-                 <h2 style="text-align:center;">Leaders</h2>
-               <br>
+                <h2 style="text-align:center;">Leaders</h2>
                 <div class="team-grid">
-
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Louise Sewall</h4><p>Women's Pastoral Worker</p></div>
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Clare Naylor</h4><p>New City Kids Leader</p></div>
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Hannah Riisnaes</h4><p>Kids Club Leader</p></div>
                     <div class="team-card"><div class="team-photo"><i class="ph ph-user"></i></div><h4>Bettina Elliott</h4><p>Safeguarding Lead</p></div>
-
                 </div>
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
+            <!-- VISIT CALLOUT COMBINED -->
+            <div class="visit-highlight reveal">
+                <p>If you're new to New City Church MK, we'd love to welcome you personally and help you get connected. Click below to plan your first visit.</p>
+                <a href="imnew.html" class="bottom-button">I'm New — Plan Your Visit</a>
+            </div>
 
-           <!-- VISIT CALLOUT COMBINED -->
-<div class="visit-highlight reveal" style="text-align:center;">
-    <p>If you're new to New City Church MK, we'd love to welcome you personally and help you get connected. Click below to plan your first visit.</p>
-
-    <a href="imnew.html" class="bottom-button" style="margin-top:20px;">I'm New — Plan Your Visit</a>
-</div>
- </section>
- <br>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer-modern">
-        <div class="container" style="margin-top: -3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+        <div class="container" style="display: flex; justify-content: center; align-items: center;">
+            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
+        </div>
+        <div class="container" style="margin-top: 1.5rem; color: #64748b; font-size: 0.8rem;">
+            <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
         </div>
     </footer>
 
     <!-- JS ENGINES -->
     <script>
+        // Mobile Navigation Menu Toggle Script
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
+                } else {
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
+                }
+            });
+        }
+
         function checkChurchLiveStatus() {
             const channelId = "YOUR_CHANNEL_ID_HERE";
             const navDot = document.getElementById("nav-live-dot");
