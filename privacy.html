@@ -3,236 +3,484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Notice | New City MK</title>
+    <title>Privacy Notice | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
+
     <style>
-        /* ==========================================
-           SCROLL REVEAL ANIMATIONS (SAFETY NET)
-           ========================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        :root {
+            --primary: #8b2f5f;
+            --primary-dark: #6e244a;
+            --primary-light: #fdf2f6;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
         }
 
-        /* ==========================================
-           LIVE STATUS INDICATOR EFFECT
-           ========================================== */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Fixed Navigation Header */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            box-sizing: border-box;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 36px;
+            width: auto;
+            display: block;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--primary-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            color: var(--primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mobile-give-btn {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s ease;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after, 
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-button {
+            padding: 10px 22px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            transition: all 0.25s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            background: var(--primary-dark);
+        }
+
         .nav-live-indicator {
             width: 8px;
             height: 8px;
-            background-color: #ff0000;
+            background-color: #ef4444;
             border-radius: 50%;
             margin-left: 6px;
             display: inline-block;
-            position: relative;
-            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             animation: navPulse 1.5s infinite;
         }
 
         @keyframes navPulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-            }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* ==========================================
-           RESPONSIVE INTERACTIVE OVERRIDES
-           ========================================== */
+        /* Container Rules */
         .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            max-width: 900px;
+            margin: auto;
+            padding: 0 24px;
             box-sizing: border-box;
         }
 
-        /* Base Navigation Structural Overrides */
-        .nav-flex {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-        }
-        .nav-right {
-            display: flex !important;
-            align-items: center !important;
-            gap: 25px !important;
-        }
-        .nav-links {
-            display: flex !important;
-            list-style: none !important;
-            gap: 20px !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        .container.wide {
+            max-width: 1200px;
         }
 
-        /* Screen Breakpoint: Mobile Devices (max-width: 768px) */
+        /* Reveal animations */
+        .reveal {
+            opacity: 0 !important;
+            transform: translateY(25px) !important;
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Policy Header */
+        .policy-header {
+            padding: 130px 0 40px 0;
+            text-align: center;
+            background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
+        }
+
+        .policy-header h1 {
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .policy-header h1 span {
+            background: linear-gradient(135deg, #8b2f5f 0%, #b33975 50%, #c026d3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Policy Content Styling */
+        .policy-content {
+            padding: 20px 0 80px 0;
+        }
+
+        .policy-intro {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .policy-intro p {
+            margin-bottom: 20px;
+        }
+
+        .manager-box {
+            background: var(--primary-light);
+            border: 1px solid rgba(139, 47, 95, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            margin: 30px 0;
+            color: var(--text-main);
+        }
+
+        .manager-box p {
+            margin: 0 0 12px 0;
+            color: var(--text-main);
+        }
+
+        .manager-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .manager-box strong {
+            color: var(--primary);
+        }
+
+        /* Accordions */
+        .accordion-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        details {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: all 0.25s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        details[open] {
+            border-color: rgba(139, 47, 95, 0.3);
+            box-shadow: var(--shadow-hover);
+        }
+
+        summary {
+            padding: 20px 24px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        summary i {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        details[open] summary i {
+            transform: rotate(180deg);
+        }
+
+        .details-content {
+            padding: 0 24px 24px 24px;
+            color: var(--text-muted);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            border-top: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        .details-content p {
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+
+        .details-content h3 {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .details-content ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .details-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Modern Dark Footer */
+        .footer-modern {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        /* Mobile Breakpoints */
         @media (max-width: 768px) {
-            .nav-flex {
-                flex-direction: column !important;
-                gap: 12px !important;
-                text-align: center !important;
-                padding: 15px 20px !important;
+            .mobile-menu-toggle {
+                display: flex;
             }
-            .nav-right {
-                flex-direction: column !important;
-                gap: 14px !important;
-                width: 100% !important;
-                display: flex !important;
+
+            .desktop-give-btn {
+                display: none;
             }
+
+            .mobile-give-btn {
+                display: block;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
             .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 24px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                border-top: 1px solid var(--border-color);
+                display: none !important;
+                box-sizing: border-box;
+            }
+
+            .nav-links.active {
                 display: flex !important;
-                justify-content: center !important;
-                flex-direction: row !important;
-                flex-wrap: wrap !important;
-                gap: 25px !important;
-                padding: 0 !important;
-                margin: 4px 0 !important;
             }
-            .nav-links li a {
-                display: inline-block !important;
-                font-size: 1rem !important;
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 12px;
             }
-            .btn-glass {
-                width: 100% !important;
-                box-sizing: border-box !important;
-                text-align: center !important;
+
+            .nav-links li:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
             }
-            
-            /* Document Readability Improvements */
+
+            .nav-links a {
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: left;
+                padding: 4px 0;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
             .policy-header {
-                padding: 60px 0 30px 0 !important;
-                text-align: center !important;
+                padding: 110px 0 30px 0;
             }
-            .policy-header h1 {
-                font-size: 2.2rem !important;
-                line-height: 1.2 !important;
+
+            summary {
+                padding: 16px 18px;
+                font-size: 1.05rem;
             }
-            .manager-box {
-                padding: 16px !important;
-                font-size: 0.95rem !important;
-                line-height: 1.5 !important;
-            }
-            details summary {
-                padding: 14px 16px !important;
-                font-size: 1.05rem !important;
-            }
+
             .details-content {
-                padding: 16px !important;
+                padding: 0 18px 18px 18px;
             }
         }
-             /* LINKS */
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:28px;
-}
-
-.nav-links a{
-    text-decoration:none;
-    font-weight:500;
-    color:#0f172a;
-    font-size:0.95rem;
-    position:relative;
-    transition:0.2s ease;
-}
-
-/* hover underline effect */
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-6px;
-    width:0%;
-    height:2px;
-    background:#a11f5c;
-    transition:0.25s ease;
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-/* active link */
-.nav-links a.active{
-    color:#a11f5c;
-}
-
-/* BUTTON */
-.nav-button{
-    padding:12px 20px;
-    background:#8b2f5f;
-    color:white;
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:600;
-    box-shadow:0 10px 25px rgba(139,47,95,0.25);
-    transition:0.2s ease;
-}
-
-.nav-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(139,47,95,0.35);
-}
     </style>
 </head>
+
 <body>
 
-   <nav class="nav">
-        <div class="container nav-flex">
-        <a href="index.html" class="logo">
-      <img src="../props/logonav2.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
-      NEW CITY <span>MK</span>
-    </a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li style="position: relative; display: inline-flex; align-items: center;">
-                        <li><a href="whatwebelieve.html">What We Believe</a></li>
-                        <a href="sermons.html">Sermons</a>
-                        <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
-                    </li>
-                    <li><a href="news.html">News</a></li>
-                </ul>
-                <a href="imnew.html" class="nav-button">
+    <!-- FIXED NAVIGATION HEADER -->
+    <nav class="nav">
+        <div class="nav-container wide">
+            <a href="index.html" class="logo">
+                <img src="../props/logonav.png" alt="Logo" onerror="this.style.display='none';">
+                NEW CITY <span>MK</span>
+            </a>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="whatwebelieve.html">What We Believe</a></li>
+                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
+                <li><a href="churchlife.html">Church Life</a></li>
+                <li><a href="news.html">News</a></li>
+                <li class="mobile-give-btn"><a href="giving.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Give</a></li>
+            </ul>
+
+            <a href="imnew.html" class="nav-button desktop-plan-btn">
                 Plan Your Visit
-                </a>
-            </div>
+            </a>
         </div>
     </nav>
+    <br>
 
-
+    <!-- HEADER -->
     <header class="policy-header">
-        <div class="container narrow reveal">
-            <h1>Privacy <span class="text-gradient">Notice</span></h1>
+        <div class="container reveal">
+            <h1>Privacy <span>Notice</span></h1>
             <p class="last-updated">How New City Church Milton Keynes (“we” / “us”) use your information.</p>
         </div>
     </header>
 
+    <!-- CONTENT SECTION -->
     <section class="policy-content">
-        <div class="container narrow">
+        <div class="container">
             
             <div class="policy-intro reveal">
                 <p>Your privacy is important to us. We are committed to safeguarding the privacy of your information. Under new data protection legislation, we need to let you know how we care for your information.</p>
             </div>
 
+            <!-- ACCORDIONS -->
             <div class="accordion-group reveal">
                 
                 <details>
@@ -263,7 +511,7 @@
                         <p>We hold your data for varying lengths of time depending on the type of information in question but in doing so we always comply with Data Protection legislation. Details of retention periods are available in our retention policy which you can request by contacting us - see details below.</p>
                         <p>We will contact you annually to check that the information we are holding is accurate and that you agree to us holding it.</p>
                         
-                        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                        <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-color);">
                         
                         <h3>Security of your data</h3>
                         <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, church officers or trustees who need to know. They will only process your personal data on our instructions.</p>
@@ -292,21 +540,21 @@
                             <li>in certain circumstances, have inaccurate personal data rectified, blocked, erased or destroyed; and</li>
                             <li>claim compensation for damages caused by a breach of the Data Protection regulations.</li>
                         </ul>
-                        <p>If you have a concern about the way we are collecting or using your personal data, you should raise your concern with us in the first instance or directly to the Information Commissioner’s Office at <a href="https://ico.org.uk/concerns/" target="_blank">https://ico.org.uk/concerns/</a>.</p>
+                        <p>If you have a concern about the way we are collecting or using your personal data, you should raise your concern with us in the first instance or directly to the Information Commissioner’s Office at <a href="https://ico.org.uk/concerns/" target="_blank" style="color: var(--primary);">https://ico.org.uk/concerns/</a>.</p>
                     </div>
                 </details>
 
                 <details>
-                    <summary>Contact<i class="ph ph-caret-down"></i></summary>
+                    <summary>Contact <i class="ph ph-caret-down"></i></summary>
                     <div class="details-content">
-                        <p>Please feel free to reach out to us via email if you have any further questions or need additional assistance. </p>
+                        <p>Please feel free to reach out to us via email if you have any further questions or need additional assistance.</p>
                         
                         <div class="manager-box">
                             <p><strong>Data Protection Compliance Manager:</strong><br>
-                           Chris Hicken<br>
+                            Chris Hicken<br>
                             Email: info@newcitychurch.co.uk</p>
                             
-                            <p style="margin-top: 15px;"><strong>Pastor:</strong><br>
+                            <p><strong>Pastor:</strong><br>
                             Richard Wardman<br>
                             Email: info@newcitychurch.co.uk</p>
                         </div>
@@ -317,44 +565,63 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="footer-modern">
+        <div class="container wide" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+            
+            <!-- LOGO SECTION -->
+            <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+            </div>
 
-          <!-- LOGO SECTION WITH YOUR PATHS -->
-    <div class="container" style="margin-top: -3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-        <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
-    </div>
-
-
+            <div style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
+                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- JS ENGINES -->
     <script>
-        function checkChurchLiveStatus() {
-            const channelId = "YOUR_CHANNEL_ID_HERE"; // Insert your standard YouTube channel ID string here (UC...)
-            const navDot = document.getElementById("nav-live-dot");
-            
-            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+        // Mobile Navigation Toggle Controller
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
 
-            const liveImgChecker = new Image();
-            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
-
-            liveImgChecker.onload = function() {
-                if (this.width === 320) {
-                    navDot.style.display = "inline-block";
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
                 } else {
-                    navDot.style.display = "none";
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
                 }
+            });
+        }
+
+        // YouTube Live Status Checker Engine
+        function checkChurchLiveStatus() {
+            const channelId = "YOUR_CHANNEL_ID_HERE"; 
+            const navDot = document.getElementById("nav-live-dot");
+            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            const liveImg = new Image();
+            liveImg.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImg.onload = function() {
+                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
             };
-            
-            liveImgChecker.onerror = function() {
+            liveImg.onerror = function() {
                 navDot.style.display = "none";
             };
         }
 
+        // Intersection Observer Reveal Animation Engine
         function initReveal() {
-            const revealElements = document.querySelectorAll(".reveal");
-            
+            const revealEls = document.querySelectorAll(".reveal");
             if (!window.IntersectionObserver) {
-                revealElements.forEach(el => el.classList.add('active'));
+                revealEls.forEach(el => el.classList.add('active'));
                 return;
             }
 
@@ -362,15 +629,14 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
-                        observer.unobserve(entry.target); 
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
 
-            revealElements.forEach(element => observer.observe(element));
+            revealEls.forEach(element => observer.observe(element));
         }
-        
-        // Run functions when DOM is ready
+
         document.addEventListener("DOMContentLoaded", function() {
             initReveal();
             checkChurchLiveStatus();
