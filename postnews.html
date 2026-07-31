@@ -3,25 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exciting News: We are moving! | New City MK</title>
+    <title>Exciting News: We are moving! | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
+
     <style>
-        /* Update your CSS to this */
-.reveal {
-    opacity: 1 !important; /* Force everything to be visible */
-    transform: translateY(0) !important;
-}
-      
+        :root {
+            --primary: #8b2f5f;
+            --primary-dark: #6e244a;
+            --primary-light: #fdf2f6;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s ease;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 0 24px;
+            box-sizing: border-box;
+        }
+
+        .post-layout {
+            padding: 140px 0 80px 0;
+        }
+
+        .reveal {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Post Header Styles */
+        .post-header {
+            margin-bottom: 30px;
+        }
+
+        .author-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .author-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--bg-light);
+            flex-shrink: 0;
+        }
+
+        .author-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-info strong {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .author-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        h1#dynamic-post-title {
+            font-size: clamp(2.2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Post Figure & Content */
+        .post-figure {
+            margin: 0 0 40px 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--bg-light);
+        }
+
+        .post-figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .post-figure figcaption {
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--white);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .post-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .post-content p {
+            margin-bottom: 20px;
+        }
+
+        /* Location Card */
+        .location-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .location-text h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 8px 0;
+        }
+
+        .location-text p {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .w3w {
+            font-size: 0.9rem;
+        }
+
+        .w3w a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+        }
+
+        /* Post Footer Meta */
         .post-footer-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            padding: 20px 0;
-            border-top: 1px solid #e2e8f0;
+            padding: 24px 0;
+            border-top: 1px solid var(--border-color);
             margin-top: 40px;
         }
 
@@ -36,21 +297,21 @@
             align-items: center;
             gap: 8px;
             font-size: 0.95rem;
-            color: #64748b;
+            color: var(--text-muted);
         }
 
         .interactive-like-btn {
-            background: none;
-            border: none;
-            padding: 6px;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
+            color: var(--text-muted);
             border-radius: 50%;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            width: 40px;
+            height: 40px;
             transition: all 0.2s ease;
         }
 
@@ -60,16 +321,6 @@
             border-color: #fee2e2;
         }
 
-        .interactive-like-btn.liked {
-            color: #ef4444;
-            background: #fef2f2;
-            border-color: #fca5a5;
-        }
-
-        .interactive-like-btn.liked i {
-            transform: scale(1.15);
-        }
-
         .share-links {
             display: flex;
             align-items: center;
@@ -77,12 +328,13 @@
         }
 
         .share-btn {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 10px;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
             border-radius: 12px;
             cursor: pointer;
-            color: #475569;
+            color: var(--text-muted);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -90,308 +342,406 @@
         }
 
         .share-btn:hover {
-            background: #f8fafc;
-            color: #0f172a;
+            background: var(--bg-light);
+            color: var(--text-main);
             border-color: #cbd5e1;
         }
 
-        .share-toast {
+        /* Contact Chat Widget Styles */
+        .chat-trigger {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
-            background: #0f172a;
-            color: #ffffff;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
             padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+            border-radius: 999px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            z-index: 2000;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .share-toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        .nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: white;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(139, 47, 95, 0.3);
             z-index: 999;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
 
-        .nav-flex {
+        .chat-trigger:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 24px;
+            width: 360px;
+            height: 480px;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 700;
         }
 
-        .nav-right {
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            background: var(--bg-light);
             display: flex;
-            align-items: center;
-            gap: 25px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .nav-links {
+        .chat-timestamp {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .chat-bubble {
+            background: var(--white);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border-top-left-radius: 2px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            box-shadow: var(--shadow-subtle);
+            line-height: 1.5;
+            border: 1px solid var(--border-color);
+        }
+
+        .chat-form {
             display: flex;
-            list-style: none;
-            gap: 20px;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            color: #0f172a;
-            font-size: 0.95rem;
-            position: relative;
-            transition: 0.2s ease;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 0%;
-            height: 2px;
-            background: #a11f5c;
-            transition: 0.25s ease;
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .input-group input, 
+        .input-group textarea {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            background: var(--white);
+            color: var(--text-main);
+            outline: none;
         }
 
-       /* Keep this for the body text */
-#dynamic-post-body {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
+        .input-group textarea {
+            height: 70px;
+            resize: none;
+        }
 
-/* Add this to force the rest of the page to appear */
-.reveal {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    transition: none !important; /* Disables the animation so it just shows up */
-}
-#dynamic-location-card {
-    display: flex !important; 
-    flex-direction: row; /* Or column, depending on your design */
-    opacity: 1 !important;
-}
+        .chat-submit {
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .chat-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Modern Footer */
+        .footer-modern {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .location-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .post-layout {
+                padding: 110px 0 60px 0;
+            }
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- FIXED NAVIGATION (Home & Back to News only) -->
     <nav class="nav">
-        <div class="container nav-flex">
+        <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 3px;">
+                <img src="../props/logonav.png" alt="Logo" height="42" style="vertical-align: middle; margin-right: 8px;">
                 NEW CITY <span>MK</span>
             </a>
 
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="news.html">Back to News</a></li>
-                </ul>
-            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="news.html">Back to News</a></li>
+            </ul>
         </div>
     </nav>
 
-<main class="post-layout">
-    <article class="container narrow">
+    <!-- MAIN ARTICLE CONTAINER -->
+    <main class="post-layout">
+        <article class="container">
 
-        <!-- AUTHOR + META -->
-        <header class="post-header reveal">
-            <div class="author-meta">
-                <div class="author-thumb">
-                    <img id="dynamic-author-img" src="" alt="Author">
+            <!-- AUTHOR + META -->
+            <header class="post-header reveal">
+                <div class="author-meta">
+                    <div class="author-thumb">
+                        <img id="dynamic-author-img" src="" alt="Author">
+                    </div>
+                    <div class="author-info">
+                        <strong id="dynamic-author-name"></strong>
+                        <span id="dynamic-post-date"></span>
+                    </div>
                 </div>
-                <div class="author-info">
-                    <strong id="dynamic-author-name"></strong>
-                    <span id="dynamic-post-date"></span>
-                </div>
+
+                <h1 id="dynamic-post-title"></h1>
+            </header>
+
+            <!-- MAIN IMAGE + CAPTION -->
+            <figure class="post-figure reveal" id="dynamic-post-figure">
+                <img id="dynamic-main-img" src="" alt="Cover Image">
+                <figcaption id="dynamic-img-caption"></figcaption>
+            </figure>
+
+            <!-- FULL ARTICLE BODY -->
+            <div class="post-content reveal">
+                <div id="dynamic-post-body"></div>
             </div>
 
-            <!-- DYNAMIC TITLE -->
-            <h1 id="dynamic-post-title"></h1>
-
-            <!-- DYNAMIC EXCERPT -->
-            <p class="lead" id="dynamic-post-excerpt"></p>
-        </header>
-
-        <!-- MAIN IMAGE + CAPTION -->
-        <figure class="post-figure reveal" id="dynamic-post-figure">
-            <img id="dynamic-main-img" src="" alt="Cover Image" style="max-width: 100%; height: auto; border-radius: 12px;">
-            <figcaption id="dynamic-img-caption"></figcaption>
-        </figure>
-
-        <!-- FULL ARTICLE BODY -->
-        <div class="post-content reveal">
-            <div id="dynamic-post-body"></div>
-        </div>
-
-        <!-- VENUE INFORMATION (DYNAMIC) -->
-        <div class="location-card reveal" id="dynamic-location-card" style="display: none;">
-            <div class="location-text">
-                <h3 id="venue-name"></h3>
-                <p id="venue-address"></p>
-                <p class="w3w">
-                    what3words: 
-                    <a id="w3w-link" href="#" target="_blank"></a>
-                </p>
+            <!-- VENUE INFORMATION (DYNAMIC) -->
+            <div class="location-card reveal" id="dynamic-location-card" style="display: none;">
+                <div class="location-text">
+                    <h3 id="venue-name"></h3>
+                    <p id="venue-address"></p>
+                    <p class="w3w">
+                        what3words: 
+                        <a id="w3w-link" href="#" target="_blank"></a>
+                    </p>
+                </div>
+                <a id="dynamic-map-btn" href="#" target="_blank" class="btn-primary">Map to Venue</a>
             </div>
-            <a id="dynamic-map-btn" href="#" target="_blank" class="btn-primary">Map to Venue</a>
-        </div>
 
-        <!-- FOOTER META (VIEWS + LIKES + SHARE BUTTONS) -->
-        <footer class="post-footer-meta reveal">
-            <div class="meta-left-group">
-                <div class="view-count">
-                    <i class="ph ph-eye"></i>
-                    <span id="liveViewCounter">0</span> views
+            <!-- FOOTER META -->
+            <footer class="post-footer-meta reveal">
+                <div class="meta-left-group">
+                    <div class="view-count">
+                        <i class="ph ph-eye"></i>
+                        <span id="liveViewCounter">1</span> views
+                    </div>
+
+                    <div class="like-wrapper">
+                        <button class="interactive-like-btn" id="likeButton" onclick="handleLikeClick()">
+                            <i class="ph ph-heart" id="likeIcon"></i>
+                        </button>
+                        <span id="liveLikeCounter">0</span> likes
+                    </div>
                 </div>
 
-                <div class="like-wrapper">
-                    <button class="interactive-like-btn" id="likeButton" onclick="handleLikeClick()">
-                        <i class="ph ph-heart" id="likeIcon"></i>
+                <!-- SHARE BUTTONS -->
+                <div class="share-links">
+                    <button class="share-btn" onclick="copyLink()" title="Copy Article Link">
+                        <i class="ph ph-link"></i>
                     </button>
-                    <span id="liveLikeCounter">0</span> likes
+                    <button class="share-btn" onclick="share('facebook')" title="Share on Facebook">
+                        <i class="ph ph-facebook-logo"></i>
+                    </button>
+                    <button class="share-btn" onclick="share('whatsapp')" title="Share on WhatsApp">
+                        <i class="ph ph-whatsapp-logo"></i>
+                    </button>
                 </div>
-            </div>
+            </footer>
 
-            <!-- SHARE BUTTONS -->
-            <div class="share-links">
-                <button class="share-btn" onclick="copyLink()" title="Copy Article Link">
-                    <i class="ph ph-link"></i>
-                </button>
-                <button class="share-btn" onclick="share('facebook')" title="Share on Facebook">
-                    <i class="ph ph-facebook-logo"></i>
-                </button>
-                <button class="share-btn" onclick="share('whatsapp')" title="Share on WhatsApp">
-                    <i class="ph ph-whatsapp-logo"></i>
-                </button>
-            </div>
-        </footer>
+        </article>
+    </main>
 
-    </article>
-</main>
+    <!-- CONTACT CHAT TRIGGER & WIDGET -->
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="ph ph-chat-centered-text"></i>
+        <span>Contact Us</span>
+    </div>
 
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span>New City Church MK</span>
+            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-timestamp">TODAY</div>
+            <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
+            
+            <form class="chat-form" id="contactForm">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea id="userMessage" required></textarea>
+                </div>
+                <button type="submit" class="chat-submit">Submit</button>
+            </form>
+        </div>
+    </div>
 
+    <!-- FOOTER -->
     <footer class="footer-modern">
-        <div class="container" style="margin-top: -3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+        <div class="container" style="display: flex; justify-content: center; align-items: center;">
+            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
+        </div>
+        <div class="container" style="margin-top: 1.5rem; color: #64748b; font-size: 0.8rem;">
+            <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
         </div>
     </footer>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<script>
-    // 1. UPDATED DATABASE
-    const testArticlesDatabase = {
-        "exciting-news-we-are-moving": {
-            title: "Exciting News: We are moving!",
-            author: "Richard Wardman",
-            author_img: "props/richard.png",
-            date: "Aug 28, 2025 • 1 min read",
-            cover_img: "props/oakgrove.png",
-            cover_caption: "The theatre at Oakgrove School - our new home for Sundays",
-            body: `
-                <p>After five fantastic years of gathering at Monkston Primary School, we are thrilled to announce that starting from 7 September 2025, our Sunday meetings will be held at Oakgrove School.</p>
-                <p>By God's grace, our church is growing, and we are excited to move to a larger venue with the capacity for further growth.</p>
-                <p>For a long time, we've been praying for a venue to accommodate our growing needs, and God has kindly answered us by providing Oakgrove School.</p>
-                <p>There is ample space for parking, a brilliant welcome area that's perfect for mingling over coffee, and plenty of space for our growing children's work.</p>
-                <p>We're looking forward to welcoming you to our services at Oakgrove School from Sunday 7 September at 10.30am.</p>
-            `,
-            venue_name: "Oakgrove School",
-            venue_address: "Venturer Gate, Milton Keynes, MK10 9JQ",
-            w3w_text: "///runs.about.camp",
-            w3w_url: "https://what3words.com/runs.about.camp"
+    <!-- JAVASCRIPT ENGINES -->
+    <script>
+        function toggleChat() {
+            const chat = document.getElementById('chatWidget');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
         }
-    };
 
-   // 3. INTERACTION LOGIC
-    function handleLikeClick() {
-        const likeCounter = document.getElementById('liveLikeCounter');
-        likeCounter.innerText = parseInt(likeCounter.innerText) + 1;
-    }
+        const testArticlesDatabase = {
+            "exciting-news-we-are-moving": {
+                title: "Exciting News: We are moving!",
+                author: "Richard Wardman",
+                author_img: "props/richard.png",
+                date: "Aug 28, 2025 • 1 min read",
+                cover_img: "props/oakgrove.png",
+                cover_caption: "The theatre at Oakgrove School - our new home for Sundays",
+                body: `
+                    <p>After five fantastic years of gathering at Monkston Primary School, we are thrilled to announce that starting from 7 September 2025, our Sunday meetings will be held at Oakgrove School.</p>
+                    <p>By God's grace, our church is growing, and we are excited to move to a larger venue with the capacity for further growth.</p>
+                    <p>For a long time, we've been praying for a venue to accommodate our growing needs, and God has kindly answered us by providing Oakgrove School.</p>
+                    <p>There is ample space for parking, a brilliant welcome area that's perfect for mingling over coffee, and plenty of space for our growing children's work.</p>
+                    <p>We're looking forward to welcoming you to our services at Oakgrove School from Sunday 7 September at 10.30am.</p>
+                `,
+                venue_name: "Oakgrove School",
+                venue_address: "Venturer Gate, Milton Keynes, MK10 9JQ",
+                w3w_text: "///runs.about.camp",
+                w3w_url: "https://what3words.com/runs.about.camp"
+            }
+        };
 
-    function copyLink() {
-        navigator.clipboard.writeText(window.location.href);
-        alert("Link copied!");
-    }
+        function handleLikeClick() {
+            const likeCounter = document.getElementById('liveLikeCounter');
+            likeCounter.innerText = parseInt(likeCounter.innerText) + 1;
+            document.getElementById('likeButton').classList.toggle('liked');
+        }
 
-    function share(platform) {
-        const url = encodeURIComponent(window.location.href);
-        if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`);
-        if (platform === 'whatsapp') window.open(`https://wa.me/?text=${url}`);
-    }
-    
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Link copied to clipboard!");
+        }
 
-    document.addEventListener("DOMContentLoaded", loadDynamicArticle);
+        function share(platform) {
+            const url = encodeURIComponent(window.location.href);
+            if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`);
+            if (platform === 'whatsapp') window.open(`https://wa.me/?text=${url}`);
+        }
 
-function loadDynamicArticle() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const data = testArticlesDatabase[urlParams.get('post')];
-    if (!data) return;
+        function loadDynamicArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = testArticlesDatabase[urlParams.get('post') || 'exciting-news-we-are-moving'];
+            if (!data) return;
 
-    // BASIC CONTENT
-    document.getElementById('dynamic-post-title').innerText = data.title;
-    document.getElementById('dynamic-post-body').innerHTML = data.body;
-    document.getElementById('dynamic-author-name').innerText = data.author;
-    document.getElementById('dynamic-author-img').src = data.author_img;
-    document.getElementById('dynamic-post-date').innerText = data.date;
-    document.getElementById('dynamic-main-img').src = data.cover_img;
-    document.getElementById('dynamic-img-caption').innerText = data.cover_caption;
+            document.getElementById('dynamic-post-title').innerText = data.title;
+            document.getElementById('dynamic-post-body').innerHTML = data.body;
+            document.getElementById('dynamic-author-name').innerText = data.author;
+            document.getElementById('dynamic-author-img').src = data.author_img;
+            document.getElementById('dynamic-post-date').innerText = data.date;
+            document.getElementById('dynamic-main-img').src = data.cover_img;
+            document.getElementById('dynamic-img-caption').innerText = data.cover_caption;
 
-    // VENUE INFO
-    const venueName = document.getElementById('venue-name');
-    const venueAddress = document.getElementById('venue-address');
-    const w3wLink = document.getElementById('w3w-link');
-    const mapBtn = document.getElementById('dynamic-map-btn');
+            const venueName = document.getElementById('venue-name');
+            const venueAddress = document.getElementById('venue-address');
+            const w3wLink = document.getElementById('w3w-link');
+            const mapBtn = document.getElementById('dynamic-map-btn');
 
-    if (venueName) venueName.innerText = data.venue_name;
-    if (venueAddress) venueAddress.innerText = data.venue_address;
+            if (venueName) venueName.innerText = data.venue_name;
+            if (venueAddress) venueAddress.innerText = data.venue_address;
 
-    if (w3wLink) {
-        w3wLink.href = data.w3w_url;
-        w3wLink.innerText = data.w3w_text;
-    }
+            if (w3wLink) {
+                w3wLink.href = data.w3w_url;
+                w3wLink.innerText = data.w3w_text;
+            }
 
-    // ⭐ ALWAYS SEND USER TO THIS ADDRESS:
-    // Venturer Gate, Milton Keynes MK10 9JQ
-    if (mapBtn) {
-        mapBtn.href = "https://www.google.com/maps/place/Oakgrove+School/@52.038976,-0.7093625,17z/data=!3m2!4b1!5s0x4877ab3b40d3788f:0x15049be8621a324c!4m6!3m5!1s0x4877ab3d4bf2d52d:0xf0a31df61cc85063!8m2!3d52.038976!4d-0.7093625!16s%2Fm%2F04ydvn2?entry=ttu&g_ep=EgoyMDI2MDcwNS4wIKXMDSoASAFQAw%3D%3D";
-    }
+            if (mapBtn) {
+                mapBtn.href = "https://www.google.com/maps/place/Oakgrove+School/@52.038976,-0.7093625,17z/data=!3m2!4b1!5s0x4877ab3b40d3788f:0x15049be8621a324c!4m6!3m5!1s0x4877ab3d4bf2d52d:0xf0a31df61cc85063!8m2!3d52.038976!4d-0.7093625";
+            }
 
-    // SHOW VENUE CARD
-    const locCard = document.getElementById('dynamic-location-card');
-    if (locCard) {
-        locCard.style.display = 'flex';
-    }
-}
+            const locCard = document.getElementById('dynamic-location-card');
+            if (locCard) {
+                locCard.style.display = 'flex';
+            }
+        }
 
-document.addEventListener("DOMContentLoaded", loadDynamicArticle);
+        document.addEventListener("DOMContentLoaded", function() {
+            loadDynamicArticle();
 
-
-</script>
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    const name = document.getElementById('userName').value;
+                    const email = document.getElementById('userEmail').value;
+                    const message = document.getElementById('userMessage').value;
+                    const subject = "New Inquiry from " + name;
+                    const body = "Name: " + name + "%0AEmail: " + email + "%0A%0AMessage:%0A" + message;
+                    window.location.href = "mailto:info@newcitychurch.co.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
