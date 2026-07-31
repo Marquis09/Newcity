@@ -6,57 +6,88 @@
     <title>New City Church MK | To Follow Jesus</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../props/logonav.png">
     <style>
-        /* Core Layout Rules */
+        :root {
+            --primary: #8b2f5f;
+            --primary-dark: #6e244a;
+            --primary-light: #fdf2f6;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Core Navigation Rules with Friendly Hover Indicator */
         .nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: auto;
-            padding: 18px 24px;
+            padding: 14px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 800;
             text-decoration: none;
-            color: #0f172a;
+            color: var(--text-main);
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
         }
 
         .logo span {
-            color: #a11f5c;
+            color: var(--primary);
         }
 
-        /* Mobile Hamburger Toggle Button */
         .mobile-menu-toggle {
             display: none;
-            background: none;
+            background: var(--primary-light);
             border: none;
-            font-size: 1.8rem;
-            color: #0f172a;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            color: var(--primary);
             cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
         }
 
         .mobile-plan-btn {
             display: none;
         }
 
-        /* LINKS */
         .nav-links {
             display: flex;
             list-style: none;
@@ -69,138 +100,332 @@
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
-            color: #0f172a;
+            color: var(--text-main);
             font-size: 0.95rem;
             position: relative;
-            transition: 0.2s ease;
+            transition: color 0.2s ease;
+            padding: 8px 0;
         }
 
+        /* Restored and upgraded desktop hover underline effect */
         .nav-links a::after {
-            content: "";
+            content: '';
             position: absolute;
+            bottom: 0;
             left: 0;
-            bottom: -6px;
-            width: 0%;
+            width: 0;
             height: 2px;
-            background: #a11f5c;
-            transition: 0.25s ease;
+            background-color: var(--primary);
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after, 
+        .nav-links a.active::after {
             width: 100%;
         }
 
-        .nav-links a.active {
-            color: #a11f5c;
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
         }
 
-        /* BUTTON */
         .nav-button {
-            padding: 12px 20px;
-            background: #8b2f5f;
+            padding: 10px 22px;
+            background: var(--primary);
             color: white;
-            border-radius: 14px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 10px 25px rgba(139,47,95,0.25);
-            transition: 0.2s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            transition: all 0.25s ease;
         }
 
         .nav-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(139,47,95,0.35);
+            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            background: var(--primary-dark);
         }
 
-        /* LIVE STATUS INDICATOR EFFECT */
         .nav-live-indicator {
             width: 8px;
             height: 8px;
-            background-color: #ff0000;
+            background-color: #ef4444;
             border-radius: 50%;
             margin-left: 6px;
             display: inline-block;
-            position: relative;
-            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             animation: navPulse 1.5s infinite;
         }
 
         @keyframes navPulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-            }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* Perfectly Aligned Video & Info Split Section */
+        /* Hero Section */
+        .hero-modern {
+            padding: 140px 0 80px 0;
+            background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 24px;
+            padding-right: 24px;
+            box-sizing: border-box;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-text .text-gradient {
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 14px 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(139,47,95,0.25);
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+        }
+
+        .btn-text {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 10px;
+            transition: color 0.2s;
+        }
+
+        .btn-text:hover {
+            color: var(--primary);
+        }
+
+        .image-stack {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.1);
+        }
+
+        .main-img {
+            width: 100%;
+            height: 440px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-stack:hover .main-img {
+            transform: scale(1.02);
+        }
+
+        .info-card-float {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 18px 22px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .info-card-float i {
+            font-size: 2rem;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        /* Video Split Section */
+        .video-intro-section {
+            padding: 90px 0;
+            background: var(--bg-light);
+        }
+
         .video-split-container {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 56px;
+            gap: 60px;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 0;
         }
 
-        .video-text-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-subtle);
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         .video-text-content h2 {
-            font-size: 2.6rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            color: #0f172a;
-            margin: 0 0 18px 0;
-            letter-spacing: -0.03em;
+            color: var(--text-main);
+            margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
             line-height: 1.2;
         }
 
         .video-text-content p {
-            font-size: 1.05rem;
-            line-height: 1.65;
-            color: #475569;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
             margin: 0;
         }
-        
-        /* Premium Lumia Bento Layout Styling */
+
+        /* Services Glass Grid */
+        .services-overlap {
+            padding: 20px 0 60px 0;
+            background: var(--bg-light);
+        }
+
+        .glass-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .service-item {
+            text-align: center;
+            padding: 28px 20px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139,47,95,0.3);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-item i {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: inline-block;
+            background: var(--primary-light);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+        }
+
+        .service-item h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            margin: 0;
+            font-weight: 800;
+        }
+
+        /* Bento Grid Section */
         .bento-section {
-            padding: 80px 0;
-            background: #f8fafc;
+            padding: 90px 0;
+            background: var(--white);
         }
         
         .bento-grid-transformed {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            grid-auto-rows: minmax(280px, auto);
+            grid-auto-rows: minmax(300px, auto);
         }
 
         .bento-tile {
             position: relative;
-            border-radius: 24px;
+            border-radius: var(--radius-md);
             overflow: hidden;
             background: #0f172a; 
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
             text-decoration: none;
             color: inherit;
             display: block;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            box-shadow: var(--shadow-subtle);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
         }
 
         .bento-tile:hover {
-            transform: scale(0.98);
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
         }
 
         .lumia-live-wrapper {
@@ -227,7 +452,7 @@
             width: 100%;
             position: relative;
             box-sizing: border-box;
-            padding: 28px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -256,7 +481,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 65%, rgba(15, 23, 42, 0.1) 100%);
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.45) 60%, rgba(15, 23, 42, 0.15) 100%);
             z-index: 2;
         }
 
@@ -269,7 +494,7 @@
         .bento-tile-content h3 {
             font-size: 1.5rem;
             font-weight: 800;
-            margin: 8px 0 6px 0;
+            margin: 8px 0 8px 0;
             color: #ffffff;
             letter-spacing: -0.02em;
         }
@@ -278,7 +503,7 @@
             font-size: 0.95rem;
             color: #cbd5e1;
             margin: 0;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .category-pill {
@@ -299,7 +524,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .pill-brand { background: #8b2f5f; color: white; border: none; }
+        .pill-brand { background: var(--primary); color: white; border: none; }
 
         .tile-action-arrow {
             display: inline-flex;
@@ -318,279 +543,233 @@
         .span-wide { grid-column: span 2; }
         .span-full { grid-column: span 3; }
 
-        /* Global Layout Blocks */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 20px;
-            padding-right: 20px;
-            box-sizing: border-box;
+        /* Leadership Cards Styling */
+        .leadership-box {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-shadow: var(--shadow-subtle);
         }
-        .hero-modern {
-            padding: 120px 0 80px 0;
-            background: #ffffff;
-        }
-        .hero-grid {
+
+        .leadership-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        .hero-text h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #0f172a;
-            line-height: 1.1;
-            margin: 10px 0 20px 0;
-            letter-spacing: -0.03em;
-        }
-        .hero-text .text-gradient {
-            color: #8b2f5f;
-        }
-        .hero-text p {
-            font-size: 1.1rem;
-            color: #475569;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-        .badge {
-            background: #f1f5f9;
-            color: #8b2f5f;
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        .hero-btns {
-            display: flex;
-            gap: 16px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
             margin-top: 24px;
-            flex-wrap: wrap;
-            align-items: center;
         }
-        .btn-primary {
-            padding: 12px 24px;
-            background: #8b2f5f;
-            color: white;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(139,47,95,0.25);
-            transition: 0.2s ease;
-        }
-        .btn-text {
-            color: #0f172a;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .image-stack {
-            position: relative;
-        }
-        .main-img {
-            width: 100%;
-            border-radius: 24px;
-            display: block;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-        }
-        .info-card-float {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-            background: #ffffff;
-            padding: 16px 24px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+        .leader-card {
             display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .info-card-float i {
-            font-size: 1.8rem;
-            color: #8b2f5f;
-        }
-        .glass-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            padding: 40px 0;
-        }
-        .service-item {
-            text-align: center;
+            background: var(--bg-light);
             padding: 24px;
-            background: rgba(255,255,255,0.8);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            align-items: flex-start;
+        }
+
+        .leader-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            border: 1px solid #e2e8f0;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
-        .service-item i {
-            font-size: 2rem;
-            color: #8b2f5f;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-        .service-item h4 {
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            color: #0f172a;
-            margin: 0;
-            font-weight: 800;
-        }
-        
-        /* Footer Layout Styles */
+
+        /* Footer Modern Layout */
         .footer-modern {
             background: #0f172a;
             color: #cbd5e1;
-            padding: 80px 0 40px 0;
+            padding: 90px 0 40px 0;
         }
+
         .footer-grid {
             display: grid;
             grid-template-columns: 1.2fr 2fr;
             gap: 60px;
             align-items: start;
         }
-        .f-brand p {
-            line-height: 1.6;
-            margin: 0;
+
+        .f-brand h3 {
+            color: white;
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            font-weight: 700;
         }
+
+        .f-brand p {
+            line-height: 1.7;
+            margin: 0;
+            color: #94a3b8;
+        }
+
         .f-links {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
         }
+
         .link-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
+
         .link-group h4 {
             color: #ffffff;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+            font-weight: 700;
         }
+
         .link-group a {
             text-decoration: none;
             color: #94a3b8;
             transition: color 0.2s ease;
             font-size: 0.95rem;
         }
+
         .link-group a:hover {
             color: #ffffff;
         }
 
-        /* Interactive Floating Chat Widget */
+        /* Floating Chat Widget */
         .chat-trigger {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background: #0f172a;
+            background: var(--primary);
             color: #ffffff;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 100px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
             z-index: 999;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(139,47,95,0.3);
+            font-weight: 600;
+            transition: transform 0.2s;
         }
+
+        .chat-trigger:hover {
+            transform: scale(1.03);
+        }
+
         .chat-widget {
             position: fixed;
-            bottom: 84px;
+            bottom: 90px;
             right: 24px;
-            width: 340px;
+            width: 360px;
             background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
             display: none;
             flex-direction: column;
             z-index: 999;
             overflow: hidden;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
         }
+
         .chat-header {
             background: #0f172a;
             color: white;
-            padding: 16px;
+            padding: 18px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 700;
         }
+
         .close-chat {
             background: none;
             border: none;
             color: white;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
+
         .chat-body {
-            padding: 16px;
+            padding: 20px;
         }
+
         .chat-timestamp {
             font-size: 0.7rem;
             color: #94a3b8;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             font-weight: 700;
             letter-spacing: 0.05em;
         }
+
         .chat-bubble {
-            background: #f1f5f9;
-            padding: 12px;
+            background: var(--bg-light);
+            padding: 14px;
             border-radius: 12px;
             margin-bottom: 16px;
             font-size: 0.9rem;
-            color: #334155;
-            line-height: 1.4;
+            color: var(--text-muted);
+            line-height: 1.5;
+            border: 1px solid var(--border-color);
         }
+
         .input-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
+
         .input-group label {
             font-size: 0.8rem;
             font-weight: 700;
-            color: #475569;
+            color: var(--text-muted);
         }
+
         .input-group input, .input-group textarea {
-            padding: 8px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
         }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--primary);
+        }
+
         .chat-submit {
             width: 100%;
-            padding: 10px;
-            background: #8b2f5f;
+            padding: 12px;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .chat-submit:hover {
+            background: var(--primary-dark);
         }
 
         /* Tablet Viewports */
         @media (max-width: 992px) {
             .video-split-container {
                 grid-template-columns: 1fr;
-                gap: 32px;
-                padding: 20px;
+                gap: 40px;
             }
             .bento-grid-transformed {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .span-full { grid-column: span 2; }
-            .span-wide { grid-column: span 2; }
+            .span-full, .span-wide { grid-column: span 2; }
             .hero-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -598,20 +777,19 @@
             .glass-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
-            .f-links {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
         }
 
-        /* Mobile Viewports (Polished Left-Aligned Nav, Compact Hero & Cards, Structured Footer) */
+        /* Polished Mobile Viewport Experience (Max-Width 768px) */
         @media (max-width: 768px) {
             .mobile-menu-toggle {
-                display: block;
+                display: flex;
             }
             
             .desktop-plan-btn {
@@ -625,7 +803,7 @@
                 text-align: center;
             }
 
-            /* Sleek, left-aligned dropdown menu drawer */
+            /* Friendly Slide-Down Mobile Drawer Menu */
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -634,10 +812,10 @@
                 background: #ffffff;
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 20px 28px 28px 28px;
+                padding: 24px;
                 gap: 16px;
-                box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-                border-top: 1px solid #f1f5f9;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                border-top: 1px solid var(--border-color);
                 display: none !important; 
                 box-sizing: border-box;
             }
@@ -648,7 +826,7 @@
 
             .nav-links li {
                 width: 100%;
-                border-bottom: 1px solid #f8fafc;
+                border-bottom: 1px solid #f1f5f9;
                 padding-bottom: 12px;
             }
 
@@ -657,51 +835,58 @@
             }
 
             .nav-links a {
-                font-size: 1.05rem;
+                font-size: 1.1rem;
                 width: 100%;
                 text-align: left;
                 padding: 4px 0;
             }
 
+            /* Disable hover underline animation on mobile viewports for cleanliness */
             .nav-links a::after {
                 display: none; 
             }
 
-            /* Middle Section Layout Optimizations for Mobile */
+            /* Compact, Warm Hero for Mobile */
             .hero-modern {
-                padding: 90px 0 40px 0;
+                padding: 100px 0 50px 0;
             }
             
             .hero-text h1 {
-                font-size: 2.1rem;
-                margin: 6px 0 14px 0;
+                font-size: 2.3rem;
+                margin-bottom: 14px;
             }
 
             .hero-text p {
-                font-size: 0.98rem;
-                margin-bottom: 18px;
+                font-size: 1rem;
+                margin-bottom: 22px;
             }
 
             .hero-btns {
                 gap: 12px;
-                margin-top: 16px;
+                flex-direction: column;
+                align-items: stretch;
             }
 
-            .btn-primary {
-                padding: 10px 18px;
-                font-size: 0.9rem;
+            .btn-primary, .btn-text {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .main-img {
+                height: 300px;
             }
 
             .info-card-float {
                 bottom: 16px;
                 left: 16px;
                 right: 16px;
-                padding: 12px 16px;
-                gap: 10px;
+                padding: 14px 16px;
+                gap: 12px;
             }
 
             .info-card-float i {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
+                padding: 8px;
             }
 
             .info-card-float div {
@@ -709,29 +894,29 @@
             }
 
             .video-intro-section {
-                padding: 40px 0 !important;
+                padding: 50px 0;
             }
 
             .video-text-content h2 {
-                font-size: 1.8rem;
-                margin-bottom: 10px;
+                font-size: 1.9rem;
             }
 
             .video-text-content p {
                 font-size: 0.95rem;
             }
 
+            /* Streamlined 1-Column Mobile Bento & Cards */
             .bento-section {
-                padding: 40px 0;
+                padding: 50px 0;
             }
 
             .bento-grid-transformed {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 18px;
             }
             
             .bento-tile { 
-                min-height: 240px; 
+                min-height: 260px; 
             }
             
             .lumia-live-wrapper { 
@@ -742,70 +927,64 @@
             
             .lumia-face { 
                 height: auto; 
-                padding: 20px; 
+                padding: 24px; 
             }
             
             .lumia-face.face-alt-loop { 
                 display: none; 
             } 
 
-            .bento-tile-content h3 {
-                font-size: 1.25rem;
-            }
-
-            .bento-tile-content p {
-                font-size: 0.88rem;
-            }
-
             .span-tall, .span-wide, .span-full {
                 grid-column: span 1;
                 grid-row: span 1;
             }
 
-            /* Staff block adjustments inside bento full-width grid on mobile */
-            .bento-tile.span-full {
-                padding: 20px !important;
-                gap: 20px !important;
+            .leadership-box {
+                padding: 24px 16px;
             }
 
-            .bento-tile.span-full > div:last-child {
-                grid-template-columns: 1fr !important;
-                gap: 16px !important;
+            .leader-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
             }
 
-            .bento-tile.span-full div[style*="background: #f8fafc"] {
-                padding: 16px !important;
-                gap: 14px !important;
-            }
-
-            .bento-tile.span-full img {
-                width: 60px !important;
-                height: 60px !important;
+            .leader-card img {
+                width: 90px;
+                height: 90px;
             }
 
             .glass-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
-                padding: 20px 0;
+                padding: 10px 0;
             }
 
             .service-item {
-                padding: 16px 12px;
+                padding: 20px 14px;
             }
 
             .service-item i {
                 font-size: 1.6rem;
-                margin-bottom: 6px;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                margin-bottom: 8px;
             }
 
             .service-item h4 {
                 font-size: 0.75rem;
             }
 
-            /* Clean 2-column structure for footer links on mobile */
+            /* Structured 2-Column Mobile Footer Layout */
+            .footer-modern {
+                padding: 60px 0 30px 0;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 36px;
+                gap: 40px;
             }
             
             .f-links {
@@ -818,7 +997,8 @@
             .f-brand {
                 text-align: left;
             }
-            
+
+            /* Friendly Mobile Chat Drawer */
             .chat-widget {
                 width: calc(100% - 32px);
                 right: 16px;
@@ -827,12 +1007,12 @@
             }
         }
 
-        /* SCROLL REVEAL ANIMATIONS */
+        /* Scroll Reveal Animations */
         .reveal {
             opacity: 0 !important;
-            transform: translateY(30px) !important;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            transform: translateY(25px) !important;
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
         .reveal.active {
             opacity: 1 !important;
@@ -842,14 +1022,15 @@
 </head>
 <body>
 
+    <!-- Navigation Header -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="../props/logonav.png" alt="Logo" height="45" style="vertical-align: middle; margin-right: 6px;">
+                <img src="../props/logonav.png" alt="Logo" height="42" style="vertical-align: middle; margin-right: 8px;">
                 NEW CITY <span>MK</span>
             </a>
 
-            <!-- Mobile Hamburger Toggle Button -->
+            <!-- Mobile Hamburger Menu Button -->
             <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
                 <i class="ph ph-list"></i>
             </button>
@@ -870,15 +1051,16 @@
         </div>
     </nav>
 
+    <!-- Warm Modern Hero Section -->
     <header class="hero-modern">
         <div class="container hero-grid reveal">
             <div class="hero-text">
-                <span class="badge">YOU'RE INVITED</span>
+                <span class="badge">YOU'RE WARMLY INVITED</span>
                 <h1>TO FOLLOW <span class="text-gradient">JESUS</span></h1>
-                <p>Join us in following Jesus together or come along to find out more about God. You’re welcome here!</p>
+                <p>Join us in following Jesus together or come along to find out more about God. You’re welcome exactly as you are!</p>
                 <div class="hero-btns">
                     <a href="imnew.html" class="btn-primary">Plan Your Visit</a>
-                    <a href="sermons.html" class="btn-text">Watch Latest Sermon <i class="ph ph-play-circle"></i></a>
+                    <a href="sermons.html" class="btn-text">Watch Latest Sermon <i class="ph ph-play-circle" style="font-size: 1.2rem;"></i></a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -888,7 +1070,7 @@
                         <i class="ph ph-calendar-blank"></i>
                         <div>
                             <strong>Sundays</strong><br>
-                            <span>10:30am & 5:00pm</span>
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">10:30am & 5:00pm</span>
                         </div>
                     </div>
                 </div>
@@ -896,12 +1078,12 @@
         </div>
     </header>
 
-    <section class="video-intro-section" style="padding: 80px 0; background: #f8fafc;">
+    <!-- Video Introduction Split Section -->
+    <section class="video-intro-section">
         <div class="container">
             <div class="video-split-container reveal">
-                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); width: 100%;">
+                <div class="video-container">
                     <iframe 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                         src="https://www.youtube.com/embed/ciPIWh0NNcM?si=9XiMuY_VvXx70ax3" 
                         title="Welcome to New City Church MK"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -911,12 +1093,13 @@
                 </div>
                 <div class="video-text-content">
                     <h2>Join us on Sundays!</h2>
-                    <p>Join us to worship God, be encouraged in following Jesus, and build community with other Christians. Stay to chat over tea and coffee after the morning service too.</p>
+                    <p>Come along to worship God, be encouraged in following Jesus, and build community with friendly people. Stay back to chat over tea and coffee after the morning service too!</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Quick Features Glass Grid -->
     <section class="services-overlap">
         <div class="container">
             <div class="glass-grid reveal">
@@ -928,6 +1111,7 @@
         </div>
     </section>
 
+    <!-- Bento Grid Showcase Section -->
     <section class="bento-section">
         <div class="container">
             <div class="bento-grid-transformed">
@@ -940,7 +1124,7 @@
                             <span class="category-pill pill-brand">For Families</span>
                             <div class="bento-tile-content">
                                 <h3>Children & Youth</h3>
-                                <p>We have groups on Sundays and midweek where children and young people can learn from the Bible in a fun and friendly environment. There is something for every age and stage. All our leaders and helpers receive safeguarding training and are DBS checked.</p>
+                                <p>We have groups on Sundays and midweek where children and young people can learn from the Bible in a fun and friendly environment. All leaders receive safeguarding training and are DBS checked.</p>
                             </div>
                         </div>
                         <div class="lumia-face face-alt-loop">
@@ -949,8 +1133,8 @@
                             <span class="category-pill pill-brand">All Ages</span>
                             <div class="bento-tile-content">
                                 <h3>Safe & Friendly</h3>
-                                <p>All leaders receive comprehensive safeguarding training and are thoroughly DBS checked.</p>
-                                <span class="tile-action-arrow">Kids Schedule</span>
+                                <p>Caring groups tailored for every age and stage of growth.</p>
+                                <span class="tile-action-arrow">Kids Schedule <i class="ph ph-arrow-right"></i></span>
                             </div>
                         </div>
                     </div>
@@ -964,17 +1148,17 @@
                             <span class="category-pill">Community</span>
                             <div class="bento-tile-content">
                                 <h3>Exploring Christianity</h3>
-                                <p>Join us at our regular sessions looking at what the Christian faith is all about. It’s a relaxed and pressure-free way to learn what the Bible says about the message of Jesus Christ and what it means for you. Sessions are totally free and all materials are provided.</p>
+                                <p>Join us at our regular sessions looking at what the Christian faith is all about. It’s a relaxed, pressure-free way to learn what the Bible says about Jesus Christ.</p>
                             </div>
                         </div>
                         <div class="lumia-face face-alt-loop">
-                            <img src="props/exploring.png" alt="Exploring Christianity" class="bento-bg-img" style="filter: scale(1.05) brightness(0.5);">
+                            <img src="props/exploring.png" alt="Exploring Christianity" class="bento-bg-img" style="filter: brightness(0.5);">
                             <div class="bento-overlay"></div>
                             <span class="category-pill">Regular Sessions</span>
                             <div class="bento-tile-content">
                                 <h3>Totally Free</h3>
-                                <p>Come exactly as you are to look into what the Bible says about Jesus Christ.</p>
-                                <span class="tile-action-arrow">Learn More</span>
+                                <p>Come as you are to explore life's biggest questions together.</p>
+                                <span class="tile-action-arrow">Learn More <i class="ph ph-arrow-right"></i></span>
                             </div>
                         </div>
                     </div>
@@ -988,7 +1172,7 @@
                             <span class="category-pill">Midweek Info</span>
                             <div class="bento-tile-content">
                                 <h3>Homegroups</h3>
-                                <p>Our weekly homegroups are an important part of what it means to belong to our church family. Tuesday home groups in Milton Keynes feature Bible discussion, fellowship, and prayer.</p>
+                                <p>Our weekly homegroups across Milton Keynes feature welcoming Bible discussion, fellowship, and prayer.</p>
                             </div>
                         </div>
                         <div class="lumia-face face-alt-loop">
@@ -996,9 +1180,9 @@
                             <div class="bento-overlay"></div>
                             <span class="category-pill">Tuesday Evenings</span>
                             <div class="bento-tile-content">
-                                <h3>Belonging</h3>
-                                <p>Gathering in homes around Milton Keynes to study, talk, and share life.</p>
-                                <span class="tile-action-arrow">Midweek Info</span>
+                                <h3>Real Community</h3>
+                                <p>Gathering in homes to study, talk, and share life.</p>
+                                <span class="tile-action-arrow">Find a Group <i class="ph ph-arrow-right"></i></span>
                             </div>
                         </div>
                     </div>
@@ -1012,7 +1196,7 @@
                             <span class="category-pill">Church Priority</span>
                             <div class="bento-tile-content">
                                 <h3>Prayer Focus</h3>
-                                <p>We believe that God is our loving heavenly Father who loves it when his children call out to him for all their needs. That’s why we aim to put prayer at the centre of all we do as a church, including our monthly prayer meeting.</p>
+                                <p>We rely on our loving heavenly Father for all things. Prayer sits at the heart of our weekly gatherings.</p>
                             </div>
                         </div>
                         <div class="lumia-face face-alt-loop">
@@ -1020,36 +1204,35 @@
                             <div class="bento-overlay"></div>
                             <span class="category-pill">Monthly Meeting</span>
                             <div class="bento-tile-content">
-                                <h3>We depend on God</h3>
-                                <p>Believing in a loving heavenly Father who hears us. Prayer sits at the center of our week.</p>
+                                <h3>Depending on God</h3>
+                                <p>Calling out together to God in a supportive community.</p>
                             </div>
                         </div>
                     </div>
                 </a>
                 
-                <div class="bento-tile span-full reveal" style="padding: 40px; background: #ffffff; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 32px;">
-                    <div style="width: 100%;">
-                        <span class="category-pill pill-brand" style="display: inline-block; margin-bottom: 12px; background-color: #8c2d52; color: #ffffff;">Get Connected</span>
-                        <h3 style="color: #1e293b; margin: 0 0 6px 0; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Reach out to us</h3>
-                        <p style="color: #475569; margin: 0; font-size: 1rem; line-height: 1.5;">We’d love to hear from you! Drop us a line, and we’ll get back to you quickly.</p>
-                    </div>
+                <!-- Leadership Section Integrated Cleanly -->
+                <div class="bento-tile span-full reveal leadership-box">
+                    <span class="category-pill pill-brand" style="margin-bottom: 12px;">Get Connected</span>
+                    <h3 style="color: var(--text-main); margin: 0 0 6px 0; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Meet our Leadership Team</h3>
+                    <p style="color: var(--text-muted); margin: 0 0 24px 0; font-size: 1rem; line-height: 1.5;">We’d love to welcome you personally. Reach out or say hello after any service!</p>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; width: 100%;">
-                        <div style="display: flex; gap: 20px; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; align-items: flex-start;">
-                            <img src="props/richard.png" alt="Richard Wardman" style="width: 80px; height: 80px; object-fit: cover; border-radius: 16px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div class="leadership-grid">
+                        <div class="leader-card">
+                            <img src="props/richard.png" alt="Richard Wardman">
                             <div>
-                                <span style="font-size: 0.75rem; font-weight: 800; color: #8c2d52; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Full-time Pastor</span>
-                                <h4 style="margin: 0 0 8px 0; font-size: 1.3rem; font-weight: 800; color: #1e293b; letter-spacing: -0.01em;">Richard Wardman</h4>
-                                <p style="margin: 0; font-size: 0.92rem; line-height: 1.6; color: #475569;">Richard is a full-time Pastor helping people of all ages understand the Bible. He has lived in Milton Keynes since 2013.</p>
+                                <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 4px;">Full-time Pastor</span>
+                                <h4 style="margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Richard Wardman</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6; color: var(--text-muted);">Richard helps people of all ages discover the Bible. He has lived in Milton Keynes since 2013.</p>
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 20px; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; align-items: flex-start;">
-                            <img src="props/Mark.png" alt="Mark Sewall" style="width: 80px; height: 80px; object-fit: cover; border-radius: 16px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div class="leader-card">
+                            <img src="props/Mark.png" alt="Mark Sewall">
                             <div>
-                                <span style="font-size: 0.75rem; font-weight: 800; color: #8c2d52; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Full-time Pastor</span>
-                                <h4 style="margin: 0 0 8px 0; font-size: 1.3rem; font-weight: 800; color: #1e293b; letter-spacing: -0.01em;">Mark Sewall</h4>
-                                <p style="margin: 0; font-size: 0.92rem; line-height: 1.6; color: #475569;">Full-time Pastor Mark and his wife, Louise, love helping people follow Jesus while providing biblical counsel and church family care.</p>
+                                <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 4px;">Full-time Pastor</span>
+                                <h4 style="margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Mark Sewall</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6; color: var(--text-muted);">Mark and his wife Louise love helping people follow Jesus while providing warm biblical care.</p>
                             </div>
                         </div>
                     </div>
@@ -1059,8 +1242,9 @@
         </div>
     </section>
 
+    <!-- Floating Contact Trigger & Drawer Widget -->
     <div class="chat-trigger" onclick="toggleChat()">
-        <i class="ph ph-chat-centered-text"></i>
+        <i class="ph ph-chat-centered-text" style="font-size: 1.3rem;"></i>
         <span>Contact Us</span>
     </div>
 
@@ -1070,34 +1254,35 @@
             <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
         </div>
         <div class="chat-body">
-            <div class="chat-timestamp">YESTERDAY AT 3:20 PM</div>
-            <div class="chat-bubble">To send us a message, please fill in your details below and click submit to open your email client.</div>
+            <div class="chat-timestamp">SEND US A MESSAGE</div>
+            <div class="chat-bubble">Fill in your details below and click submit to open your email client directly to our team!</div>
             
             <form class="chat-form" id="contactForm">
                 <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" id="userName" required>
+                    <label>Your Name</label>
+                    <input type="text" id="userName" placeholder="Jane Doe" required>
                 </div>
                 <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="userEmail" required>
+                    <label>Email Address</label>
+                    <input type="email" id="userEmail" placeholder="jane@example.com" required>
                 </div>
                 <div class="input-group">
-                    <label>Message</label>
-                    <textarea id="userMessage" rows="3" required style="width: 100%; box-sizing: border-box;"></textarea>
+                    <label>Your Message</label>
+                    <textarea id="userMessage" rows="3" placeholder="How can we help you today?" required style="width: 100%; box-sizing: border-box; resize: vertical;"></textarea>
                 </div>
-                <button type="submit" class="chat-submit">Submit</button>
+                <button type="submit" class="chat-submit">Send Message</button>
             </form>
         </div>
     </div>
 
+    <!-- Structured Modern Footer -->
     <footer class="footer-modern">
         <div class="container footer-grid">
             <div class="f-brand">
-                <h3 style="color:white; margin-bottom: 1rem; font-size: 1rem; letter-spacing: 0.05em;">FIND US AT</h3>
+                <h3>FIND US AT</h3>
                 <p>Oakgrove School<br>Venturer Gate<br>Milton Keynes<br>MK10 9JQ</p>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
-                    <a href="mailto:info@newcitychurch.co.uk" style="color:#cbd5e1;">info@newcitychurch.co.uk</a>
+                <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.2rem;">
+                    <a href="mailto:info@newcitychurch.co.uk" style="color:#cbd5e1; text-decoration: none;">info@newcitychurch.co.uk</a>
                     
                     <a href="https://www.facebook.com/NewCityChurchMK/?ref=embed_page#" target="_blank" style="color:#cbd5e1; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;">
@@ -1112,7 +1297,7 @@
                     <h4>EXPLORE</h4>
                     <a href="imnew.html">I'm New</a>
                     <a href="sermons.html">Sermons</a>
-                    <a href="giving.html" style="color: #94a3b8;">Giving</a>
+                    <a href="giving.html">Giving</a>
                 </div>
                 <div class="link-group">
                     <h4>POLICIES</h4>
@@ -1125,8 +1310,8 @@
         </div>
 
         <div class="container" style="margin-top: 3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
-            <img src="../props/logofooter2.jpg.png" alt="Affiliated to FIEC" style="height: 40px; width: auto; opacity: 0.8;">
+            <img src="../props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
+            <img src="../props/logofooter2.jpg.png" alt="Affiliated to FIEC" style="height: 38px; width: auto; opacity: 0.8;">
         </div>
 
         <div class="container" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #1e293b; color: #64748b; font-size: 0.8rem;">
