@@ -35,10 +35,11 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Core Navigation Rules with Friendly Hover Indicator */
+        /* Navigation */
         .nav {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
@@ -54,6 +55,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -64,6 +66,7 @@
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .logo span {
@@ -82,7 +85,17 @@
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #f9e3ed;
+        }
+
+        .mobile-menu-toggle:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 3px;
         }
 
         .mobile-plan-btn {
@@ -108,7 +121,6 @@
             padding: 8px 0;
         }
 
-        /* Upgraded desktop hover underline effect */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -121,12 +133,13 @@
             border-radius: 2px;
         }
 
-        .nav-links a:hover::after, 
+        .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--primary);
         }
 
@@ -183,9 +196,10 @@
         .reveal {
             opacity: 0 !important;
             transform: translateY(25px) !important;
-            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
                         transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
+
         .reveal.active {
             opacity: 1 !important;
             transform: translateY(0) !important;
@@ -197,6 +211,7 @@
             padding: 140px 0 40px 0;
             background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
         }
+
         .belief-header h1 {
             font-size: 3rem;
             font-weight: 800;
@@ -204,6 +219,7 @@
             color: var(--text-main);
             margin: 0 0 10px 0;
         }
+
         .belief-header p {
             font-size: 1.15rem;
             color: var(--text-muted);
@@ -226,6 +242,7 @@
             color: var(--text-main);
             line-height: 1.6;
         }
+
         .bible-verse span {
             display: block;
             margin-top: 10px;
@@ -247,10 +264,12 @@
             overflow: hidden;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
+
         details:hover {
             border-color: rgba(139,47,95,0.3);
             box-shadow: var(--shadow-hover);
         }
+
         summary {
             padding: 20px 24px;
             font-size: 1.15rem;
@@ -262,25 +281,31 @@
             align-items: center;
             color: var(--text-main);
         }
+
         summary::-webkit-details-marker {
             display: none;
         }
+
         summary i {
             font-size: 20px;
             color: var(--primary);
             transition: transform 0.3s ease;
         }
+
         details[open] summary i {
             transform: rotate(180deg);
         }
+
         .details-content {
             padding: 0 24px 24px 24px;
             line-height: 1.7;
             color: var(--text-muted);
         }
+
         .details-content p {
             margin: 0 0 12px 0;
         }
+
         .details-content p:last-child {
             margin-bottom: 0;
         }
@@ -379,22 +404,55 @@
             box-shadow: 0 10px 25px rgba(139,47,95,0.25);
             transition: all 0.25s ease;
         }
+
         .bottom-button:hover {
             transform: translateY(-2px);
             background: var(--primary-dark);
             box-shadow: 0 15px 35px rgba(139,47,95,0.35);
         }
 
-        /* Footer Modern Layout */
+        /* Footer: existing content retained */
         .footer-modern {
             background: #0f172a;
             color: #cbd5e1;
             padding: 60px 0 40px 0;
             text-align: center;
+            border-radius: 60px 60px 0 0;
+        }
+
+        .belief-footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .belief-footer-logo img {
+            display: block;
+            height: 42px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+
+        .belief-footer-copyright {
+            margin-top: 1.5rem;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            padding: 0 12px;
         }
 
         /* Tablet & Mobile Viewports */
         @media (max-width: 768px) {
+            /* Mobile navigation */
+            .nav-container {
+                padding: 12px 20px;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
             .mobile-menu-toggle {
                 display: flex;
             }
@@ -405,69 +463,124 @@
 
             .mobile-plan-btn {
                 display: block;
-                margin-top: 10px;
                 width: 100%;
+                margin-top: 4px;
+            }
+
+            .mobile-plan-btn .nav-button {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
                 text-align: center;
             }
 
-            /* Friendly Slide-Down Mobile Drawer Menu */
+            /* Slide-down hamburger drawer */
             .nav-links {
                 position: absolute;
                 top: 100%;
                 left: 0;
+                right: 0;
                 width: 100%;
                 background: #ffffff;
                 flex-direction: column;
-                align-items: flex-start;
-                padding: 24px;
-                gap: 16px;
-                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+                align-items: stretch;
+                padding: 12px 20px 20px;
+                gap: 0;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.10);
                 border-top: 1px solid var(--border-color);
-                display: none !important; 
+                border-radius: 0 0 18px 18px;
+                display: none;
                 box-sizing: border-box;
+                max-height: calc(100vh - 75px);
+                overflow-y: auto;
             }
 
             .nav-links.active {
-                display: flex !important; 
+                display: flex;
             }
 
             .nav-links li {
                 width: 100%;
+                list-style: none;
                 border-bottom: 1px solid #f1f5f9;
-                padding-bottom: 12px;
+                padding: 12px 0;
             }
 
             .nav-links li:last-child {
                 border-bottom: none;
+                padding-bottom: 0;
             }
 
             .nav-links a {
-                font-size: 1.1rem;
+                display: block;
+                font-size: 1rem;
                 width: 100%;
                 text-align: left;
-                padding: 4px 0;
+                padding: 6px 0;
+                box-sizing: border-box;
             }
 
             .nav-links a::after {
-                display: none; 
+                display: none;
+            }
+
+            .nav-links a.active {
+                font-weight: 800;
+                color: var(--primary);
             }
 
             .belief-header {
                 padding: 110px 0 30px 0;
             }
+
             .belief-header h1 {
                 font-size: 2.3rem;
             }
-            
+
             .team-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 16px;
+            }
+
+            /* Footer mobile styling only: no content changes */
+            .footer-modern {
+                padding: 40px 0 24px;
+                border-radius: 36px 36px 0 0;
+                text-align: center;
+            }
+
+            .belief-footer-logo img {
+                height: 38px;
+            }
+
+            .belief-footer-copyright {
+                margin-top: 1.25rem;
+                font-size: 0.75rem;
+                line-height: 1.7;
             }
         }
 
         @media (max-width: 480px) {
             .team-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .belief-footer-logo img {
+                height: 34px;
+            }
+
+            .belief-footer-copyright {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .nav-links,
+            .nav-button,
+            .mobile-menu-toggle,
+            .nav-live-indicator {
+                animation: none;
+                transition: none;
             }
         }
     </style>
@@ -479,21 +592,31 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="props/logo.jpg" alt="Logo" height="50" style="vertical-align: middle; margin-right: 8px;">
+                <img src="props/logo.jpg" alt="New City Church MK" height="50" style="vertical-align: middle; margin-right: 8px;">
             </a>
 
             <!-- Mobile Hamburger Menu Button -->
-            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-                <i class="ph ph-list"></i>
+            <button
+                class="mobile-menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation"
+                aria-controls="navLinks"
+                aria-expanded="false">
+                <i class="ph ph-list" aria-hidden="true"></i>
             </button>
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="whatwebelieve.html" class="active">About Us</a></li>
-                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
+                <li><a href="whatwebelieve.html" class="active" aria-current="page">About Us</a></li>
+                <li>
+                    <a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                </li>
                 <li><a href="churchlife.html">Church Life</a></li>
                 <li><a href="news.html">News</a></li>
-                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
+                <li class="mobile-plan-btn">
+                    <a href="imnew.html" class="nav-button">Plan Your Visit</a>
+                </li>
             </ul>
 
             <a href="imnew.html" class="nav-button desktop-plan-btn">
@@ -501,6 +624,7 @@
             </a>
         </div>
     </nav>
+
     <br>
 
     <!-- HEADER -->
@@ -661,32 +785,77 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER: SAME CONTENT, MOBILE STYLING UPDATED -->
     <footer class="footer-modern">
-        <div class="container" style="display: flex; justify-content: center; align-items: center;">
-            <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
+        <div class="container belief-footer-logo">
+            <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo">
         </div>
-        <div class="container" style="margin-top: 1.5rem; color: #64748b; font-size: 0.8rem;">
+
+        <div class="container belief-footer-copyright">
             <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
         </div>
     </footer>
 
     <!-- JS ENGINES -->
     <script>
-        // Mobile Navigation Menu Toggle Script
+        // Mobile Navigation Menu
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = menuToggle.querySelector('i');
+            const menuIcon = menuToggle.querySelector('i');
+
+            function closeMobileMenu() {
+                navLinks.classList.remove('active');
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Open navigation');
+            }
+
+            function openMobileMenu() {
+                navLinks.classList.add('active');
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+                menuToggle.setAttribute('aria-expanded', 'true');
+                menuToggle.setAttribute('aria-label', 'Close navigation');
+            }
+
+            menuToggle.addEventListener('click', function() {
                 if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('ph-list');
-                    icon.classList.add('ph-x');
+                    closeMobileMenu();
                 } else {
-                    icon.classList.remove('ph-x');
-                    icon.classList.add('ph-list');
+                    openMobileMenu();
+                }
+            });
+
+            // Close the drawer after selecting a navigation link.
+            navLinks.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Close the drawer when the user taps outside the navigation.
+            document.addEventListener('click', function(event) {
+                if (
+                    navLinks.classList.contains('active') &&
+                    !navLinks.contains(event.target) &&
+                    !menuToggle.contains(event.target)
+                ) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close the mobile drawer when returning to desktop width.
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close the drawer with Escape.
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
                 }
             });
         }
@@ -694,7 +863,8 @@
         function checkChurchLiveStatus() {
             const channelId = "YOUR_CHANNEL_ID_HERE";
             const navDot = document.getElementById("nav-live-dot");
-            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE" || !navDot) return;
 
             const liveImgChecker = new Image();
             liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
@@ -702,6 +872,7 @@
             liveImgChecker.onload = function() {
                 navDot.style.display = (this.width === 320) ? "inline-block" : "none";
             };
+
             liveImgChecker.onerror = function() {
                 navDot.style.display = "none";
             };
@@ -709,6 +880,7 @@
 
         function initReveal() {
             const revealElements = document.querySelectorAll(".reveal");
+
             if (!window.IntersectionObserver) {
                 revealElements.forEach(el => el.classList.add('active'));
                 return;

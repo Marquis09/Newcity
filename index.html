@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>New City Church MK | To Follow Jesus</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
@@ -23,6 +23,20 @@
             --radius-lg: 28px;
             --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
             --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+            --peek: 64px; /* height of the closed mobile footer bar */
+        }
+
+        /* ==========================================================
+           NO SIDEWAYS SCROLLING
+           Locks the page to the screen width so it can't be dragged
+           left/right on phones (html AND body both need this).
+           ========================================================== */
+        html {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            overscroll-behavior-x: none;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -31,10 +45,36 @@
             background: var(--white);
             margin: 0;
             padding: 0;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            overscroll-behavior-x: none;
+            touch-action: pan-y pinch-zoom; /* vertical scroll + pinch only, no sideways pan */
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Core Navigation Rules with Friendly Hover Indicator */
+        @supports (overflow: clip) {
+            body { overflow-x: clip; }
+        }
+
+        img, video, iframe, svg {
+            max-width: 100%;
+        }
+
+        /* stop long content from forcing grid/flex children wider than the screen */
+        .hero-grid > *,
+        .video-split-container > *,
+        .quick-strip > *,
+        .bento-grid-transformed > *,
+        .leadership-grid > *,
+        .sf-grid > *,
+        .sf-links > * {
+            min-width: 0;
+        }
+
+        /* ==========================================================
+           NAVIGATION
+           ========================================================== */
         .nav {
             position: fixed;
             top: 0;
@@ -107,7 +147,6 @@
             padding: 8px 0;
         }
 
-        /* Restored and upgraded desktop hover underline effect */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -120,7 +159,7 @@
             border-radius: 2px;
         }
 
-        .nav-links a:hover::after, 
+        .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
         }
@@ -147,6 +186,34 @@
             background: var(--primary-dark);
         }
 
+        /* FIX: "Plan Your Visit" inside the mobile menu.
+           The generic ".nav-links a" rule was beating ".nav-button", which made the
+           text dark, left-aligned and squashed. This higher-specificity rule restores it. */
+        .nav-links a.nav-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 52px;
+            padding: 14px 22px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .nav-links a.nav-button::after {
+            display: none;
+        }
+
+        .nav-links a.nav-button:hover,
+        .nav-links a.nav-button:focus-visible {
+            color: #ffffff;
+        }
+
         .nav-live-indicator {
             width: 8px;
             height: 8px;
@@ -164,7 +231,9 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* Hero Section */
+        /* ==========================================================
+           HERO
+           ========================================================== */
         .hero-modern {
             padding: 140px 0 80px 0;
             background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
@@ -301,30 +370,87 @@
             border-radius: 12px;
         }
 
-        /* Video Split Section */
+        /* Background hero video */
+        .hero-modern.video-hero {
+            position: relative;
+            width: 100%;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 140px 0 80px 0;
+            box-sizing: border-box;
+        }
+
+        .hero-modern.video-hero .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-modern.video-hero .bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-modern.video-hero .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .hero-modern.video-hero .hero-grid {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+        }
+
+        /* ==========================================================
+           YOUTUBE SPLIT SECTION
+           ========================================================== */
         .video-intro-section {
-            padding: 90px 0;
-            background: var(--bg-light);
+            padding: 80px 0;
+            background: var(--bg-light, #f8fafc);
         }
 
         .video-split-container {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
+            display: flex;
             align-items: center;
+            gap: 40px;
+            background: var(--white, #ffffff);
+            padding: 40px;
+            border-radius: var(--radius-lg, 28px);
+            border: 1px solid var(--border-color, #e2e8f0);
+            box-shadow: var(--shadow-subtle, 0 10px 30px rgba(15, 23, 42, 0.04));
         }
 
-        .video-container {
+        .yt-video-container {
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+            width: 100%;
+            max-width: 700px;
+            aspect-ratio: 16 / 9;
+            flex-shrink: 0;
+            border-radius: var(--radius-md, 20px);
             overflow: hidden;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-subtle);
-            background: #000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        .video-container iframe {
+        .yt-video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -334,75 +460,89 @@
         }
 
         .video-text-content h2 {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--text-main);
-            margin: 0 0 16px 0;
+            color: var(--text-main, #0f172a);
+            margin: 0 0 12px 0;
             letter-spacing: -0.02em;
             line-height: 1.2;
         }
 
         .video-text-content p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            color: var(--text-muted, #475569);
             line-height: 1.7;
-            color: var(--text-muted);
             margin: 0;
         }
 
-        /* Services Glass Grid */
-        .services-overlap {
-            padding: 20px 0 60px 0;
+        /* ==========================================================
+           QUICK FEATURE STRIP (Bible Teaching / Prayer / Kids / Worship)
+           FIX: Styles.css has an old ".feature-card" rule (height: 400px,
+           320px on mobile) that was stretching these cards. These now use
+           their own class names (quick-*) and an explicit height: auto,
+           so the cards are only as tall as their icon + text.
+           ========================================================== */
+        .quick-section {
+            padding: 8px 0 44px 0;
             background: var(--bg-light);
         }
 
-        .glass-grid {
+        .quick-strip {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 14px;
         }
 
-        .service-item {
-            text-align: center;
-            padding: 28px 20px;
+        .quick-card {
+            height: auto;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
             background: var(--white);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
             box-shadow: var(--shadow-subtle);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .service-item:hover {
-            transform: translateY(-4px);
+        .quick-card:hover {
+            transform: translateY(-2px);
             border-color: rgba(139,47,95,0.3);
             box-shadow: var(--shadow-hover);
         }
 
-        .service-item i {
-            font-size: 2.2rem;
+        .quick-card i {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
             color: var(--primary);
-            margin-bottom: 12px;
-            display: inline-block;
             background: var(--primary-light);
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
             border-radius: 50%;
         }
 
-        .service-item h4 {
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            color: var(--text-main);
+        .quick-card h4 {
             margin: 0;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
             font-weight: 800;
+            color: var(--text-main);
         }
 
-        /* Bento Grid Section */
+        /* ==========================================================
+           BENTO GRID
+           ========================================================== */
         .bento-section {
             padding: 90px 0;
             background: var(--white);
         }
-        
+
         .bento-grid-transformed {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -414,7 +554,7 @@
             position: relative;
             border-radius: var(--radius-md);
             overflow: hidden;
-            background: #0f172a; 
+            background: #0f172a;
             border: 1px solid var(--border-color);
             text-decoration: none;
             color: inherit;
@@ -433,7 +573,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 200%; 
+            height: 200%;
             display: flex;
             flex-direction: column;
             animation: lumiaSlowSlideVertical 24s infinite cubic-bezier(0.77, 0, 0.175, 1);
@@ -520,7 +660,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: auto; 
+            margin-bottom: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -543,7 +683,7 @@
         .span-wide { grid-column: span 2; }
         .span-full { grid-column: span 3; }
 
-        /* Leadership Cards Styling */
+        /* Leadership */
         .leadership-box {
             background: var(--white);
             border-radius: var(--radius-md);
@@ -578,66 +718,130 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
-        /* Footer Modern Layout */
-        .footer-modern {
+        /* ==========================================================
+           FOOTER
+           Desktop/tablet: classic dark footer.
+           Mobile (max 768px): fixed bottom sheet that is dragged up.
+           Uses its own class names (site-footer / sf-*) so the old
+           .footer-modern rules in Styles.css can't interfere.
+           ========================================================== */
+        .site-footer {
             background: #0f172a;
             color: #cbd5e1;
             padding: 90px 0 40px 0;
         }
 
-        .footer-grid {
+        .footer-handle,
+        .footer-backdrop {
+            display: none;
+        }
+
+        .sf-grid {
             display: grid;
             grid-template-columns: 1.2fr 2fr;
             gap: 60px;
             align-items: start;
         }
 
-        .f-brand h3 {
+        .sf-brand h3 {
             color: white;
-            margin-bottom: 1.2rem;
+            margin: 0 0 1.2rem 0;
             font-size: 0.9rem;
             letter-spacing: 0.08em;
             font-weight: 700;
         }
 
-        .f-brand p {
+        .sf-brand p {
             line-height: 1.7;
             margin: 0;
             color: #94a3b8;
         }
 
-        .f-links {
+        .sf-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+        }
+
+        .sf-links {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
         }
 
-        .link-group {
+        .sf-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .link-group h4 {
+        .sf-group h4 {
             color: #ffffff;
             font-size: 0.85rem;
             letter-spacing: 0.08em;
-            margin-bottom: 6px;
+            margin: 0 0 6px 0;
             font-weight: 700;
+            text-transform: uppercase;
         }
 
-        .link-group a {
+        .sf-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
             color: #94a3b8;
-            transition: color 0.2s ease;
             font-size: 0.95rem;
+            transition: color 0.2s ease;
+            overflow-wrap: anywhere;
         }
 
-        .link-group a:hover {
+        .sf-contact .sf-link {
+            color: #cbd5e1;
+        }
+
+        .sf-link:hover,
+        .sf-link:focus-visible {
             color: #ffffff;
         }
 
-        /* Chat Widget Styles */
+        .sf-lead {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .sf-chev {
+            display: none; /* only shown on mobile as a "tap me" cue */
+        }
+
+        .sf-logos {
+            margin-top: 3rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .sf-logos img {
+            width: auto;
+            display: block;
+        }
+
+        .sf-legal {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1e293b;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .sf-legal p {
+            margin: 0;
+        }
+
+        /* ==========================================================
+           CONTACT CHAT WIDGET
+           ========================================================== */
         .chat-trigger {
             position: fixed;
             bottom: 24px;
@@ -706,7 +910,7 @@
         }
         .chat-timestamp {
             font-size: 0.7rem;
-            color: var(--radius-md);
+            color: var(--text-muted);
             text-align: center;
             margin-bottom: 4px;
             font-weight: 600;
@@ -769,12 +973,10 @@
             background: var(--primary-dark);
         }
 
-        /* Tablet Viewports */
+        /* ==========================================================
+           TABLET (max 992px)
+           ========================================================== */
         @media (max-width: 992px) {
-            .video-split-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
             .bento-grid-transformed {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -783,36 +985,60 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
-            .glass-grid {
+            .quick-strip {
                 grid-template-columns: repeat(2, 1fr);
             }
             .leadership-grid {
                 grid-template-columns: 1fr;
             }
-            .footer-grid {
+            .sf-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
         }
 
-        /* Polished Mobile Viewport Experience (Max-Width 768px) */
+        @media (max-width: 900px) {
+            .video-split-container {
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+            }
+            .yt-video-container {
+                max-width: 100%;
+            }
+        }
+
+        /* ==========================================================
+           MOBILE (max 768px)
+           ========================================================== */
         @media (max-width: 768px) {
+            :root {
+                --peek: calc(64px + env(safe-area-inset-bottom, 0px));
+            }
+
+            /* leave room so the closed footer bar never covers content */
+            body {
+                padding-bottom: var(--peek);
+            }
+            body.footer-open {
+                overflow: hidden;
+            }
+
             .mobile-menu-toggle {
                 display: flex;
             }
-            
+
             .desktop-plan-btn {
                 display: none;
             }
 
             .mobile-plan-btn {
                 display: block;
-                margin-top: 10px;
+                margin-top: 6px;
                 width: 100%;
-                text-align: center;
             }
 
-            /* Friendly Slide-Down Mobile Drawer Menu */
+            /* Slide-down mobile drawer menu */
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -825,12 +1051,12 @@
                 gap: 16px;
                 box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
                 border-top: 1px solid var(--border-color);
-                display: none !important; 
+                display: none !important;
                 box-sizing: border-box;
             }
 
             .nav-links.active {
-                display: flex !important; 
+                display: flex !important;
             }
 
             .nav-links li {
@@ -839,8 +1065,10 @@
                 padding-bottom: 12px;
             }
 
-            .nav-links li:last-child {
+            .nav-links li:last-child,
+            .nav-links li.mobile-plan-btn {
                 border-bottom: none;
+                padding-bottom: 0;
             }
 
             .nav-links a {
@@ -850,16 +1078,15 @@
                 padding: 4px 0;
             }
 
-            /* Disable hover underline animation on mobile viewports for cleanliness */
             .nav-links a::after {
-                display: none; 
+                display: none;
             }
 
-            /* Compact, Warm Hero for Mobile */
+            /* Hero */
             .hero-modern {
                 padding: 100px 0 50px 0;
             }
-            
+
             .hero-text h1 {
                 font-size: 2.3rem;
                 margin-bottom: 14px;
@@ -902,19 +1129,72 @@
                 font-size: 0.9rem;
             }
 
+            /* YouTube section: bigger video, less text on mobile */
             .video-intro-section {
-                padding: 50px 0;
+                padding: 28px 0;
+            }
+
+            .video-intro-section .container {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .video-split-container {
+                padding: 0;
+                gap: 0;
+                overflow: hidden;
+                border-radius: var(--radius-md);
+                align-items: stretch;
+            }
+
+            .yt-video-container {
+                max-width: 100%;
+                width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .video-text-content {
+                padding: 18px 18px 22px 18px;
             }
 
             .video-text-content h2 {
-                font-size: 1.9rem;
+                font-size: 1.3rem;
+                margin-bottom: 8px;
             }
 
             .video-text-content p {
-                font-size: 0.95rem;
+                font-size: 0.92rem;
+                line-height: 1.6;
             }
 
-            /* Streamlined 1-Column Mobile Bento & Cards */
+            /* Quick strip: compact 2 x 2 */
+            .quick-section {
+                padding: 0 0 32px 0;
+            }
+
+            .quick-strip {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .quick-card {
+                height: auto;
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .quick-card i {
+                width: 34px;
+                height: 34px;
+                font-size: 1.1rem;
+            }
+
+            .quick-card h4 {
+                font-size: 0.7rem;
+            }
+
+            /* Bento */
             .bento-section {
                 padding: 50px 0;
             }
@@ -923,25 +1203,25 @@
                 grid-template-columns: 1fr;
                 gap: 18px;
             }
-            
-            .bento-tile { 
-                min-height: 260px; 
+
+            .bento-tile {
+                min-height: 260px;
             }
-            
-            .lumia-live-wrapper { 
-                position: relative; 
-                height: auto; 
-                animation: none; 
+
+            .lumia-live-wrapper {
+                position: relative;
+                height: auto;
+                animation: none;
             }
-            
-            .lumia-face { 
-                height: auto; 
-                padding: 24px; 
+
+            .lumia-face {
+                height: auto;
+                padding: 24px;
             }
-            
-            .lumia-face.face-alt-loop { 
-                display: none; 
-            } 
+
+            .lumia-face.face-alt-loop {
+                display: none;
+            }
 
             .span-tall, .span-wide, .span-full {
                 grid-column: span 1;
@@ -964,185 +1244,225 @@
                 height: 90px;
             }
 
-            .glass-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-                padding: 10px 0;
+            /* ------------------------------------------------------
+               MOBILE FOOTER = BOTTOM SHEET (drag up to open)
+               ------------------------------------------------------ */
+            .site-footer {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                padding: 0 !important;
+                text-align: left !important;
+                display: flex;
+                flex-direction: column;
+                max-height: 85vh;
+                max-height: 85dvh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -12px 32px rgba(15, 23, 42, 0.28);
+                transform: translateY(calc(100% - var(--peek)));
+                transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+                will-change: transform;
             }
 
-            .service-item {
-                padding: 20px 14px;
+            .site-footer.open {
+                transform: translateY(0);
             }
 
-            .service-item i {
-                font-size: 1.6rem;
-                width: 50px;
-                height: 50px;
-                line-height: 50px;
-                margin-bottom: 8px;
+            .site-footer.dragging {
+                transition: none;
             }
 
-            .service-item h4 {
-                font-size: 0.75rem;
+            .footer-handle {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+                height: var(--peek);
+                flex-shrink: 0;
+                box-sizing: border-box;
+                padding: 0 0 env(safe-area-inset-bottom, 0px) 0;
+                background: transparent;
+                border: none;
+                color: #ffffff;
+                font-family: inherit;
+                cursor: grab;
+                touch-action: none;           /* lets us drag without the page scrolling */
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
             }
 
-            /* Structured 2-Column Mobile Footer Layout */
-            .footer-modern {
-                padding: 60px 0 30px 0;
+            .footer-grip {
+                width: 44px;
+                height: 5px;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.45);
             }
 
-            .footer-grid {
+            .footer-handle-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .footer-handle-label i {
+                font-size: 1rem;
+                color: #f0abcf;
+                animation: footerNudge 1.6s ease-in-out infinite;
+            }
+
+            .site-footer.open .footer-handle-label i {
+                animation: none;
+                transform: rotate(180deg);
+            }
+
+            @keyframes footerNudge {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-4px); }
+            }
+
+            .footer-panel {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 8px 0 calc(28px + env(safe-area-inset-bottom, 0px)) 0;
+            }
+
+            .footer-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 1090;
+                background: rgba(15, 23, 42, 0.55);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .footer-backdrop.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .sf-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 28px;
             }
-            
-            .f-links {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr); 
+
+            .sf-links {
+                grid-template-columns: 1fr;
                 gap: 24px;
+            }
+
+            .sf-brand,
+            .sf-group {
                 text-align: left;
             }
 
-            .f-brand {
-                text-align: left;
+            .sf-brand h3,
+            .sf-group h4 {
+                color: #f0abcf;
+                font-size: 0.78rem;
             }
 
-            /* Friendly Mobile Chat Drawer */
+            .sf-group {
+                gap: 10px;
+            }
+
+            .sf-contact {
+                gap: 10px;
+                margin-top: 18px;
+            }
+
+            /* Links become obvious, tappable buttons on mobile */
+            .sf-link {
+                min-height: 50px;
+                padding: 12px 14px;
+                box-sizing: border-box;
+                background: rgba(255, 255, 255, 0.07);
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                border-radius: 14px;
+                color: #ffffff !important;
+                font-size: 0.95rem;
+                font-weight: 600;
+                -webkit-tap-highlight-color: transparent;
+                transition: background 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+            }
+
+            .sf-link:active {
+                background: rgba(139, 47, 95, 0.6);
+                border-color: rgba(240, 171, 207, 0.6);
+                transform: scale(0.98);
+            }
+
+            .sf-lead {
+                color: #f0abcf;
+            }
+
+            .sf-text {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .sf-chev {
+                display: block;
+                flex-shrink: 0;
+                font-size: 1rem;
+                color: #f0abcf;
+            }
+
+            .sf-logos {
+                margin-top: 28px;
+                gap: 20px;
+            }
+
+            .sf-legal {
+                margin-top: 22px;
+                padding-top: 18px;
+            }
+
+            /* Floating contact button + widget sit above the footer bar */
+            .chat-trigger {
+                bottom: calc(var(--peek) + 14px);
+                right: 16px;
+            }
+
             .chat-widget {
                 width: calc(100% - 32px);
                 right: 16px;
                 left: 16px;
-                bottom: 80px;
+                bottom: calc(var(--peek) + 74px);
+                height: min(500px, calc(100vh - var(--peek) - 150px));
             }
         }
 
-        /* Scroll Reveal Animations */
+        @media (prefers-reduced-motion: reduce) {
+            .footer-handle-label i { animation: none !important; }
+            .site-footer { transition: none !important; }
+        }
+
+        /* Scroll reveal */
         .reveal {
             opacity: 0 !important;
             transform: translateY(25px) !important;
-            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
                         transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
         .reveal.active {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-       /* --- 1. Background Hero Video (Stays in background) --- */
-.hero-modern.video-hero {
-    position: relative;
-    width: 100%;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 140px 0 80px 0;
-    box-sizing: border-box;
-}
-
-.hero-modern.video-hero .video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.hero-modern.video-hero .bg-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hero-modern.video-hero .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-}
-
-.hero-modern.video-hero .hero-grid {
-    position: relative;
-    z-index: 3;
-    width: 100%;
-}
-
-
-/* --- 2. YouTube Split Section Layout --- */
-.video-intro-section {
-    padding: 80px 0;
-    background: var(--bg-light, #f8fafc);
-}
-
-.video-split-container {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background: var(--white, #ffffff);
-    padding: 40px;
-    border-radius: var(--radius-lg, 28px);
-    border: 1px solid var(--border-color, #e2e8f0);
-    box-shadow: var(--shadow-subtle, 0 10px 30px rgba(15, 23, 42, 0.04));
-}
-
-/* Responsive container for the YouTube iframe */
-.yt-video-container {
-    position: relative;
-    width: 100%;
-    max-width: 700px;
-    aspect-ratio: 16 / 9;
-    flex-shrink: 0;
-    border-radius: var(--radius-md, 20px);
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.yt-video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.video-text-content h2 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--text-main, #0f172a);
-    margin-bottom: 12px;
-}
-
-.video-text-content p {
-    font-size: 1.05rem;
-    color: var(--text-muted, #475569);
-    line-height: 1.7;
-    margin: 0;
-}
-
-/* Mobile Responsiveness for Split Section */
-@media (max-width: 900px) {
-    .video-split-container {
-        flex-direction: column;
-        padding: 24px;
-        gap: 24px;
-    }
-    
-    .yt-video-container {
-        max-width: 100%;
-    }
-}
-   </style>
+    </style>
 </head>
 <body>
 
@@ -1150,7 +1470,7 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="props/logo.jpg" alt="Logo" height="50" style="vertical-align: middle; margin-right: 8px;">
+                <img src="props/logo.jpg" alt="New City Church MK" height="50" style="vertical-align: middle; margin-right: 8px;">
             </a>
 
             <!-- Mobile Hamburger Menu Button -->
@@ -1161,11 +1481,10 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="whatwebelieve.html">About Us</a></li>
-                <li><a href="sermons.html">Sermons</a></li>
-                <span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span>
+                <li><a href="sermons.html">Sermons<span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></a></li>
                 <li><a href="churchlife.html">Church Life</a></li>
                 <li><a href="news.html">News</a></li>
-                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
+                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button">Plan Your Visit</a></li>
             </ul>
 
             <a href="imnew.html" class="nav-button desktop-plan-btn">
@@ -1198,34 +1517,36 @@
             </div>
         </div>
         <div class="hero-visual">
-        <div class="image-stack">
-            <img src="props/children.png" alt="New City Church Worship" class="main-img">
-            
-            <!-- Clickable Map Info Card -->
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" rel="noopener noreferrer" class="info-card-float" style="text-decoration: none; color: inherit; display: flex;">
-                <i class="ph ph-map-pin" style="color: var(--primary);"></i>
-                <div>
-                    <strong>Sundays @ 10:30am & 5:00pm</strong><br>
-                    <span style="color: var(--text-muted); font-size: 0.9rem; display: block; margin-top: 2px;">Oakgrove School, MK10 9JQ</span>
-                    <span style="color: var(--primary); font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 3px; margin-top: 4px;">
-                        Get Directions <i class="ph ph-arrow-square-out"></i>
-                    </span>
-                </div>
-            </a>
+            <div class="image-stack">
+                <img src="props/children.png" alt="New City Church Worship" class="main-img">
+
+                <!-- Clickable Map Info Card -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Oakgrove+School+Venturer+Gate+Milton+Keynes+MK10+9JQ" target="_blank" rel="noopener noreferrer" class="info-card-float" style="text-decoration: none; color: inherit; display: flex;">
+                    <i class="ph ph-map-pin" style="color: var(--primary);"></i>
+                    <div>
+                        <strong>Sundays @ 10:30am & 5:00pm</strong><br>
+                        <span style="color: var(--text-muted); font-size: 0.9rem; display: block; margin-top: 2px;">Oakgrove School, MK10 9JQ</span>
+                        <span style="color: var(--primary); font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 3px; margin-top: 4px;">
+                            Get Directions <i class="ph ph-arrow-square-out"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </header>
 
 <br>
+
 <!-- Video Introduction Split Section -->
     <section class="video-intro-section">
         <div class="container">
             <div class="video-split-container reveal">
                 <div class="yt-video-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/ciPIWh0NNcM?si=9XiMuY_VvXx70ax3" 
+                    <iframe
+                        src="https://www.youtube.com/embed/ciPIWh0NNcM?si=9XiMuY_VvXx70ax3"
                         title="Welcome to New City Church MK"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen>
                     </iframe>
@@ -1238,14 +1559,14 @@
         </div>
     </section>
 
-    <!-- Quick Features Glass Grid -->
-    <section class="services-overlap">
+    <!-- Quick Features Strip (compact) -->
+    <section class="quick-section">
         <div class="container">
-            <div class="glass-grid reveal">
-                <div class="service-item"><i class="ph ph-book-open"></i><h4>BIBLE TEACHING</h4></div>
-                <div class="service-item"><i class="ph ph-hands-praying"></i><h4>PRAYER</h4></div>
-                <div class="service-item"><i class="ph ph-users-four"></i><h4>NEW CITY KIDS</h4></div>
-                <div class="service-item"><i class="ph ph-microphone-stage"></i><h4>SUNG WORSHIP</h4></div>
+            <div class="quick-strip reveal">
+                <div class="quick-card"><i class="ph ph-book-open"></i><h4>BIBLE TEACHING</h4></div>
+                <div class="quick-card"><i class="ph ph-hands-praying"></i><h4>PRAYER</h4></div>
+                <div class="quick-card"><i class="ph ph-users-four"></i><h4>NEW CITY KIDS</h4></div>
+                <div class="quick-card"><i class="ph ph-microphone-stage"></i><h4>SUNG WORSHIP</h4></div>
             </div>
         </div>
     </section>
@@ -1254,7 +1575,7 @@
     <section class="bento-section">
         <div class="container">
             <div class="bento-grid-transformed">
-                
+
                 <a class="bento-tile span-tall reveal" href="#">
                     <div class="lumia-live-wrapper">
                         <div class="lumia-face">
@@ -1349,13 +1670,13 @@
                         </div>
                     </div>
                 </a>
-                
-                <!-- Leadership Section Integrated Cleanly -->
+
+                <!-- Leadership Section -->
                 <div class="bento-tile span-full reveal leadership-box">
                     <span class="category-pill pill-brand" style="margin-bottom: 12px;">Get Connected</span>
                     <h3 style="color: var(--text-main); margin: 0 0 6px 0; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Meet our Leadership Team</h3>
                     <p style="color: var(--text-muted); margin: 0 0 24px 0; font-size: 1rem; line-height: 1.5;">We’d love to welcome you personally. Reach out or say hello after any service!</p>
-                    
+
                     <div class="leadership-grid">
                         <div class="leader-card">
                             <img src="props/richard.png" alt="Richard Wardman">
@@ -1390,12 +1711,12 @@
     <div class="chat-widget" id="chatWidget">
         <div class="chat-header">
             <span>New City Church MK</span>
-            <button class="close-chat" onclick="toggleChat()"><i class="ph ph-x"></i></button>
+            <button class="close-chat" onclick="toggleChat()" aria-label="Close contact form"><i class="ph ph-x"></i></button>
         </div>
         <div class="chat-body">
             <div class="chat-timestamp">SEND US A MESSAGE</div>
             <div class="chat-bubble">Fill in your details below and click submit to open your email client directly to our team!</div>
-            
+
             <form class="chat-form" id="contactForm">
                 <div class="input-group">
                     <label>Your Name</label>
@@ -1414,61 +1735,78 @@
         </div>
     </div>
 
-    <!-- Structured Modern Footer -->
-    <footer class="footer-modern">
-        <div class="container footer-grid">
-            <div class="f-brand">
-                <h3>FIND US AT</h3>
-                <p>Oakgrove School<br>Venturer Gate<br>Milton Keynes<br>MK10 9JQ</p>
-                <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.2rem;">
-                    <a href="mailto:info@newcitychurch.co.uk" style="color:#cbd5e1; text-decoration: none;">Email Us: info@newcitychurch.co.uk</a>
-                    
-                    <a href="https://www.facebook.com/NewCityChurchMK/?ref=embed_page#" target="_blank" style="color:#cbd5e1; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;">
-                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                        </svg>
-                        Follow us on Facebook
-                    </a>
+    <!-- Dim layer behind the mobile footer sheet -->
+    <div class="footer-backdrop" id="footerBackdrop"></div>
 
-                    <a href="https://www.instagram.com/newcitychurchmk/?hl=en" target="_blank" style="color:#cbd5e1; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                        Follow us on Instagram
-                    </a>
+    <!-- Footer: normal on desktop, drag-up bottom sheet on mobile -->
+    <footer class="site-footer" id="siteFooter">
+
+        <!-- Mobile-only handle: shows "Footer · Drag up" until opened -->
+        <button type="button" class="footer-handle" id="footerHandle" aria-expanded="false" aria-controls="footerPanel">
+            <span class="footer-grip"></span>
+            <span class="footer-handle-label">
+                <i class="ph ph-caret-double-up"></i>
+                <span id="footerHandleText">Footer · Drag up</span>
+            </span>
+        </button>
+
+        <div class="footer-panel" id="footerPanel">
+            <div class="container sf-grid">
+                <div class="sf-brand">
+                    <h3>FIND US AT</h3>
+                    <p>Oakgrove School<br>Venturer Gate<br>Milton Keynes<br>MK10 9JQ</p>
+
+                    <div class="sf-contact">
+                        <a class="sf-link" href="mailto:info@newcitychurch.co.uk">
+                            <i class="ph ph-envelope-simple sf-lead"></i>
+                            <span class="sf-text">Email Us: info@newcitychurch.co.uk</span>
+                            <i class="ph ph-caret-right sf-chev"></i>
+                        </a>
+                        <a class="sf-link" href="https://www.facebook.com/NewCityChurchMK/?ref=embed_page#" target="_blank" rel="noopener noreferrer">
+                            <i class="ph ph-facebook-logo sf-lead"></i>
+                            <span class="sf-text">Follow us on Facebook</span>
+                            <i class="ph ph-arrow-up-right sf-chev"></i>
+                        </a>
+                        <a class="sf-link" href="https://www.instagram.com/newcitychurchmk/?hl=en" target="_blank" rel="noopener noreferrer">
+                            <i class="ph ph-instagram-logo sf-lead"></i>
+                            <span class="sf-text">Follow us on Instagram</span>
+                            <i class="ph ph-arrow-up-right sf-chev"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sf-links">
+                    <div class="sf-group">
+                        <h4>Explore</h4>
+                        <a class="sf-link" href="imnew.html"><span class="sf-text">I'm New</span><i class="ph ph-caret-right sf-chev"></i></a>
+                        <a class="sf-link" href="sermons.html"><span class="sf-text">Sermons</span><i class="ph ph-caret-right sf-chev"></i></a>
+                        <a class="sf-link" href="giving.html"><span class="sf-text">Giving</span><i class="ph ph-caret-right sf-chev"></i></a>
+                    </div>
+                    <div class="sf-group">
+                        <h4>Policies</h4>
+                        <a class="sf-link" href="dataprotection.html"><span class="sf-text">Data Protection</span><i class="ph ph-caret-right sf-chev"></i></a>
+                        <a class="sf-link" href="props/safeguarding.pdf" target="_blank" rel="noopener noreferrer"><span class="sf-text">Safeguarding</span><i class="ph ph-arrow-up-right sf-chev"></i></a>
+                        <a class="sf-link" href="privacy.html"><span class="sf-text">Privacy Notice</span><i class="ph ph-caret-right sf-chev"></i></a>
+                        <a class="sf-link" href="props/complaints.pdf" target="_blank" rel="noopener noreferrer"><span class="sf-text">Complaints Policy</span><i class="ph ph-arrow-up-right sf-chev"></i></a>
+                    </div>
                 </div>
             </div>
-            <div class="f-links">
-                <div class="link-group">
-                    <h4>EXPLORE</h4>
-                    <a href="imnew.html">I'm New</a>
-                    <a href="sermons.html">Sermons</a>
-                    <a href="giving.html">Giving</a>
-                </div>
-                <div class="link-group">
-                    <h4>POLICIES</h4>
-                    <a href="dataprotection.html">Data Protection</a>
-                    <a href="props/safeguarding.pdf" target="_blank">• Safeguarding</a>
-                    <a href="privacy.html">Privacy Notice</a>
-                    <a href="props/complaints.pdf" target="_blank">• Complaints Policy</a>
-                </div>
+
+            <div class="container sf-logos">
+                <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; opacity: 0.9;">
+                <a href="https://fiec.org.uk" target="_blank" rel="noopener noreferrer">
+                    <img src="props/logofooter2.jpg.png" alt="Affiliated to FIEC" style="height: 38px; opacity: 0.8;">
+                </a>
             </div>
-        </div>
 
-        <div class="container" style="margin-top: 3rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-        <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
-        <a href="https://fiec.org.uk" target="_blank" rel="noopener noreferrer">
-            <img src="props/logofooter2.jpg.png" alt="Affiliated to FIEC" style="height: 38px; width: auto; opacity: 0.8; display: block;">
-        </a>
-    </div>
-
-        <div class="container" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #1e293b; color: #64748b; font-size: 0.8rem;">
-            <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            <div class="container sf-legal">
+                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Navigation Menu Toggle Script
+        // Mobile navigation menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
@@ -1488,16 +1826,12 @@
 
         function toggleChat() {
             const chat = document.getElementById('chatWidget');
-            if (chat.style.display === 'flex') {
-                chat.style.display = 'none';
-            } else {
-                chat.style.display = 'flex';
-            }
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function initReveal() {
             const revealElements = document.querySelectorAll(".reveal");
-            
+
             if (!window.IntersectionObserver) {
                 revealElements.forEach(el => el.classList.add('active'));
                 return;
@@ -1507,7 +1841,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
-                        observer.unobserve(entry.target); 
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
@@ -1516,35 +1850,137 @@
         }
 
         function checkChurchLiveStatus() {
-            const channelId = "YOUR_CHANNEL_ID_HERE"; 
+            const channelId = "YOUR_CHANNEL_ID_HERE";
             const navDot = document.getElementById("nav-live-dot");
-            
-            if(!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
 
             const liveImgChecker = new Image();
             liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
 
             liveImgChecker.onload = function() {
-                if (this.width === 320) {
-                    navDot.style.display = "inline-block";
-                } else {
-                    navDot.style.display = "none";
-                }
+                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
             };
-            
+
             liveImgChecker.onerror = function() {
                 navDot.style.display = "none";
             };
         }
 
+        // ------------------------------------------------------------
+        // Mobile footer bottom sheet (drag up to open, drag down to close)
+        // ------------------------------------------------------------
+        function initFooterSheet() {
+            const mq = window.matchMedia('(max-width: 768px)');
+            const footer = document.getElementById('siteFooter');
+            const handle = document.getElementById('footerHandle');
+            const panel = document.getElementById('footerPanel');
+            const backdrop = document.getElementById('footerBackdrop');
+            const label = document.getElementById('footerHandleText');
+            if (!footer || !handle || !panel || !backdrop || !label) return;
+
+            let isOpen = false;
+            let dragging = false;
+            let startY = 0, lastY = 0, lastT = 0;
+            let startOffset = 0, closedOffset = 0, currentOffset = 0;
+            let moved = 0, velocity = 0;
+
+            function syncInert() {
+                // Keep hidden footer links out of the tab order while the sheet is closed on mobile
+                panel.inert = mq.matches ? !isOpen : false;
+            }
+
+            function setOpen(open) {
+                isOpen = open;
+                footer.classList.remove('dragging');
+                footer.style.transform = '';
+                footer.classList.toggle('open', open);
+                backdrop.style.opacity = '';
+                backdrop.style.visibility = '';
+                backdrop.classList.toggle('show', open && mq.matches);
+                document.body.classList.toggle('footer-open', open && mq.matches);
+                handle.setAttribute('aria-expanded', String(open));
+                label.textContent = open ? 'Drag down to close' : 'Footer · Drag up';
+                syncInert();
+            }
+
+            handle.addEventListener('pointerdown', (e) => {
+                if (!mq.matches) return;
+                dragging = true;
+                moved = 0;
+                velocity = 0;
+                startY = lastY = e.clientY;
+                lastT = performance.now();
+                closedOffset = Math.max(0, footer.offsetHeight - handle.offsetHeight);
+                startOffset = currentOffset = isOpen ? 0 : closedOffset;
+                footer.classList.add('dragging');
+                try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+            });
+
+            handle.addEventListener('pointermove', (e) => {
+                if (!dragging) return;
+                const dy = e.clientY - startY;
+                moved = Math.max(moved, Math.abs(dy));
+                currentOffset = Math.min(closedOffset, Math.max(0, startOffset + dy));
+                footer.style.transform = 'translateY(' + currentOffset + 'px)';
+
+                // dim the page in step with the drag
+                if (closedOffset > 0) {
+                    backdrop.style.visibility = 'visible';
+                    backdrop.style.opacity = String(1 - currentOffset / closedOffset);
+                }
+
+                const now = performance.now();
+                velocity = (e.clientY - lastY) / Math.max(1, now - lastT); // px per ms, negative = up
+                lastY = e.clientY;
+                lastT = now;
+            });
+
+            function endDrag() {
+                if (!dragging) return;
+                dragging = false;
+
+                if (moved < 6) {            // a tap, not a drag
+                    setOpen(!isOpen);
+                    return;
+                }
+                if (Math.abs(velocity) > 0.5) {   // a flick
+                    setOpen(velocity < 0);
+                } else {
+                    setOpen(currentOffset < closedOffset / 2);
+                }
+            }
+
+            handle.addEventListener('pointerup', endDrag);
+            handle.addEventListener('pointercancel', endDrag);
+
+            // Keyboard (Enter / Space) activation only; pointer taps are handled above
+            handle.addEventListener('click', (e) => {
+                if (e.detail === 0 && mq.matches) setOpen(!isOpen);
+            });
+
+            backdrop.addEventListener('click', () => setOpen(false));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isOpen) setOpen(false);
+            });
+
+            const onBreakpointChange = () => setOpen(false);
+            if (mq.addEventListener) mq.addEventListener('change', onBreakpointChange);
+            else if (mq.addListener) mq.addListener(onBreakpointChange);
+
+            syncInert();
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             initReveal();
             checkChurchLiveStatus();
+            initFooterSheet();
 
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault(); 
+                    e.preventDefault();
 
                     const name = document.getElementById('userName').value;
                     const email = document.getElementById('userEmail').value;
