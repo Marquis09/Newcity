@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Privacy Notice | New City Church MK</title>
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,6 +28,10 @@
             --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-main);
@@ -35,10 +41,15 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed Navigation Header */
+        /* ==========================================================
+           DESKTOP NAVIGATION
+           ========================================================== */
+
         .nav {
             position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
@@ -55,8 +66,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 16px;
             box-sizing: border-box;
             width: 100%;
+            position: relative;
         }
 
         .logo {
@@ -93,8 +106,17 @@
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.2s;
             flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #f9e3ed;
+        }
+
+        .mobile-menu-toggle:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 3px;
         }
 
         .mobile-give-btn {
@@ -132,16 +154,18 @@
             border-radius: 2px;
         }
 
-        .nav-links a:hover::after, 
+        .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--primary);
         }
 
         .nav-button {
+            display: inline-block;
             padding: 10px 22px;
             background: var(--primary);
             color: white;
@@ -149,13 +173,13 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            box-shadow: 0 8px 20px rgba(139, 47, 95, 0.2);
             transition: all 0.25s ease;
         }
 
         .nav-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            box-shadow: 0 12px 25px rgba(139, 47, 95, 0.3);
             background: var(--primary-dark);
         }
 
@@ -171,13 +195,28 @@
         }
 
         @keyframes navPulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
 
-        /* Container Rules */
+        /* ==========================================================
+           CONTAINERS
+           ========================================================== */
+
         .container {
+            width: 100%;
             max-width: 900px;
             margin: auto;
             padding: 0 24px;
@@ -188,19 +227,27 @@
             max-width: 1200px;
         }
 
-        /* Reveal animations */
+        /* ==========================================================
+           REVEAL ANIMATIONS
+           ========================================================== */
+
         .reveal {
             opacity: 0 !important;
             transform: translateY(25px) !important;
-            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            transition:
+                opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
+
         .reveal.active {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
 
-        /* Policy Header */
+        /* ==========================================================
+           POLICY HEADER
+           ========================================================== */
+
         .policy-header {
             padding: 130px 0 40px 0;
             text-align: center;
@@ -226,9 +273,13 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             font-weight: 500;
+            line-height: 1.6;
         }
 
-        /* Policy Content Styling */
+        /* ==========================================================
+           POLICY CONTENT — UNCHANGED
+           ========================================================== */
+
         .policy-content {
             padding: 20px 0 80px 0;
         }
@@ -267,6 +318,7 @@
         }
 
         /* Accordions */
+
         .accordion-group {
             display: flex;
             flex-direction: column;
@@ -296,6 +348,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 14px;
             user-select: none;
             transition: background 0.2s;
             list-style: none;
@@ -314,6 +367,7 @@
             transition: transform 0.3s ease;
             color: var(--primary);
             font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
         details[open] summary i {
@@ -350,45 +404,161 @@
             margin-bottom: 8px;
         }
 
-        /* Modern Dark Footer */
+        /* ==========================================================
+           FOOTER — DESKTOP UNCHANGED
+           ========================================================== */
+
         .footer-modern {
             background: #0f172a;
             color: #cbd5e1;
             padding: 60px 0 40px 0;
             text-align: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Mobile Breakpoints */
+        .footer-handle,
+        .footer-backdrop {
+            display: none;
+        }
+
+        /* ==========================================================
+           MOBILE HEADER AND FOOTER
+           ========================================================== */
+
         @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
+
+            :root {
+                --peek: calc(64px + env(safe-area-inset-bottom, 0px));
             }
 
-            .desktop-give-btn {
-                display: none;
-            }
-
-            .mobile-give-btn {
-                display: block;
-                margin-top: 10px;
+            html,
+            body {
                 width: 100%;
-                text-align: center;
+                max-width: 100%;
+                overflow-x: clip;
             }
+
+            body {
+                padding-bottom: var(--peek);
+            }
+
+            body.footer-open {
+                overflow: hidden;
+            }
+
+            /* Fixed mobile navigation */
+
+            .nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            }
+
+            .nav-container {
+                width: 100%;
+                max-width: 100%;
+                min-height: 68px;
+                margin: 0;
+                padding: 10px 18px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+                position: relative;
+            }
+
+            .logo {
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+                flex: 1 1 auto;
+                overflow: hidden;
+            }
+
+            .logo img {
+                display: block;
+                width: auto !important;
+                height: 44px !important;
+                max-width: min(230px, 100%);
+                max-height: 44px !important;
+                object-fit: contain;
+                object-position: left center;
+                margin-right: 0 !important;
+            }
+
+            /* Mobile hamburger */
+
+            .mobile-menu-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 44px;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                background: var(--primary-light);
+                color: var(--primary);
+                border: 1px solid rgba(139, 47, 95, 0.10);
+                border-radius: 13px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+                transition: background 0.2s ease, transform 0.2s ease;
+            }
+
+            .mobile-menu-toggle:hover,
+            .mobile-menu-toggle:active {
+                background: #f9e3ed;
+            }
+
+            .mobile-menu-toggle:focus-visible {
+                outline: 3px solid var(--primary);
+                outline-offset: 3px;
+            }
+
+            /* Hide desktop visit button */
+
+            .desktop-plan-btn,
+            .desktop-give-btn {
+                display: none !important;
+            }
+
+            /* Full-width dropdown drawer */
 
             .nav-links {
                 position: absolute;
-                top: 100%;
+                top: calc(100% + 1px);
                 left: 0;
+                right: 0;
                 width: 100%;
-                background: #ffffff;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px 24px;
-                gap: 16px;
-                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
-                border-top: 1px solid var(--border-color);
-                display: none !important;
+                max-width: 100%;
+                max-height: calc(100vh - 70px);
+                max-height: calc(100dvh - 70px);
                 box-sizing: border-box;
+                display: none !important;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                margin: 0;
+                padding: 10px 20px 20px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                background: #ffffff;
+                border-top: 1px solid #f1f5f9;
+                border-bottom: 1px solid var(--border-color);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
+                list-style: none;
+                -webkit-overflow-scrolling: touch;
             }
 
             .nav-links.active {
@@ -396,30 +566,94 @@
             }
 
             .nav-links li {
+                display: block;
                 width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+                padding: 0;
                 border-bottom: 1px solid #f1f5f9;
-                padding-bottom: 12px;
+                list-style: none;
             }
 
             .nav-links li:last-child {
                 border-bottom: none;
-                padding-bottom: 0;
             }
 
             .nav-links a {
-                font-size: 1.1rem;
+                display: flex;
+                align-items: center;
                 width: 100%;
+                max-width: 100%;
+                min-height: 46px;
+                box-sizing: border-box;
+                padding: 12px 2px;
+                color: var(--text-main);
+                font-size: 0.96rem;
+                font-weight: 600;
+                line-height: 1.4;
                 text-align: left;
-                padding: 4px 0;
+                text-decoration: none;
+                overflow-wrap: anywhere;
             }
 
             .nav-links a::after {
                 display: none;
             }
 
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--primary);
+            }
+
+            .nav-links a.active {
+                font-weight: 800;
+            }
+
+            .nav-links .nav-live-indicator {
+                margin-left: 8px;
+            }
+
+            /* Plan Your Visit inside mobile menu */
+
+            .mobile-give-btn {
+                display: block;
+                width: 100%;
+                margin-top: 12px;
+                padding-top: 16px !important;
+                padding-bottom: 0 !important;
+                border-bottom: none !important;
+            }
+
+            .mobile-give-btn .nav-button {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 48px;
+                box-sizing: border-box;
+                padding: 13px 18px;
+                background: var(--primary);
+                color: #ffffff !important;
+                border-radius: 13px;
+                font-size: 0.95rem;
+                font-weight: 700;
+                text-align: center;
+                box-shadow: 0 7px 18px rgba(139, 47, 95, 0.18);
+            }
+
+            .mobile-give-btn .nav-button:hover {
+                background: var(--primary-dark);
+                color: #ffffff !important;
+                transform: none;
+            }
+
+            /* Existing page heading spacing */
+
             .policy-header {
                 padding: 110px 0 30px 0;
             }
+
+            /* Existing accordion mobile styling */
 
             summary {
                 padding: 16px 18px;
@@ -429,71 +663,378 @@
             .details-content {
                 padding: 0 18px 18px 18px;
             }
+
+            /* ======================================================
+               MOBILE FOOTER BOTTOM SHEET
+               ====================================================== */
+
+            .footer-modern {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0;
+                text-align: center !important;
+                display: flex;
+                flex-direction: column;
+                max-height: 85vh;
+                max-height: 85dvh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -12px 32px rgba(15, 23, 42, 0.28);
+                transform: translateY(calc(100% - var(--peek)));
+                transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+                will-change: transform;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            .footer-modern.open {
+                transform: translateY(0);
+            }
+
+            .footer-modern.dragging {
+                transition: none;
+            }
+
+            .footer-handle {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+                height: var(--peek);
+                flex: 0 0 var(--peek);
+                box-sizing: border-box;
+                padding: 0 0 env(safe-area-inset-bottom, 0px);
+                background: transparent;
+                border: none;
+                color: #ffffff;
+                font-family: inherit;
+                cursor: grab;
+                touch-action: none;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .footer-handle:focus-visible {
+                outline: 3px solid #f0abcf;
+                outline-offset: -5px;
+            }
+
+            .footer-grip {
+                width: 44px;
+                height: 5px;
+                flex-shrink: 0;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.45);
+            }
+
+            .footer-handle-label {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .footer-handle-label i {
+                font-size: 1rem;
+                color: #f0abcf;
+                animation: footerNudge 1.6s ease-in-out infinite;
+            }
+
+            .footer-modern.open .footer-handle-label i {
+                animation: none;
+                transform: rotate(180deg);
+            }
+
+            @keyframes footerNudge {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-4px);
+                }
+            }
+
+            .footer-panel {
+                flex: 1 1 auto;
+                min-height: 0;
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 8px 0 calc(28px + env(safe-area-inset-bottom, 0px));
+                box-sizing: border-box;
+            }
+
+            .footer-modern .container {
+                width: 100%;
+                max-width: 100%;
+                padding-left: 20px;
+                padding-right: 20px;
+                box-sizing: border-box;
+            }
+
+            .footer-modern .container.wide {
+                max-width: 100%;
+            }
+
+            .footer-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 1090;
+                background: rgba(15, 23, 42, 0.55);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .footer-backdrop.show {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .footer-modern .footer-logo-row {
+                padding-top: 12px;
+            }
+
+            .footer-modern .footer-logo-row img {
+                display: block;
+                width: auto;
+                height: 38px;
+                max-width: 100%;
+                object-fit: contain;
+                opacity: 0.9;
+            }
+
+            .footer-modern .footer-copyright {
+                margin-top: 1.25rem !important;
+                color: #94a3b8 !important;
+                font-size: 0.75rem !important;
+                line-height: 1.7;
+                padding: 0 20px;
+                overflow-wrap: anywhere;
+                box-sizing: border-box;
+            }
+
+            .footer-modern .footer-copyright p {
+                margin: 0;
+            }
+        }
+
+        /* ==========================================================
+           SMALL MOBILE SCREENS
+           ========================================================== */
+
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .nav-container {
+                padding-left: 16px;
+                padding-right: 16px;
+                gap: 12px;
+            }
+
+            .logo img {
+                height: 42px !important;
+                max-height: 42px !important;
+            }
+
+            .policy-header h1 {
+                font-size: 2rem;
+            }
+
+            .policy-intro {
+                font-size: 0.93rem;
+            }
+
+            .manager-box {
+                padding: 16px;
+            }
+
+            summary {
+                padding: 16px;
+                font-size: 0.98rem;
+            }
+
+            .details-content {
+                padding: 0 16px 18px;
+                font-size: 0.92rem;
+            }
+
+            .footer-modern .footer-logo-row img {
+                height: 34px;
+            }
+
+            .footer-modern .footer-copyright {
+                font-size: 0.7rem !important;
+            }
+        }
+
+        /* ==========================================================
+           REDUCED MOTION
+           ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            .nav-links,
+            .nav-button,
+            .mobile-menu-toggle,
+            .nav-live-indicator,
+            .footer-handle-label i,
+            .footer-modern,
+            .footer-backdrop,
+            .reveal {
+                animation: none !important;
+                transition: none !important;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- FIXED NAVIGATION HEADER -->
+    <!-- ==========================================================
+         FIXED NAVIGATION HEADER
+         ========================================================== -->
+
     <nav class="nav">
         <div class="nav-container wide">
-            <a href="index.html" class="logo">
-                <img src="props/logo.jpg" alt="Logo" style="height: 50px !important; width: auto !important; max-height: none !important; vertical-align: middle; margin-right: 8px;" onerror="this.style.display='none';">
+
+            <a href="index.html"
+               class="logo"
+               aria-label="New City Church MK home">
+
+                <img
+                    src="props/logo.jpg"
+                    alt="New City Church MK"
+                    height="50"
+                    style="height: 50px !important; width: auto !important; max-width: min(230px, 100%); max-height: none !important; vertical-align: middle; margin-right: 8px;"
+                    onerror="this.style.display='none';">
             </a>
 
+            <button
+                class="mobile-menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation"
+                aria-controls="navLinks"
+                aria-expanded="false">
 
-            <!-- Mobile Hamburger Menu Button -->
-            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-                <i class="ph ph-list"></i>
+                <i class="ph ph-list" aria-hidden="true"></i>
             </button>
-                <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="whatwebelieve.html">About Us</a></li>
-                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
-                <li><a href="churchlife.html">Church Life</a></li>
-                <li><a href="news.html">News</a></li>
-                <li class="mobile-give-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="whatwebelieve.html">About Us</a>
+                </li>
+
+                <li>
+                    <a href="sermons.html">Sermons</a>
+                    <span
+                        id="nav-live-dot"
+                        class="nav-live-indicator"
+                        style="display: none;"></span>
+                </li>
+
+                <li>
+                    <a href="churchlife.html">Church Life</a>
+                </li>
+
+                <li>
+                    <a href="news.html">News</a>
+                </li>
+
+                <li class="mobile-give-btn">
+                    <a href="imnew.html" class="nav-button">
+                        Plan Your Visit
+                    </a>
+                </li>
+
             </ul>
 
             <a href="imnew.html" class="nav-button desktop-plan-btn">
                 Plan Your Visit
             </a>
+
         </div>
     </nav>
+
+    <br>
     <br>
 
-    <!-- HEADER -->
+    <!-- ==========================================================
+         PRIVACY NOTICE HEADER
+         ========================================================== -->
+
     <header class="policy-header">
         <div class="container reveal">
             <h1>Privacy <span>Notice</span></h1>
-            <p class="last-updated">How New City Church Milton Keynes (“we” / “us”) use your information.</p>
+            <p class="last-updated">
+                How New City Church Milton Keynes (“we” / “us”) use your information.
+            </p>
         </div>
     </header>
 
-    <!-- CONTENT SECTION -->
+    <!-- ==========================================================
+         CONTENT SECTION — ORIGINAL CONTENT PRESERVED
+         ========================================================== -->
+
     <section class="policy-content">
         <div class="container">
-            
+
             <div class="policy-intro reveal">
                 <p>Your privacy is important to us. We are committed to safeguarding the privacy of your information. Under new data protection legislation, we need to let you know how we care for your information.</p>
             </div>
 
             <!-- ACCORDIONS -->
+
             <div class="accordion-group reveal">
-                
+
                 <details>
-                    <summary>Why are we collecting your data? <i class="ph ph-caret-down"></i></summary>
+                    <summary>
+                        Why are we collecting your data?
+                        <i class="ph ph-caret-down"></i>
+                    </summary>
+
                     <div class="details-content">
                         <p>We collect personal data to enable the church to keep in touch with you, to provide pastoral support as appropriate, to monitor and assess the quality of our services and to comply with the law. In legal terms this is called ‘legitimate interests’.</p>
+
                         <p>When it is required, we may also ask you for your consent to process your data. We do not share your information with others except as described in this notice.</p>
                     </div>
                 </details>
 
                 <details>
-                    <summary>Categories of information we collect <i class="ph ph-caret-down"></i></summary>
+                    <summary>
+                        Categories of information we collect
+                        <i class="ph ph-caret-down"></i>
+                    </summary>
+
                     <div class="details-content">
                         <p>The categories of information that we may collect, hold and share include:</p>
+
                         <ul>
                             <li><strong>Personal information:</strong> such as name, address, telephone number and email address.</li>
                             <li><strong>Characteristics:</strong> such as gender, ethnicity, language, nationality, country of birth.</li>
@@ -503,35 +1044,56 @@
                 </details>
 
                 <details>
-                    <summary>Storing and Security of your data <i class="ph ph-caret-down"></i></summary>
-                    <div class="details-content">
+                    <summary>
+                        Storing and Security of your data
+                        <i class="ph ph-caret-down"></i>
+                    </summary>
+
+                    <div class="details-content>
                         <h3>Storing your data</h3>
+
                         <p>We will only retain your personal data for as long as necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, accounting or reporting requirements.</p>
+
                         <p>We hold your data for varying lengths of time depending on the type of information in question but in doing so we always comply with Data Protection legislation. Details of retention periods are available in our retention policy which you can request by contacting us - see details below.</p>
+
                         <p>We will contact you annually to check that the information we are holding is accurate and that you agree to us holding it.</p>
-                        
+
                         <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-color);">
-                        
+
                         <h3>Security of your data</h3>
+
                         <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, church officers or trustees who need to know. They will only process your personal data on our instructions.</p>
+
                         <p>We have put in place procedures to deal with any suspected personal data breach and will notify you of any such occurrence that might affect you. We will also notify the Information Commissioner’s Office (ICO) where we are legally required to do so.</p>
                     </div>
                 </details>
 
                 <details>
-                    <summary>Who do we share your information with? <i class="ph ph-caret-down"></i></summary>
+                    <summary>
+                        Who do we share your information with?
+                        <i class="ph ph-caret-down"></i>
+                    </summary>
+
                     <div class="details-content">
                         <p>We will not share your information with third parties without your consent unless the law requires us to do so.</p>
+
                         <p>Your contact details, but not information of a personal nature, may be made accessible to other members of the church family to facilitate mutual communication.</p>
+
                         <p>You have full control over how your information is used, so you can choose not to share your details, or only certain details, with others in the church family.</p>
                     </div>
                 </details>
 
                 <details>
-                    <summary>Requesting access to your personal data <i class="ph ph-caret-down"></i></summary>
+                    <summary>
+                        Requesting access to your personal data
+                        <i class="ph ph-caret-down"></i>
+                    </summary>
+
                     <div class="details-content">
                         <p>Under Data Protection legislation, you have the right to request access to information about you that we hold. To make a request for your personal information contact us - see details below.</p>
+
                         <p>You also have the right to:</p>
+
                         <ul>
                             <li>object to processing of personal data that is likely to cause, or is causing, damage or distress;</li>
                             <li>prevent processing for the purpose of direct marketing;</li>
@@ -539,23 +1101,32 @@
                             <li>in certain circumstances, have inaccurate personal data rectified, blocked, erased or destroyed; and</li>
                             <li>claim compensation for damages caused by a breach of the Data Protection regulations.</li>
                         </ul>
-                        <p>If you have a concern about the way we are collecting or using your personal data, you should raise your concern with us in the first instance or directly to the Information Commissioner’s Office at <a href="https://ico.org.uk/concerns/" target="_blank" style="color: var(--primary);">https://ico.org.uk/concerns/</a>.</p>
+
+                        <p>If you have a concern about the way we are collecting or using your personal data, you should raise your concern with us in the first instance or directly to the Information Commissioner’s Office at <a href="https://ico.org.uk/concerns/" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">https://ico.org.uk/concerns/</a>.</p>
                     </div>
                 </details>
 
                 <details>
-                    <summary>Contact <i class="ph ph-caret-down"></i></summary>
+                    <summary>
+                        Contact
+                        <i class="ph ph-caret-down"></i>
+                    </summary>
+
                     <div class="details-content">
                         <p>Please feel free to reach out to us via email if you have any further questions or need additional assistance.</p>
-                        
+
                         <div class="manager-box">
-                            <p><strong>Data Protection Compliance Manager:</strong><br>
-                            Chris Hicken<br>
-                            Email: info@newcitychurch.co.uk</p>
-                            
-                            <p><strong>Pastor:</strong><br>
-                            Richard Wardman<br>
-                            Email: info@newcitychurch.co.uk</p>
+                            <p>
+                                <strong>Data Protection Compliance Manager:</strong><br>
+                                Chris Hicken<br>
+                                Email: info@newcitychurch.co.uk
+                            </p>
+
+                            <p>
+                                <strong>Pastor:</strong><br>
+                                Richard Wardman<br>
+                                Email: info@newcitychurch.co.uk
+                            </p>
                         </div>
                     </div>
                 </details>
@@ -564,81 +1135,397 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer-modern">
-        <div class="container wide" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
-            
-            <!-- LOGO SECTION -->
-            <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
-                <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+    <!-- ==========================================================
+         MOBILE FOOTER BACKDROP
+         ========================================================== -->
+
+    <div class="footer-backdrop" id="footerBackdrop"></div>
+
+    <!-- ==========================================================
+         FOOTER
+         ========================================================== -->
+
+    <footer class="footer-modern" id="siteFooter">
+
+        <button
+            type="button"
+            class="footer-handle"
+            id="footerHandle"
+            aria-expanded="false"
+            aria-controls="footerPanel">
+
+            <span class="footer-grip"></span>
+
+            <span class="footer-handle-label">
+                <i class="ph ph-caret-double-up" aria-hidden="true"></i>
+                <span id="footerHandleText">Footer · Drag up</span>
+            </span>
+        </button>
+
+        <div class="footer-panel" id="footerPanel">
+
+            <div
+                class="container wide footer-logo-row"
+                style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+
+                <div
+                    style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap; width: 100%;">
+
+                    <img
+                        src="props/logofooter1.jpg.png"
+                        alt="New City Church MK Logo"
+                        style="height: 45px; width: auto; max-width: 100%; opacity: 0.9;">
+                </div>
+
             </div>
 
-            <div style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
-                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            <div class="container wide footer-copyright">
+                <p>
+                    © 2026 by New City Church Milton Keynes |
+                    Registered Charity No.1187160
+                </p>
             </div>
+
         </div>
     </footer>
 
-    <!-- JS ENGINES -->
+    <!-- ==========================================================
+         JAVASCRIPT
+         ========================================================== -->
+
     <script>
-        // Mobile Navigation Toggle Controller
+        /* ==========================================================
+           MOBILE NAVIGATION
+           ========================================================== */
+
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = menuToggle.querySelector('i');
+            const menuIcon = menuToggle.querySelector('i');
+
+            function closeMobileMenu() {
+                navLinks.classList.remove('active');
+
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Open navigation');
+            }
+
+            function openMobileMenu() {
+                navLinks.classList.add('active');
+
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+
+                menuToggle.setAttribute('aria-expanded', 'true');
+                menuToggle.setAttribute('aria-label', 'Close navigation');
+            }
+
+            menuToggle.addEventListener('click', function () {
                 if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('ph-list');
-                    icon.classList.add('ph-x');
+                    closeMobileMenu();
                 } else {
-                    icon.classList.remove('ph-x');
-                    icon.classList.add('ph-list');
+                    openMobileMenu();
+                }
+            });
+
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            document.addEventListener('click', function (event) {
+                if (
+                    navLinks.classList.contains('active') &&
+                    !navLinks.contains(event.target) &&
+                    !menuToggle.contains(event.target)
+                ) {
+                    closeMobileMenu();
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
                 }
             });
         }
 
-        // YouTube Live Status Checker Engine
+        /* ==========================================================
+           YOUTUBE LIVE STATUS CHECKER — ORIGINAL BEHAVIOUR
+           ========================================================== */
+
         function checkChurchLiveStatus() {
-            const channelId = "YOUR_CHANNEL_ID_HERE"; 
+            const channelId = "YOUR_CHANNEL_ID_HERE";
             const navDot = document.getElementById("nav-live-dot");
-            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            if (
+                !channelId ||
+                channelId === "YOUR_CHANNEL_ID_HERE" ||
+                !navDot
+            ) {
+                return;
+            }
 
             const liveImg = new Image();
-            liveImg.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
 
-            liveImg.onload = function() {
-                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
+            liveImg.src =
+                `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImg.onload = function () {
+                navDot.style.display =
+                    (this.width === 320) ? "inline-block" : "none";
             };
-            liveImg.onerror = function() {
+
+            liveImg.onerror = function () {
                 navDot.style.display = "none";
             };
         }
 
-        // Intersection Observer Reveal Animation Engine
+        /* ==========================================================
+           SCROLL REVEAL ANIMATIONS — ORIGINAL BEHAVIOUR
+           ========================================================== */
+
         function initReveal() {
             const revealEls = document.querySelectorAll(".reveal");
+
             if (!window.IntersectionObserver) {
-                revealEls.forEach(el => el.classList.add('active'));
+                revealEls.forEach(function (element) {
+                    element.classList.add('active');
+                });
+
                 return;
             }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+            const observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("active");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.05,
+                    rootMargin: "0px 0px -20px 0px"
+                }
+            );
 
-            revealEls.forEach(element => observer.observe(element));
+            revealEls.forEach(function (element) {
+                observer.observe(element);
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        /* ==========================================================
+           MOBILE FOOTER BOTTOM SHEET
+           Drag up to open, drag down to close
+           ========================================================== */
+
+        function initFooterSheet() {
+            const mq = window.matchMedia('(max-width: 768px)');
+
+            const footer = document.getElementById('siteFooter');
+            const handle = document.getElementById('footerHandle');
+            const panel = document.getElementById('footerPanel');
+            const backdrop = document.getElementById('footerBackdrop');
+            const label = document.getElementById('footerHandleText');
+
+            if (!footer || !handle || !panel || !backdrop || !label) {
+                return;
+            }
+
+            let isOpen = false;
+            let dragging = false;
+
+            let startY = 0;
+            let lastY = 0;
+            let lastT = 0;
+
+            let startOffset = 0;
+            let closedOffset = 0;
+            let currentOffset = 0;
+
+            let moved = 0;
+            let velocity = 0;
+
+            function syncInert() {
+                panel.inert = mq.matches && !isOpen;
+            }
+
+            function setOpen(open) {
+                isOpen = open;
+
+                footer.classList.remove('dragging');
+                footer.style.transform = '';
+
+                footer.classList.toggle('open', open);
+
+                backdrop.style.opacity = '';
+                backdrop.style.visibility = '';
+
+                backdrop.classList.toggle('show', open && mq.matches);
+
+                document.body.classList.toggle(
+                    'footer-open',
+                    open && mq.matches
+                );
+
+                handle.setAttribute('aria-expanded', String(open));
+
+                label.textContent = open
+                    ? 'Drag down to close'
+                    : 'Footer · Drag up';
+
+                syncInert();
+            }
+
+            /* Start dragging */
+
+            handle.addEventListener('pointerdown', function (event) {
+                if (!mq.matches) {
+                    return;
+                }
+
+                dragging = true;
+                moved = 0;
+                velocity = 0;
+
+                startY = lastY = event.clientY;
+                lastT = performance.now();
+
+                closedOffset = Math.max(
+                    0,
+                    footer.offsetHeight - handle.offsetHeight
+                );
+
+                startOffset = currentOffset = isOpen
+                    ? 0
+                    : closedOffset;
+
+                footer.classList.add('dragging');
+
+                try {
+                    handle.setPointerCapture(event.pointerId);
+                } catch (error) {
+                    // Pointer capture is optional.
+                }
+            });
+
+            /* Move footer with pointer */
+
+            handle.addEventListener('pointermove', function (event) {
+                if (!dragging) {
+                    return;
+                }
+
+                const dy = event.clientY - startY;
+
+                moved = Math.max(moved, Math.abs(dy));
+
+                currentOffset = Math.min(
+                    closedOffset,
+                    Math.max(0, startOffset + dy)
+                );
+
+                footer.style.transform =
+                    'translateY(' + currentOffset + 'px)';
+
+                if (closedOffset > 0) {
+                    backdrop.style.visibility = 'visible';
+
+                    backdrop.style.opacity = String(
+                        1 - currentOffset / closedOffset
+                    );
+                }
+
+                const now = performance.now();
+
+                velocity =
+                    (event.clientY - lastY) /
+                    Math.max(1, now - lastT);
+
+                lastY = event.clientY;
+                lastT = now;
+            });
+
+            /* Finish dragging */
+
+            function endDrag() {
+                if (!dragging) {
+                    return;
+                }
+
+                dragging = false;
+
+                if (moved < 6) {
+                    setOpen(!isOpen);
+                    return;
+                }
+
+                if (Math.abs(velocity) > 0.5) {
+                    setOpen(velocity < 0);
+                } else {
+                    setOpen(currentOffset < closedOffset / 2);
+                }
+            }
+
+            handle.addEventListener('pointerup', endDrag);
+            handle.addEventListener('pointercancel', endDrag);
+
+            /* Keyboard activation */
+
+            handle.addEventListener('click', function (event) {
+                if (event.detail === 0 && mq.matches) {
+                    setOpen(!isOpen);
+                }
+            });
+
+            /* Close using backdrop */
+
+            backdrop.addEventListener('click', function () {
+                setOpen(false);
+            });
+
+            /* Escape closes footer */
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && isOpen) {
+                    setOpen(false);
+                }
+            });
+
+            /* Reset when changing screen sizes */
+
+            function onBreakpointChange() {
+                setOpen(false);
+            }
+
+            if (mq.addEventListener) {
+                mq.addEventListener('change', onBreakpointChange);
+            } else if (mq.addListener) {
+                mq.addListener(onBreakpointChange);
+            }
+
+            syncInert();
+        }
+
+        /* ==========================================================
+           INITIALISE PAGE
+           ========================================================== */
+
+        document.addEventListener('DOMContentLoaded', function () {
             initReveal();
             checkChurchLiveStatus();
+            initFooterSheet();
         });
     </script>
 

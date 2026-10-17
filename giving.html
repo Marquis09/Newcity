@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Give | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
@@ -24,6 +25,7 @@
             --radius-lg: 28px;
             --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
             --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+            --peek: 64px;
         }
 
         body {
@@ -35,10 +37,14 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed Navigation Header */
+        /* ==========================================================
+           DESKTOP NAVIGATION
+           ========================================================== */
+
         .nav {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
@@ -93,8 +99,17 @@
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.2s;
             flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #f9e3ed;
+        }
+
+        .mobile-menu-toggle:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 3px;
         }
 
         .mobile-give-btn {
@@ -132,12 +147,13 @@
             border-radius: 2px;
         }
 
-        .nav-links a:hover::after, 
+        .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--primary);
         }
 
@@ -171,12 +187,26 @@
         }
 
         @keyframes navPulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
 
-        /* Container Rules */
+        /* ==========================================================
+           CONTAINER RULES
+           ========================================================== */
+
         .container {
             max-width: 1200px;
             margin: auto;
@@ -184,19 +214,27 @@
             box-sizing: border-box;
         }
 
-        /* Reveal animations */
+        /* ==========================================================
+           REVEAL ANIMATIONS
+           ========================================================== */
+
         .reveal {
             opacity: 0 !important;
             transform: translateY(25px) !important;
-            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            transition:
+                opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
+
         .reveal.show {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
 
-        /* Giving Layout Header & Hero */
+        /* ==========================================================
+           GIVING LAYOUT HEADER & HERO
+           ========================================================== */
+
         .giving-hero {
             padding: 130px 0 60px 0;
             background: linear-gradient(180deg, #fffcfd 0%, #ffffff 100%);
@@ -275,7 +313,10 @@
             font-size: 1.1rem;
         }
 
-        /* ChurchSuite Iframe Card */
+        /* ==========================================================
+           CHURCHSUITE IFRAME CARD
+           ========================================================== */
+
         .giving-card-wrapper {
             flex: 1.25;
             max-width: 560px;
@@ -332,7 +373,10 @@
             border-radius: var(--radius-sm);
         }
 
-        /* Bank Transfer Block */
+        /* ==========================================================
+           BANK TRANSFER SECTION
+           ========================================================== */
+
         .bank-transfer-section {
             padding: 40px 0 80px 0;
         }
@@ -388,12 +432,22 @@
             letter-spacing: 0.02em;
         }
 
-        /* Modern Dark Footer */
+        /* ==========================================================
+           DESKTOP FOOTER
+           ========================================================== */
+
         .footer-modern {
             background: #0f172a;
             color: #cbd5e1;
             padding: 60px 0 40px 0;
             text-align: center;
+        }
+
+        /* Hide mobile-only footer controls on desktop */
+
+        .footer-handle,
+        .footer-backdrop {
+            display: none;
         }
 
         .clean-map-btn {
@@ -421,7 +475,10 @@
             transform: scale(0.98);
         }
 
-        /* Mobile Adjustments */
+        /* ==========================================================
+           TABLET LAYOUT
+           ========================================================== */
+
         @media (max-width: 868px) {
             .mobile-menu-toggle {
                 display: flex;
@@ -507,73 +564,575 @@
                 padding: 24px 20px;
             }
         }
+
+        /* ==========================================================
+           MOBILE HEADER, STATS AND FOOTER
+           ========================================================== */
+
+        @media (max-width: 768px) {
+            :root {
+                --peek: calc(64px + env(safe-area-inset-bottom, 0px));
+            }
+
+            body {
+                padding-bottom: var(--peek);
+            }
+
+            body.footer-open {
+                overflow: hidden;
+            }
+
+            /* Mobile navigation bar */
+
+            .nav {
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            }
+
+            .nav-container {
+                width: 100%;
+                max-width: 100%;
+                min-height: 68px;
+                margin: 0;
+                padding: 10px 18px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+            }
+
+            .logo {
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+                flex: 1 1 auto;
+                text-decoration: none;
+            }
+
+            .logo img {
+                display: block;
+                width: auto;
+                height: 44px !important;
+                max-width: min(230px, 100%);
+                max-height: none !important;
+                object-fit: contain;
+                object-position: left center;
+                margin-right: 0 !important;
+            }
+
+            /* Mobile menu button */
+
+            .mobile-menu-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 44px;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                background: var(--primary-light);
+                color: var(--primary);
+                border: 1px solid rgba(139, 47, 95, 0.10);
+                border-radius: 13px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+                transition: background 0.2s ease, transform 0.2s ease;
+            }
+
+            .mobile-menu-toggle:hover,
+            .mobile-menu-toggle:active {
+                background: #f9e3ed;
+            }
+
+            .mobile-menu-toggle:focus-visible {
+                outline: 3px solid var(--primary);
+                outline-offset: 3px;
+            }
+
+            /* Give button */
+
+            .desktop-give-btn {
+                display: none !important;
+            }
+
+            .mobile-give-btn {
+                display: block;
+                width: 100%;
+                margin-top: 12px;
+                padding-top: 16px !important;
+                padding-bottom: 0 !important;
+                border-bottom: none !important;
+            }
+
+            .mobile-give-btn .nav-button {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 48px;
+                box-sizing: border-box;
+                padding: 13px 18px;
+                background: var(--primary);
+                color: #ffffff !important;
+                border-radius: 13px;
+                font-size: 0.95rem;
+                font-weight: 700;
+                text-align: center;
+                box-shadow: 0 7px 18px rgba(139, 47, 95, 0.18);
+            }
+
+            .mobile-give-btn .nav-button:hover {
+                background: var(--primary-dark);
+                color: #ffffff !important;
+                transform: none;
+            }
+
+            /* Mobile dropdown drawer */
+
+            .nav-links {
+                position: absolute;
+                top: calc(100% + 1px);
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: calc(100vh - 70px);
+                max-height: calc(100dvh - 70px);
+                box-sizing: border-box;
+                display: none !important;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                margin: 0;
+                padding: 10px 20px 20px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                background: #ffffff;
+                border-top: 1px solid #f1f5f9;
+                border-bottom: 1px solid var(--border-color);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
+                list-style: none;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-links.active {
+                display: flex !important;
+            }
+
+            .nav-links li {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                border-bottom: 1px solid #f1f5f9;
+                list-style: none;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                min-height: 46px;
+                box-sizing: border-box;
+                padding: 12px 2px;
+                color: var(--text-main);
+                font-size: 0.96rem;
+                font-weight: 600;
+                line-height: 1.4;
+                text-align: left;
+                text-decoration: none;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--primary);
+            }
+
+            .nav-links a.active {
+                font-weight: 800;
+            }
+
+            .nav-links .nav-live-indicator {
+                margin-left: 8px;
+            }
+
+            /* ======================================================
+               MOBILE STATS: ALL THREE IN ONE ROW
+               Desktop stats styling remains unchanged.
+               ====================================================== */
+
+            .giving-stats-mini {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: stretch;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .stat-pill {
+                flex: 1 1 0;
+                min-width: 0;
+                justify-content: center;
+                gap: 5px;
+                padding: 9px 6px;
+                font-size: clamp(0.68rem, 2.5vw, 0.85rem);
+                white-space: nowrap;
+            }
+
+            .stat-pill i {
+                font-size: 1rem;
+                flex-shrink: 0;
+            }
+
+            /* ======================================================
+               MOBILE FOOTER BOTTOM SHEET
+               ====================================================== */
+
+            .footer-modern.site-footer {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0 !important;
+                margin: 0;
+                text-align: center !important;
+                display: flex;
+                flex-direction: column;
+                max-height: 85vh;
+                max-height: 85dvh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -12px 32px rgba(15, 23, 42, 0.28);
+                transform: translateY(calc(100% - var(--peek)));
+                transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+                will-change: transform;
+            }
+
+            .footer-modern.site-footer.open {
+                transform: translateY(0);
+            }
+
+            .footer-modern.site-footer.dragging {
+                transition: none;
+            }
+
+            /* Mobile-only drag handle */
+
+            .footer-handle {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+                height: var(--peek);
+                min-height: var(--peek);
+                flex-shrink: 0;
+                box-sizing: border-box;
+                padding: 0 0 env(safe-area-inset-bottom, 0px);
+                background: transparent;
+                border: none;
+                color: #ffffff;
+                font-family: inherit;
+                cursor: grab;
+                touch-action: none;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .footer-handle:focus-visible {
+                outline: 3px solid #f0abcf;
+                outline-offset: -5px;
+            }
+
+            .footer-grip {
+                width: 44px;
+                height: 5px;
+                flex-shrink: 0;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.45);
+            }
+
+            .footer-handle-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .footer-handle-label i {
+                font-size: 1rem;
+                color: #f0abcf;
+                animation: footerNudge 1.6s ease-in-out infinite;
+            }
+
+            .footer-modern.site-footer.open .footer-handle-label i {
+                animation: none;
+                transform: rotate(180deg);
+            }
+
+            @keyframes footerNudge {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-4px);
+                }
+            }
+
+            /* Footer content panel */
+
+            .footer-panel {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-x: hidden;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 8px 0 calc(28px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .footer-panel > .container {
+                width: 100%;
+                max-width: 1200px;
+            }
+
+            .footer-logo-row {
+                display: flex !important;
+                gap: 2rem;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding-top: 12px;
+            }
+
+            .footer-logo-row img {
+                display: block;
+                height: 38px !important;
+                width: auto;
+                max-width: 100%;
+                object-fit: contain;
+                opacity: 0.9;
+            }
+
+            .footer-copyright {
+                margin-top: 1.25rem !important;
+                color: #94a3b8 !important;
+                font-size: 0.75rem !important;
+                line-height: 1.7;
+                padding: 0 20px;
+            }
+
+            .footer-copyright p {
+                margin: 0;
+            }
+
+            /* Mobile-only backdrop */
+
+            .footer-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 1090;
+                background: rgba(15, 23, 42, 0.55);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .footer-backdrop.show {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+        }
+
+        /* ==========================================================
+           REDUCED MOTION
+           ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            .nav-links,
+            .nav-button,
+            .mobile-menu-toggle,
+            .nav-live-indicator {
+                animation: none;
+                transition: none;
+            }
+
+            .footer-handle-label i {
+                animation: none !important;
+            }
+
+            .site-footer {
+                transition: none !important;
+            }
+
+            .reveal {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- FIXED NAVIGATION HEADER -->
+    <!-- ==========================================================
+         NAVIGATION HEADER
+         ========================================================== -->
+
     <nav class="nav">
         <div class="nav-container">
-          <a href="index.html" class="logo">
-                <img src="props/logo.jpg" alt="Logo" style="height: 50px !important; width: auto !important; max-height: none !important; vertical-align: middle; margin-right: 8px;" onerror="this.style.display='none';">
+
+            <a href="index.html"
+               class="logo"
+               aria-label="New City Church MK home">
+
+                <img
+                    src="props/logo.jpg"
+                    alt="New City Church MK"
+                    height="50"
+                    onerror="this.style.display='none';">
             </a>
 
-            <!-- Mobile Hamburger Menu Button -->
-            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-                <i class="ph ph-list"></i>
+            <button
+                class="mobile-menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation"
+                aria-controls="navLinks"
+                aria-expanded="false">
+
+                <i class="ph ph-list" aria-hidden="true"></i>
             </button>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="whatwebelieve.html">About Us</a></li>
-                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
-                <li><a href="churchlife.html">Church Life</a></li>
-                <li><a href="news.html">News</a></li>
-                <li class="mobile-give-btn"><a href="giving.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Give</a></li>
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="whatwebelieve.html">About Us</a>
+                </li>
+
+                <li>
+                    <a href="sermons.html">
+                        Sermons
+                        <span
+                            id="nav-live-dot"
+                            class="nav-live-indicator"
+                            style="display: none;"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="churchlife.html">Church Life</a>
+                </li>
+
+                <li>
+                    <a href="news.html">News</a>
+                </li>
+
+                <li class="mobile-give-btn">
+                    <a href="giving.html" class="nav-button">
+                        Give
+                    </a>
+                </li>
+
             </ul>
 
             <a href="giving.html" class="nav-button desktop-give-btn">
                 Give
             </a>
+
         </div>
     </nav>
+
     <br>
 
-    <!-- HERO / GIVING SECTION -->
+    <!-- ==========================================================
+         HERO / GIVING SECTION
+         ========================================================== -->
+
     <section class="giving-hero">
         <div class="container">
             <div class="giving-grid">
-                
-                <!-- Left Details Content -->
+
                 <div class="giving-info reveal">
                     <span class="badge">Supporting the vision</span>
-                    <h1>Your giving makes <br><span class="text-gradient">a real difference</span></h1>
-                    <p>Thank you for your generous support! Your partnership enables us to share the gospel, serve our community, and see God's kingdom grow in Milton Keynes and beyond.</p>
-                    
+
+                    <h1>
+                        Your giving makes <br>
+                        <span class="text-gradient">a real difference</span>
+                    </h1>
+
+                    <p>
+                        Thank you for your generous support! Your partnership
+                        enables us to share the gospel, serve our community,
+                        and see God's kingdom grow in Milton Keynes and beyond.
+                    </p>
+
                     <div class="giving-stats-mini">
-                        <div class="stat-pill"><i class="ph-fill ph-lock-key"></i> <span>Secure</span></div>
-                        <div class="stat-pill"><i class="ph-fill ph-shield-check"></i> <span>Encrypted</span></div>
-                        <div class="stat-pill"><i class="ph-fill ph-heart"></i> <span>Impactful</span></div>
+                        <div class="stat-pill">
+                            <i class="ph-fill ph-lock-key"></i>
+                            <span>Secure</span>
+                        </div>
+
+                        <div class="stat-pill">
+                            <i class="ph-fill ph-shield-check"></i>
+                            <span>Encrypted</span>
+                        </div>
+
+                        <div class="stat-pill">
+                            <i class="ph-fill ph-heart"></i>
+                            <span>Impactful</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Giving Embed Card -->
                 <div class="giving-card-wrapper reveal">
                     <div class="giving-card-inner">
+
                         <div class="card-header-bar">
                             <span class="give-online-tag">GIVE ONLINE</span>
+
                             <span class="secure-badge-pill">
-                                <i class="ph-fill ph-lock-key"></i> SECURE
+                                <i class="ph-fill ph-lock-key"></i>
+                                SECURE
                             </span>
                         </div>
-                        
+
                         <iframe
                             src="https://newcitychurchmk.churchsuite.com/donate"
                             class="churchsuite-iframe"
                             scrolling="yes"
                             title="New City Church MK Donation Portal">
                         </iframe>
+
                     </div>
                 </div>
 
@@ -581,98 +1140,432 @@
         </div>
     </section>
 
-    <!-- BANK TRANSFER DIRECT METHOD SECTION -->
-   <section class="bank-transfer-section">
+    <!-- ==========================================================
+         BANK TRANSFER SECTION
+         ========================================================== -->
+
+    <section class="bank-transfer-section">
         <div class="container">
+
             <div class="bank-card reveal">
+
                 <div class="bank-icon">
                     <i class="ph ph-bank"></i>
                 </div>
+
                 <div class="bank-info">
                     <h3>Prefer Direct Bank Transfer?</h3>
+
                     <p>
-                        Prefer to give by bank transfer - <a href="mailto:info@newcitychurchmk.org" style="color: var(--primary); font-weight: 600; text-decoration: underline;">get in touch for our details</a>.
+                        Prefer to give by bank transfer -
+                        <a
+                            href="mailto:info@newcitychurchmk.org"
+                            style="color: var(--primary); font-weight: 600; text-decoration: underline;">
+                            get in touch for our details
+                        </a>.
                     </p>
                 </div>
+
             </div>
+
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer-modern">
-        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
-            
-            <!-- LOGO SECTION -->
-            <div style="display: flex; gap: 2rem; align-items: center; justify-content: center; flex-wrap: wrap;">
-                <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 45px; width: auto; opacity: 0.9;">
+    <!-- ==========================================================
+         MOBILE FOOTER BACKDROP
+         Hidden on desktop
+         ========================================================== -->
+
+    <div
+        class="footer-backdrop"
+        id="footerBackdrop"
+        aria-hidden="true">
+    </div>
+
+    <!-- ==========================================================
+         FOOTER
+         Desktop: original footer appearance
+         Mobile: draggable bottom sheet
+         ========================================================== -->
+
+    <footer class="footer-modern site-footer" id="siteFooter">
+
+        <button
+            type="button"
+            class="footer-handle"
+            id="footerHandle"
+            aria-expanded="false"
+            aria-controls="footerPanel">
+
+            <span class="footer-grip"></span>
+
+            <span class="footer-handle-label">
+                <i class="ph ph-caret-double-up" aria-hidden="true"></i>
+                <span id="footerHandleText">Footer · Drag up</span>
+            </span>
+
+        </button>
+
+        <div class="footer-panel" id="footerPanel">
+
+            <div
+                class="container"
+                style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+
+                <div class="footer-logo-row">
+
+                    <img
+                        src="props/logofooter1.jpg.png"
+                        alt="New City Church MK Logo"
+                        style="height: 45px; width: auto; opacity: 0.9;">
+
+                </div>
+
+                <div
+                    class="footer-copyright"
+                    style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
+
+                    <p>
+                        © 2026 by New City Church Milton Keynes |
+                        Registered Charity No.1187160
+                    </p>
+
+                </div>
+
             </div>
 
-            <div style="margin-top: 1rem; color: #64748b; font-size: 0.8rem;">
-                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
-            </div>
         </div>
+
     </footer>
 
-    <!-- JS ENGINES -->
+    <!-- ==========================================================
+         JAVASCRIPT
+         ========================================================== -->
+
     <script>
-        // Mobile Navigation Toggle Controller
+        /* ==========================================================
+           MOBILE NAVIGATION
+           ========================================================== */
+
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = menuToggle.querySelector('i');
+            const menuIcon = menuToggle.querySelector('i');
+
+            function closeMobileMenu() {
+                navLinks.classList.remove('active');
+
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Open navigation');
+            }
+
+            function openMobileMenu() {
+                navLinks.classList.add('active');
+
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+
+                menuToggle.setAttribute('aria-expanded', 'true');
+                menuToggle.setAttribute('aria-label', 'Close navigation');
+            }
+
+            menuToggle.addEventListener('click', function () {
                 if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('ph-list');
-                    icon.classList.add('ph-x');
+                    closeMobileMenu();
                 } else {
-                    icon.classList.remove('ph-x');
-                    icon.classList.add('ph-list');
+                    openMobileMenu();
+                }
+            });
+
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            document.addEventListener('click', function (event) {
+                if (
+                    navLinks.classList.contains('active') &&
+                    !navLinks.contains(event.target) &&
+                    !menuToggle.contains(event.target)
+                ) {
+                    closeMobileMenu();
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
                 }
             });
         }
 
-        // YouTube Live Status Checker Engine
+        /* ==========================================================
+           YOUTUBE LIVE STATUS CHECKER
+           ========================================================== */
+
         function checkChurchLiveStatus() {
-            const channelId = "YOUR_CHANNEL_ID_HERE"; 
+            const channelId = "YOUR_CHANNEL_ID_HERE";
             const navDot = document.getElementById("nav-live-dot");
-            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            if (
+                !channelId ||
+                channelId === "YOUR_CHANNEL_ID_HERE" ||
+                !navDot
+            ) {
+                return;
+            }
 
             const liveImg = new Image();
-            liveImg.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
 
-            liveImg.onload = function() {
-                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
+            liveImg.src =
+                `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImg.onload = function () {
+                navDot.style.display =
+                    (this.width === 320) ? "inline-block" : "none";
             };
-            liveImg.onerror = function() {
+
+            liveImg.onerror = function () {
                 navDot.style.display = "none";
             };
         }
 
-        // Intersection Observer Reveal Animation Engine
+        /* ==========================================================
+           SCROLL REVEAL ANIMATIONS
+           ========================================================== */
+
         function initReveal() {
             const revealEls = document.querySelectorAll(".reveal");
+
             if (!window.IntersectionObserver) {
-                revealEls.forEach(el => el.classList.add('show'));
+                revealEls.forEach(function (element) {
+                    element.classList.add('show');
+                });
+
                 return;
             }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+            const observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.05,
+                    rootMargin: "0px 0px -20px 0px"
+                }
+            );
 
-            revealEls.forEach(element => observer.observe(element));
+            revealEls.forEach(function (element) {
+                observer.observe(element);
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        /* ==========================================================
+           MOBILE FOOTER BOTTOM SHEET
+           ========================================================== */
+
+        function initFooterSheet() {
+            const mq = window.matchMedia('(max-width: 768px)');
+
+            const footer = document.getElementById('siteFooter');
+            const handle = document.getElementById('footerHandle');
+            const panel = document.getElementById('footerPanel');
+            const backdrop = document.getElementById('footerBackdrop');
+            const label = document.getElementById('footerHandleText');
+
+            if (!footer || !handle || !panel || !backdrop || !label) {
+                return;
+            }
+
+            let isOpen = false;
+            let dragging = false;
+
+            let startY = 0;
+            let lastY = 0;
+            let lastT = 0;
+
+            let startOffset = 0;
+            let closedOffset = 0;
+            let currentOffset = 0;
+
+            let moved = 0;
+            let velocity = 0;
+
+            function syncInert() {
+                panel.inert = mq.matches ? !isOpen : false;
+            }
+
+            function setOpen(open) {
+                isOpen = open;
+
+                footer.classList.remove('dragging');
+                footer.style.transform = '';
+
+                footer.classList.toggle('open', open);
+
+                backdrop.style.opacity = '';
+                backdrop.style.visibility = '';
+
+                backdrop.classList.toggle(
+                    'show',
+                    open && mq.matches
+                );
+
+                document.body.classList.toggle(
+                    'footer-open',
+                    open && mq.matches
+                );
+
+                handle.setAttribute(
+                    'aria-expanded',
+                    String(open)
+                );
+
+                label.textContent = open
+                    ? 'Drag down to close'
+                    : 'Footer · Drag up';
+
+                syncInert();
+            }
+
+            handle.addEventListener('pointerdown', function (event) {
+                if (!mq.matches) {
+                    return;
+                }
+
+                dragging = true;
+                moved = 0;
+                velocity = 0;
+
+                startY = lastY = event.clientY;
+                lastT = performance.now();
+
+                closedOffset = Math.max(
+                    0,
+                    footer.offsetHeight - handle.offsetHeight
+                );
+
+                startOffset = currentOffset = isOpen
+                    ? 0
+                    : closedOffset;
+
+                footer.classList.add('dragging');
+
+                try {
+                    handle.setPointerCapture(event.pointerId);
+                } catch (error) {
+                    /* Pointer capture is optional. */
+                }
+            });
+
+            handle.addEventListener('pointermove', function (event) {
+                if (!dragging) {
+                    return;
+                }
+
+                const dy = event.clientY - startY;
+
+                moved = Math.max(moved, Math.abs(dy));
+
+                currentOffset = Math.min(
+                    closedOffset,
+                    Math.max(0, startOffset + dy)
+                );
+
+                footer.style.transform =
+                    'translateY(' + currentOffset + 'px)';
+
+                if (closedOffset > 0) {
+                    backdrop.style.visibility = 'visible';
+
+                    backdrop.style.opacity = String(
+                        1 - currentOffset / closedOffset
+                    );
+                }
+
+                const now = performance.now();
+
+                velocity =
+                    (event.clientY - lastY) /
+                    Math.max(1, now - lastT);
+
+                lastY = event.clientY;
+                lastT = now;
+            });
+
+            function endDrag() {
+                if (!dragging) {
+                    return;
+                }
+
+                dragging = false;
+
+                if (moved < 6) {
+                    setOpen(!isOpen);
+                    return;
+                }
+
+                if (Math.abs(velocity) > 0.5) {
+                    setOpen(velocity < 0);
+                } else {
+                    setOpen(currentOffset < closedOffset / 2);
+                }
+            }
+
+            handle.addEventListener('pointerup', endDrag);
+            handle.addEventListener('pointercancel', endDrag);
+
+            handle.addEventListener('click', function (event) {
+                if (event.detail === 0 && mq.matches) {
+                    setOpen(!isOpen);
+                }
+            });
+
+            backdrop.addEventListener('click', function () {
+                setOpen(false);
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && isOpen) {
+                    setOpen(false);
+                }
+            });
+
+            const onBreakpointChange = function () {
+                setOpen(false);
+            };
+
+            if (mq.addEventListener) {
+                mq.addEventListener('change', onBreakpointChange);
+            } else if (mq.addListener) {
+                mq.addListener(onBreakpointChange);
+            }
+
+            syncInert();
+        }
+
+        /* ==========================================================
+           INITIALISE PAGE
+           ========================================================== */
+
+        document.addEventListener("DOMContentLoaded", function () {
             initReveal();
             checkChurchLiveStatus();
+            initFooterSheet();
         });
     </script>
 

@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Church Life | New City Church MK</title>
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,6 +26,11 @@
             --radius-lg: 28px;
             --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
             --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+            --peek: 64px;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -35,10 +42,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Core Navigation Rules with Friendly Hover Indicator */
+        /* ==========================================================
+           DESKTOP NAVIGATION
+           ========================================================== */
         .nav {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
@@ -54,6 +64,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -64,10 +75,18 @@
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .logo span {
             color: var(--primary);
+        }
+
+        .logo img {
+            display: block;
+            height: 50px;
+            width: auto;
+            object-fit: contain;
         }
 
         .mobile-menu-toggle {
@@ -82,7 +101,17 @@
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #f9e3ed;
+        }
+
+        .mobile-menu-toggle:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 3px;
         }
 
         .mobile-plan-btn {
@@ -120,12 +149,13 @@
             border-radius: 2px;
         }
 
-        .nav-links a:hover::after, 
+        .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--primary);
         }
 
@@ -137,13 +167,13 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            box-shadow: 0 8px 20px rgba(139, 47, 95, 0.2);
             transition: all 0.25s ease;
         }
 
         .nav-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            box-shadow: 0 12px 25px rgba(139, 47, 95, 0.3);
             background: var(--primary-dark);
         }
 
@@ -159,11 +189,23 @@
         }
 
         @keyframes navPulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
 
+        /* ==========================================================
+           PAGE CONTENT
+           ========================================================== */
         .events-container {
             max-width: 1200px;
             margin: auto;
@@ -171,13 +213,21 @@
             box-sizing: border-box;
         }
 
-        .reveal, .quick-card, .calendar-card, .events-section-card {
+        .reveal,
+        .quick-card,
+        .calendar-card,
+        .events-section-card {
             opacity: 0 !important;
             transform: translateY(25px) !important;
-            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            transition:
+                opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
-        .reveal.show, .quick-card.show, .calendar-card.show, .events-section-card.show {
+
+        .reveal.show,
+        .quick-card.show,
+        .calendar-card.show,
+        .events-section-card.show {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
@@ -225,7 +275,7 @@
             line-height: 1.7;
         }
 
-        /* 4-Column Refined Grid with Compact Padding */
+        /* Quick links */
         .quick-links {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -236,7 +286,7 @@
         .quick-card {
             background: var(--white);
             border-radius: var(--radius-md);
-            padding: 20px 18px; /* Tighter padding to make them look sleek */
+            padding: 20px 18px;
             box-shadow: var(--shadow-subtle);
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
@@ -247,19 +297,19 @@
 
         .quick-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(139,47,95,0.3);
+            border-color: rgba(139, 47, 95, 0.3);
             box-shadow: var(--shadow-hover);
         }
 
         .quick-card i {
-            font-size: 1.6rem; /* Slightly smaller, balanced icon */
+            font-size: 1.6rem;
             color: var(--primary);
             margin-bottom: 10px;
             display: inline-block;
         }
 
         .quick-card h3 {
-            font-size: 1.05rem; /* Balanced title size for 4 columns */
+            font-size: 1.05rem;
             font-weight: 800;
             margin-bottom: 6px;
             color: var(--text-main);
@@ -267,9 +317,9 @@
 
         .quick-card p {
             color: var(--text-muted);
-            font-size: 0.86rem; /* Slightly tighter text for 4-column fit */
+            font-size: 0.86rem;
             line-height: 1.45;
-            margin: 0 0 12px 0;
+            margin: 0 0 12px;
         }
 
         .filters {
@@ -297,7 +347,7 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(139,47,95,0.2);
+            box-shadow: 0 4px 12px rgba(139, 47, 95, 0.2);
         }
 
         .events-section-card,
@@ -341,11 +391,11 @@
         }
 
         .section-intro-content {
-            padding: 36px 36px 16px 36px;
+            padding: 36px 36px 16px;
         }
 
         .section-intro-content h3 {
-            margin: 0 0 10px 0;
+            margin: 0 0 10px;
             font-size: 1.6rem;
             font-weight: 800;
             color: var(--text-main);
@@ -360,7 +410,7 @@
         }
 
         .calendar-wrapper {
-            padding: 16px 24px 28px 24px;
+            padding: 16px 24px 28px;
             background: var(--white);
         }
 
@@ -415,14 +465,14 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            box-shadow: 0 8px 20px rgba(139,47,95,0.2);
+            box-shadow: 0 8px 20px rgba(139, 47, 95, 0.2);
             transition: all 0.25s ease;
         }
 
         .cal-btn:hover {
             transform: translateY(-2px);
             background: var(--primary-dark);
-            box-shadow: 0 12px 25px rgba(139,47,95,0.3);
+            box-shadow: 0 12px 25px rgba(139, 47, 95, 0.3);
         }
 
         .cal-btn.secondary {
@@ -438,59 +488,213 @@
             background: var(--primary-light);
         }
 
-        .footer-modern {
+        /* ==========================================================
+           FOOTER
+           ========================================================== */
+        .site-footer {
             background: #0f172a;
             color: #cbd5e1;
-            padding: 60px 0 40px 0;
+            padding: 60px 0 40px;
             text-align: center;
+            border-radius: 60px 60px 0 0;
         }
 
+        .footer-handle,
+        .footer-backdrop {
+            display: none;
+        }
+
+        .churchlife-footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .churchlife-footer-logo img {
+            display: block;
+            height: 42px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+
+        .churchlife-footer-copyright {
+            margin-top: 1.5rem;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            padding: 0 12px;
+        }
+
+        .churchlife-footer-copyright p {
+            margin: 0;
+        }
+
+        /* ==========================================================
+           TABLET
+           ========================================================== */
         @media (max-width: 992px) {
             .quick-links {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
+        /* ==========================================================
+           MOBILE HEADER AND PAGE RESPONSIVENESS
+           ========================================================== */
         @media (max-width: 768px) {
-            .mobile-menu-toggle {
+            :root {
+                --peek: calc(64px + env(safe-area-inset-bottom, 0px));
+            }
+
+            body {
+                padding-bottom: var(--peek);
+            }
+
+            body.footer-open {
+                overflow: hidden;
+            }
+
+            /* Updated mobile header */
+            .nav {
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            }
+
+            .nav-container {
+                width: 100%;
+                max-width: 100%;
+                min-height: 68px;
+                margin: 0;
+                padding: 10px 18px;
                 display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+            }
+
+            .logo {
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+                flex: 1 1 auto;
+                text-decoration: none;
+            }
+
+            .logo img {
+                display: block;
+                width: auto;
+                height: 44px;
+                max-width: min(230px, 100%);
+                object-fit: contain;
+                object-position: left center;
+                margin-right: 0 !important;
+            }
+
+            .mobile-menu-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 44px;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                background: var(--primary-light);
+                color: var(--primary);
+                border: 1px solid rgba(139, 47, 95, 0.10);
+                border-radius: 13px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+                transition: background 0.2s ease, transform 0.2s ease;
+            }
+
+            .mobile-menu-toggle:hover,
+            .mobile-menu-toggle:active {
+                background: #f9e3ed;
+            }
+
+            .mobile-menu-toggle:focus-visible {
+                outline: 3px solid var(--primary);
+                outline-offset: 3px;
             }
 
             .desktop-plan-btn {
-                display: none;
+                display: none !important;
             }
 
             .mobile-plan-btn {
                 display: block;
-                margin-top: 10px;
                 width: 100%;
+                margin-top: 12px;
+                padding-top: 16px !important;
+                border-bottom: none !important;
+            }
+
+            .mobile-plan-btn .nav-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 48px;
+                box-sizing: border-box;
+                padding: 13px 18px;
+                background: var(--primary);
+                color: #ffffff !important;
+                border-radius: 13px;
+                font-size: 0.95rem;
+                font-weight: 700;
                 text-align: center;
+                box-shadow: 0 7px 18px rgba(139, 47, 95, 0.18);
+            }
+
+            .mobile-plan-btn .nav-button:hover {
+                background: var(--primary-dark);
+                color: #ffffff !important;
+                transform: none;
             }
 
             .nav-links {
                 position: absolute;
-                top: 100%;
+                top: calc(100% + 1px);
                 left: 0;
+                right: 0;
                 width: 100%;
-                background: #ffffff;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 24px;
-                gap: 16px;
-                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
-                border-top: 1px solid var(--border-color);
-                display: none !important; 
+                max-height: calc(100vh - 70px);
+                max-height: calc(100dvh - 70px);
                 box-sizing: border-box;
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                margin: 0;
+                padding: 10px 20px 20px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                background: #ffffff;
+                border-top: 1px solid #f1f5f9;
+                border-bottom: 1px solid var(--border-color);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
+                list-style: none;
+                -webkit-overflow-scrolling: touch;
             }
 
             .nav-links.active {
-                display: flex !important; 
+                display: flex;
             }
 
             .nav-links li {
+                display: block;
                 width: 100%;
+                box-sizing: border-box;
+                padding: 0;
                 border-bottom: 1px solid #f1f5f9;
-                padding-bottom: 12px;
+                list-style: none;
             }
 
             .nav-links li:last-child {
@@ -498,34 +702,211 @@
             }
 
             .nav-links a {
-                font-size: 1.1rem;
+                display: flex;
+                align-items: center;
                 width: 100%;
+                min-height: 46px;
+                box-sizing: border-box;
+                padding: 12px 2px;
+                color: var(--text-main);
+                font-size: 0.96rem;
+                font-weight: 600;
+                line-height: 1.4;
                 text-align: left;
-                padding: 4px 0;
+                text-decoration: none;
             }
 
             .nav-links a::after {
-                display: none; 
+                display: none;
             }
 
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--primary);
+            }
+
+            .nav-links a.active {
+                font-weight: 800;
+            }
+
+            .nav-links .nav-live-indicator {
+                margin-left: 8px;
+            }
+
+            /* Existing mobile page layout */
             .quick-links {
                 grid-template-columns: 1fr;
             }
 
             .events-header {
-                padding: 110px 0 30px 0;
+                padding: 110px 0 30px;
             }
-            
+
             .section-intro-content {
-                padding: 24px 20px 12px 20px;
+                padding: 24px 20px 12px;
             }
 
             .calendar-wrapper {
-                padding: 12px 16px 20px 16px;
+                padding: 12px 16px 20px;
             }
 
             .calendar-card .calendar-wrapper iframe {
                 height: 650px;
+            }
+
+            /* Mobile footer sheet */
+            .site-footer {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                padding: 0 !important;
+                text-align: center !important;
+                display: flex;
+                flex-direction: column;
+                max-height: 85vh;
+                max-height: 85dvh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -12px 32px rgba(15, 23, 42, 0.28);
+                transform: translateY(calc(100% - var(--peek)));
+                transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+                will-change: transform;
+            }
+
+            .site-footer.open {
+                transform: translateY(0);
+            }
+
+            .site-footer.dragging {
+                transition: none;
+            }
+
+            .footer-handle {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+                height: var(--peek);
+                flex-shrink: 0;
+                box-sizing: border-box;
+                padding: 0 0 env(safe-area-inset-bottom, 0px);
+                background: transparent;
+                border: none;
+                color: #ffffff;
+                font-family: inherit;
+                cursor: grab;
+                touch-action: none;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .footer-grip {
+                width: 44px;
+                height: 5px;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.45);
+            }
+
+            .footer-handle-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .footer-handle-label i {
+                font-size: 1rem;
+                color: #f0abcf;
+                animation: footerNudge 1.6s ease-in-out infinite;
+            }
+
+            .site-footer.open .footer-handle-label i {
+                animation: none;
+                transform: rotate(180deg);
+            }
+
+            @keyframes footerNudge {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-4px);
+                }
+            }
+
+            .footer-panel {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 8px 0 calc(28px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .footer-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 1090;
+                background: rgba(15, 23, 42, 0.55);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .footer-backdrop.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .churchlife-footer-logo {
+                padding-top: 12px;
+            }
+
+            .churchlife-footer-logo img {
+                height: 38px;
+            }
+
+            .churchlife-footer-copyright {
+                margin-top: 1.25rem;
+                font-size: 0.75rem;
+                line-height: 1.7;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .churchlife-footer-logo img {
+                height: 34px;
+            }
+
+            .churchlife-footer-copyright {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .nav-links,
+            .nav-button,
+            .mobile-menu-toggle,
+            .nav-live-indicator {
+                animation: none;
+                transition: none;
+            }
+
+            .footer-handle-label i {
+                animation: none !important;
+            }
+
+            .site-footer {
+                transition: none !important;
             }
         }
     </style>
@@ -533,45 +914,83 @@
 
 <body>
 
+    <!-- ==========================================================
+         NAVIGATION
+         ========================================================== -->
     <nav class="nav">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="props/logo.jpg" alt="Logo" height="50" style="vertical-align: middle; margin-right: 8px;">
+
+            <a href="index.html" class="logo" aria-label="New City Church MK home">
+                <img
+                    src="props/logo.jpg"
+                    alt="New City Church MK"
+                    height="50">
             </a>
 
-            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-                <i class="ph ph-list"></i>
+            <button
+                class="mobile-menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation"
+                aria-controls="navLinks"
+                aria-expanded="false">
+                <i class="ph ph-list" aria-hidden="true"></i>
             </button>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="whatwebelieve.html">About Us</a></li>
-                <li><a href="sermons.html">Sermons</a><span id="nav-live-dot" class="nav-live-indicator" style="display: none;"></span></li>
-                <li><a href="churchlife.html" class="active">Church Life</a></li>
-                <li><a href="news.html">News</a></li>
-                <li class="mobile-plan-btn"><a href="imnew.html" class="nav-button" style="display: block; width: 100%; box-sizing: border-box;">Plan Your Visit</a></li>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="whatwebelieve.html">About Us</a>
+                </li>
+                <li>
+                    <a href="sermons.html">Sermons</a>
+                    <span
+                        id="nav-live-dot"
+                        class="nav-live-indicator"
+                        style="display: none;"></span>
+                </li>
+                <li>
+                    <a href="churchlife.html" class="active" aria-current="page">Church Life</a>
+                </li>
+                <li>
+                    <a href="news.html">News</a>
+                </li>
+                <li class="mobile-plan-btn">
+                    <a href="imnew.html" class="nav-button">Plan Your Visit</a>
+                </li>
             </ul>
 
             <a href="imnew.html" class="nav-button desktop-plan-btn">
                 Plan Your Visit
             </a>
+
         </div>
     </nav>
 
     <br>
 
+    <!-- ==========================================================
+         PAGE HEADER
+         ========================================================== -->
     <header class="events-header reveal">
         <div class="events-container">
             <span class="badge">What's On</span>
             <h1><span class="text-gradient">Church Life</span> at New City</h1>
-            <p>Discover everything happening across the life of New City. Whether you're looking for community, opportunities to serve, events for your family or ways to grow in faith.</p>
+            <p>
+                Discover everything happening across the life of New City.
+                Whether you're looking for community, opportunities to serve,
+                events for your family or ways to grow in faith.
+            </p>
         </div>
     </header>
 
     <main class="events-container">
 
-        <!-- 4-COLUMN REFINED GRID -->
+        <!-- QUICK LINKS -->
         <section class="quick-links">
+
             <div class="quick-card show">
                 <div>
                     <i class="ph-fill ph-users-three"></i>
@@ -591,37 +1010,49 @@
             <div class="quick-card show">
                 <div>
                     <i class="ph-fill ph-baby"></i>
-                    <h3>Kids & Youth</h3>
+                    <h3>Kids &amp; Youth</h3>
                     <p>Helping the next generation know and follow Jesus.</p>
                 </div>
             </div>
 
-            <div class="quick-card show" style="background: linear-gradient(135deg, #fdf2f6 0%, #ffffff 100%); border-color: rgba(139,47,95,0.2);">
+            <div
+                class="quick-card show"
+                style="background: linear-gradient(135deg, #fdf2f6 0%, #ffffff 100%); border-color: rgba(139,47,95,0.2);">
                 <div>
                     <i class="ph-fill ph-translate"></i>
                     <h3>Live Translation</h3>
                     <p>Follow Sunday messages live in nearly 200 languages.</p>
                 </div>
-                <a href="https://newcitychurch.breezetranslate.com/" target="_blank" style="color: var(--primary); font-weight: 700; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px; margin-top: auto;">
+
+                <a
+                    href="https://newcitychurch.breezetranslate.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="color: var(--primary); font-weight: 700; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px; margin-top: auto;">
                     Access Live <i class="ph-bold ph-arrow-right"></i>
                 </a>
             </div>
+
         </section>
 
+        <!-- FILTERS -->
         <div class="filters reveal">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Youth</button>
-            <button class="filter-btn">Events</button>
-            <button class="filter-btn">Services</button>
+            <button class="filter-btn active" type="button">All</button>
+            <button class="filter-btn" type="button">Youth</button>
+            <button class="filter-btn" type="button">Events</button>
+            <button class="filter-btn" type="button">Services</button>
         </div>
 
+        <!-- UPCOMING EVENTS -->
         <section class="events-section-card show">
+
             <div class="calendar-topbar">
                 <div class="calendar-title">
                     <i class="ph-bold ph-calendar-star" style="font-size: 1.2rem; color: var(--primary);"></i>
-                    Upcoming Events & Courses
+                    Upcoming Events &amp; Courses
                 </div>
-                <div class="calendar-actions">
+
+                <div class="calendar-actions" aria-hidden="true">
                     <div class="dot"></div>
                     <div class="dot"></div>
                     <div class="dot"></div>
@@ -629,22 +1060,38 @@
             </div>
 
             <div class="section-intro-content">
-                <h3>Featured Gatherings & Sign-ups</h3>
-                <p>Take a closer look at our upcoming special events, courses, and ministry activities. Browse through what's coming up next and secure your spot or find something you can be a part of.</p>
+                <h3>Featured Gatherings &amp; Sign-ups</h3>
+                <p>
+                    Take a closer look at our upcoming special events, courses,
+                    and ministry activities. Browse through what's coming up next
+                    and secure your spot or find something you can be a part of.
+                </p>
             </div>
 
             <div class="calendar-wrapper">
-                <iframe frameborder="0" allowtransparent="yes" scrolling="yes" src="https://newcitychurchmk.churchsuite.com/-/calendar/8d71bb97-ad54-4c33-ad2c-21cf0d608a5f" style="border-width:0" width="100%"></iframe>
+                <iframe
+                    title="Upcoming church events and courses"
+                    frameborder="0"
+                    allowtransparency="true"
+                    scrolling="yes"
+                    src="https://newcitychurchmk.churchsuite.com/-/calendar/8d71bb97-ad54-4c33-ad2c-21cf0d608a5f"
+                    style="border-width: 0;"
+                    width="100%">
+                </iframe>
             </div>
+
         </section>
 
+        <!-- FULL CHURCH CALENDAR -->
         <section class="calendar-card show">
+
             <div class="calendar-topbar">
                 <div class="calendar-title">
                     <i class="ph-bold ph-calendar-blank" style="font-size: 1.2rem; color: var(--primary);"></i>
                     Full Church Calendar
                 </div>
-                <div class="calendar-actions">
+
+                <div class="calendar-actions" aria-hidden="true">
                     <div class="dot"></div>
                     <div class="dot"></div>
                     <div class="dot"></div>
@@ -653,97 +1100,381 @@
 
             <div class="section-intro-content">
                 <h3>Month-by-Month Schedule</h3>
-                <p>Looking for a complete overview? Explore our full church calendar below to see all regular weekly meetings, group schedules, and upcoming activities mapped out across the month.</p>
+                <p>
+                    Looking for a complete overview? Explore our full church
+                    calendar below to see all regular weekly meetings, group
+                    schedules, and upcoming activities mapped out across the month.
+                </p>
             </div>
 
             <div class="calendar-wrapper">
-                <iframe src="https://newcitychurchmk.churchsuite.com/-/calendar/ac8499c4-cc28-494f-86f9-92f4071979d3"></iframe>
+                <iframe
+                    title="Full New City Church calendar"
+                    src="https://newcitychurchmk.churchsuite.com/-/calendar/ac8499c4-cc28-494f-86f9-92f4071979d3">
+                </iframe>
             </div>
 
             <div class="calendar-footer">
                 <h3>Stay Connected</h3>
-                <p>Join a group, serve on a team, or come along to one of our weekly gatherings.</p>
+                <p>
+                    Join a group, serve on a team, or come along to one of our
+                    weekly gatherings.
+                </p>
+
                 <div class="calendar-buttons">
                     <a href="imnew.html" class="cal-btn">I'm New</a>
                     <a href="news.html" class="cal-btn secondary">Get Involved</a>
                     <a href="sermons.html" class="cal-btn secondary">Watch Sermons</a>
                 </div>
             </div>
+
         </section>
 
     </main>
 
-    <footer class="footer-modern">
-        <div class="container" style="display: flex; justify-content: center; align-items: center;">
-            <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
+    <!-- MOBILE FOOTER BACKDROP -->
+    <div class="footer-backdrop" id="footerBackdrop"></div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" id="siteFooter">
+
+        <button
+            type="button"
+            class="footer-handle"
+            id="footerHandle"
+            aria-expanded="false"
+            aria-controls="footerPanel">
+            <span class="footer-grip"></span>
+            <span class="footer-handle-label">
+                <i class="ph ph-caret-double-up"></i>
+                <span id="footerHandleText">Footer · Drag up</span>
+            </span>
+        </button>
+
+        <div class="footer-panel" id="footerPanel">
+            <div class="container churchlife-footer-logo">
+                <img
+                    src="props/logofooter1.jpg.png"
+                    alt="New City Church MK Logo">
+            </div>
+
+            <div class="container churchlife-footer-copyright">
+                <p>
+                    © 2026 by New City Church Milton Keynes |
+                    Registered Charity No.1187160
+                </p>
+            </div>
         </div>
-        <div class="container" style="margin-top: 1.5rem; color: #64748b; font-size: 0.8rem;">
-            <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
-        </div>
+
     </footer>
 
     <script>
+        /* ==========================================================
+           MOBILE NAVIGATION
+           ========================================================== */
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = menuToggle.querySelector('i');
+            const menuIcon = menuToggle.querySelector('i');
+
+            function closeMobileMenu() {
+                navLinks.classList.remove('active');
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Open navigation');
+            }
+
+            function openMobileMenu() {
+                navLinks.classList.add('active');
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+
+                menuToggle.setAttribute('aria-expanded', 'true');
+                menuToggle.setAttribute('aria-label', 'Close navigation');
+            }
+
+            menuToggle.addEventListener('click', function () {
                 if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('ph-list');
-                    icon.classList.add('ph-x');
+                    closeMobileMenu();
                 } else {
-                    icon.classList.remove('ph-x');
-                    icon.classList.add('ph-list');
+                    openMobileMenu();
+                }
+            });
+
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            document.addEventListener('click', function (event) {
+                if (
+                    navLinks.classList.contains('active') &&
+                    !navLinks.contains(event.target) &&
+                    !menuToggle.contains(event.target)
+                ) {
+                    closeMobileMenu();
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
                 }
             });
         }
 
+        /* ==========================================================
+           LIVE STATUS INDICATOR
+           ========================================================== */
         function checkChurchLiveStatus() {
             const channelId = "YOUR_CHANNEL_ID_HERE";
             const navDot = document.getElementById("nav-live-dot");
-            if (!channelId || channelId === "YOUR_CHANNEL_ID_HERE") return;
+
+            if (
+                !channelId ||
+                channelId === "YOUR_CHANNEL_ID_HERE" ||
+                !navDot
+            ) {
+                return;
+            }
 
             const liveImgChecker = new Image();
-            liveImgChecker.src = `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
 
-            liveImgChecker.onload = function() {
-                navDot.style.display = (this.width === 320) ? "inline-block" : "none";
+            liveImgChecker.src =
+                `https://img.youtube.com/vi/live_stream/mqdefault.jpg?channel=${channelId}&v=${new Date().getTime()}`;
+
+            liveImgChecker.onload = function () {
+                navDot.style.display =
+                    (this.width === 320) ? "inline-block" : "none";
             };
-            liveImgChecker.onerror = function() {
+
+            liveImgChecker.onerror = function () {
                 navDot.style.display = "none";
             };
         }
 
+        /* ==========================================================
+           SCROLL REVEAL ANIMATIONS
+           ========================================================== */
         function initReveal() {
-            const revealEls = document.querySelectorAll(".reveal, .quick-card, .calendar-card, .events-section-card");
+            const revealEls = document.querySelectorAll(
+                ".reveal, .quick-card, .calendar-card, .events-section-card"
+            );
+
             if (!window.IntersectionObserver) {
-                revealEls.forEach(el => el.classList.add('show'));
+                revealEls.forEach(function (element) {
+                    element.classList.add('show');
+                });
                 return;
             }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+            const observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.05,
+                    rootMargin: "0px 0px -20px 0px"
+                }
+            );
 
-            revealEls.forEach(element => observer.observe(element));
+            revealEls.forEach(function (element) {
+                observer.observe(element);
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        /* ==========================================================
+           MOBILE FOOTER BOTTOM SHEET
+           ========================================================== */
+        function initFooterSheet() {
+            const mq = window.matchMedia('(max-width: 768px)');
+            const footer = document.getElementById('siteFooter');
+            const handle = document.getElementById('footerHandle');
+            const panel = document.getElementById('footerPanel');
+            const backdrop = document.getElementById('footerBackdrop');
+            const label = document.getElementById('footerHandleText');
+
+            if (!footer || !handle || !panel || !backdrop || !label) {
+                return;
+            }
+
+            let isOpen = false;
+            let dragging = false;
+            let startY = 0;
+            let lastY = 0;
+            let lastT = 0;
+            let startOffset = 0;
+            let closedOffset = 0;
+            let currentOffset = 0;
+            let moved = 0;
+            let velocity = 0;
+
+            function syncInert() {
+                panel.inert = mq.matches ? !isOpen : false;
+            }
+
+            function setOpen(open) {
+                isOpen = open;
+
+                footer.classList.remove('dragging');
+                footer.style.transform = '';
+
+                footer.classList.toggle('open', open);
+
+                backdrop.style.opacity = '';
+                backdrop.style.visibility = '';
+                backdrop.classList.toggle('show', open && mq.matches);
+
+                document.body.classList.toggle(
+                    'footer-open',
+                    open && mq.matches
+                );
+
+                handle.setAttribute('aria-expanded', String(open));
+
+                label.textContent = open
+                    ? 'Drag down to close'
+                    : 'Footer · Drag up';
+
+                syncInert();
+            }
+
+            handle.addEventListener('pointerdown', function (event) {
+                if (!mq.matches) return;
+
+                dragging = true;
+                moved = 0;
+                velocity = 0;
+
+                startY = lastY = event.clientY;
+                lastT = performance.now();
+
+                closedOffset = Math.max(
+                    0,
+                    footer.offsetHeight - handle.offsetHeight
+                );
+
+                startOffset = currentOffset = isOpen ? 0 : closedOffset;
+
+                footer.classList.add('dragging');
+
+                try {
+                    handle.setPointerCapture(event.pointerId);
+                } catch (error) {
+                    /* Pointer capture is optional. */
+                }
+            });
+
+            handle.addEventListener('pointermove', function (event) {
+                if (!dragging) return;
+
+                const dy = event.clientY - startY;
+
+                moved = Math.max(moved, Math.abs(dy));
+
+                currentOffset = Math.min(
+                    closedOffset,
+                    Math.max(0, startOffset + dy)
+                );
+
+                footer.style.transform =
+                    'translateY(' + currentOffset + 'px)';
+
+                if (closedOffset > 0) {
+                    backdrop.style.visibility = 'visible';
+                    backdrop.style.opacity = String(
+                        1 - currentOffset / closedOffset
+                    );
+                }
+
+                const now = performance.now();
+
+                velocity =
+                    (event.clientY - lastY) / Math.max(1, now - lastT);
+
+                lastY = event.clientY;
+                lastT = now;
+            });
+
+            function endDrag() {
+                if (!dragging) return;
+
+                dragging = false;
+
+                if (moved < 6) {
+                    setOpen(!isOpen);
+                    return;
+                }
+
+                if (Math.abs(velocity) > 0.5) {
+                    setOpen(velocity < 0);
+                } else {
+                    setOpen(currentOffset < closedOffset / 2);
+                }
+            }
+
+            handle.addEventListener('pointerup', endDrag);
+            handle.addEventListener('pointercancel', endDrag);
+
+            handle.addEventListener('click', function (event) {
+                if (event.detail === 0 && mq.matches) {
+                    setOpen(!isOpen);
+                }
+            });
+
+            backdrop.addEventListener('click', function () {
+                setOpen(false);
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && isOpen) {
+                    setOpen(false);
+                }
+            });
+
+            const onBreakpointChange = function () {
+                setOpen(false);
+            };
+
+            if (mq.addEventListener) {
+                mq.addEventListener('change', onBreakpointChange);
+            } else if (mq.addListener) {
+                mq.addListener(onBreakpointChange);
+            }
+
+            syncInert();
+        }
+
+        /* ==========================================================
+           INITIALISE PAGE
+           ========================================================== */
+        document.addEventListener("DOMContentLoaded", function () {
             initReveal();
             checkChurchLiveStatus();
+            initFooterSheet();
 
             const buttons = document.querySelectorAll(".filter-btn");
-            buttons.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    buttons.forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    buttons.forEach(function (item) {
+                        item.classList.remove("active");
+                    });
+
+                    button.classList.add("active");
                 });
             });
         });

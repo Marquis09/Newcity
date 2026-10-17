@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Exciting News: We are moving! | New City Church MK</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="Styles.css">
@@ -24,6 +24,7 @@
             --radius-lg: 28px;
             --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.04);
             --shadow-hover: 0 20px 40px rgba(139, 47, 95, 0.1);
+            --peek: 64px;
         }
 
         body {
@@ -54,6 +55,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -432,7 +434,7 @@
         }
         .chat-timestamp {
             font-size: 0.7rem;
-            color: var(--radius-md);
+            color: #94a3b8;
             text-align: center;
             margin-bottom: 4px;
             font-weight: 600;
@@ -495,8 +497,63 @@
             background: var(--primary-dark);
         }
 
+        /* ==========================================================
+           FOOTER (matched to Church Life page)
+           ========================================================== */
+        .site-footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 60px 0 40px 0;
+            text-align: center;
+            border-radius: 60px 60px 0 0;
+        }
+
+        .footer-handle,
+        .footer-backdrop {
+            display: none;
+        }
+
+        .post-footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .post-footer-logo img {
+            display: block;
+            height: 42px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+
+        .post-footer-copyright {
+            margin-top: 1.5rem;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            padding: 0 12px;
+        }
+
+        .post-footer-copyright p {
+            margin: 0;
+        }
+
         /* Responsive Mobile Navigation Rules */
         @media (max-width: 768px) {
+            :root {
+                --peek: calc(64px + env(safe-area-inset-bottom, 0px));
+            }
+
+            body {
+                padding-bottom: var(--peek);
+            }
+
+            body.footer-open {
+                overflow: hidden;
+            }
+
             .mobile-menu-toggle {
                 display: flex;
             }
@@ -549,10 +606,153 @@
             .post-layout {
                 padding: 110px 0 60px 0;
             }
+
+            /* Mobile Footer Sheet (same as Church Life) */
+            .site-footer {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                padding: 0 !important;
+                text-align: center !important;
+                display: flex;
+                flex-direction: column;
+                max-height: 85vh;
+                max-height: 85dvh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -12px 32px rgba(15, 23, 42, 0.28);
+                transform: translateY(calc(100% - var(--peek)));
+                transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+                will-change: transform;
+            }
+
+            .site-footer.open {
+                transform: translateY(0);
+            }
+
+            .site-footer.dragging {
+                transition: none;
+            }
+
+            .footer-handle {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+                height: var(--peek);
+                flex-shrink: 0;
+                box-sizing: border-box;
+                padding: 0 0 env(safe-area-inset-bottom, 0px) 0;
+                background: transparent;
+                border: none;
+                color: #ffffff;
+                font-family: inherit;
+                cursor: grab;
+                touch-action: none;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .footer-grip {
+                width: 44px;
+                height: 5px;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.45);
+            }
+
+            .footer-handle-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .footer-handle-label i {
+                font-size: 1rem;
+                color: #f0abcf;
+                animation: footerNudge 1.6s ease-in-out infinite;
+            }
+
+            .site-footer.open .footer-handle-label i {
+                animation: none;
+                transform: rotate(180deg);
+            }
+
+            @keyframes footerNudge {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-4px); }
+            }
+
+            .footer-panel {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 8px 0 calc(28px + env(safe-area-inset-bottom, 0px)) 0;
+            }
+
+            .footer-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 1090;
+                background: rgba(15, 23, 42, 0.55);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .footer-backdrop.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .post-footer-logo {
+                padding-top: 12px;
+            }
+
+            .post-footer-logo img {
+                height: 38px;
+            }
+
+            .post-footer-copyright {
+                margin-top: 1.25rem;
+                font-size: 0.75rem;
+                line-height: 1.7;
+                padding: 0 20px;
+            }
+
+            /* Chat sits above the closed footer bar */
+            .chat-trigger {
+                bottom: calc(var(--peek) + 14px);
+                right: 16px;
+            }
+
+            .chat-widget {
+                width: calc(100% - 32px);
+                right: 16px;
+                left: 16px;
+                bottom: calc(var(--peek) + 74px);
+                height: min(480px, calc(100vh - var(--peek) - 140px));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .footer-handle-label i { animation: none !important; }
+            .site-footer { transition: none !important; }
         }
     </style>
 </head>
 
+<br>
 <body>
 
     <!-- FIXED NAVIGATION -->
@@ -684,13 +884,28 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer-modern">
-        <div class="container" style="display: flex; justify-content: center; align-items: center;">
-            <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo" style="height: 42px; width: auto; opacity: 0.9;">
-        </div>
-        <div class="container" style="margin-top: 1.5rem; color: #64748b; font-size: 0.8rem;">
-            <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+    <!-- Dim layer behind the mobile footer sheet -->
+    <div class="footer-backdrop" id="footerBackdrop"></div>
+
+    <!-- Footer (matched to Church Life) -->
+    <footer class="site-footer" id="siteFooter">
+
+        <button type="button" class="footer-handle" id="footerHandle" aria-expanded="false" aria-controls="footerPanel">
+            <span class="footer-grip"></span>
+            <span class="footer-handle-label">
+                <i class="ph ph-caret-double-up"></i>
+                <span id="footerHandleText">Footer · Drag up</span>
+            </span>
+        </button>
+
+        <div class="footer-panel" id="footerPanel">
+            <div class="container post-footer-logo">
+                <img src="props/logofooter1.jpg.png" alt="New City Church MK Logo">
+            </div>
+
+            <div class="container post-footer-copyright">
+                <p>© 2026 by New City Church Milton Keynes | Registered Charity No.1187160</p>
+            </div>
         </div>
     </footer>
 
@@ -794,8 +1009,109 @@
             }
         }
 
+        // Mobile footer bottom sheet (same as Church Life)
+        function initFooterSheet() {
+            const mq = window.matchMedia('(max-width: 768px)');
+            const footer = document.getElementById('siteFooter');
+            const handle = document.getElementById('footerHandle');
+            const panel = document.getElementById('footerPanel');
+            const backdrop = document.getElementById('footerBackdrop');
+            const label = document.getElementById('footerHandleText');
+            if (!footer || !handle || !panel || !backdrop || !label) return;
+
+            let isOpen = false;
+            let dragging = false;
+            let startY = 0, lastY = 0, lastT = 0;
+            let startOffset = 0, closedOffset = 0, currentOffset = 0;
+            let moved = 0, velocity = 0;
+
+            function syncInert() {
+                panel.inert = mq.matches ? !isOpen : false;
+            }
+
+            function setOpen(open) {
+                isOpen = open;
+                footer.classList.remove('dragging');
+                footer.style.transform = '';
+                footer.classList.toggle('open', open);
+                backdrop.style.opacity = '';
+                backdrop.style.visibility = '';
+                backdrop.classList.toggle('show', open && mq.matches);
+                document.body.classList.toggle('footer-open', open && mq.matches);
+                handle.setAttribute('aria-expanded', String(open));
+                label.textContent = open ? 'Drag down to close' : 'Footer · Drag up';
+                syncInert();
+            }
+
+            handle.addEventListener('pointerdown', (e) => {
+                if (!mq.matches) return;
+                dragging = true;
+                moved = 0;
+                velocity = 0;
+                startY = lastY = e.clientY;
+                lastT = performance.now();
+                closedOffset = Math.max(0, footer.offsetHeight - handle.offsetHeight);
+                startOffset = currentOffset = isOpen ? 0 : closedOffset;
+                footer.classList.add('dragging');
+                try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+            });
+
+            handle.addEventListener('pointermove', (e) => {
+                if (!dragging) return;
+                const dy = e.clientY - startY;
+                moved = Math.max(moved, Math.abs(dy));
+                currentOffset = Math.min(closedOffset, Math.max(0, startOffset + dy));
+                footer.style.transform = 'translateY(' + currentOffset + 'px)';
+
+                if (closedOffset > 0) {
+                    backdrop.style.visibility = 'visible';
+                    backdrop.style.opacity = String(1 - currentOffset / closedOffset);
+                }
+
+                const now = performance.now();
+                velocity = (e.clientY - lastY) / Math.max(1, now - lastT);
+                lastY = e.clientY;
+                lastT = now;
+            });
+
+            function endDrag() {
+                if (!dragging) return;
+                dragging = false;
+
+                if (moved < 6) {
+                    setOpen(!isOpen);
+                    return;
+                }
+                if (Math.abs(velocity) > 0.5) {
+                    setOpen(velocity < 0);
+                } else {
+                    setOpen(currentOffset < closedOffset / 2);
+                }
+            }
+
+            handle.addEventListener('pointerup', endDrag);
+            handle.addEventListener('pointercancel', endDrag);
+
+            handle.addEventListener('click', (e) => {
+                if (e.detail === 0 && mq.matches) setOpen(!isOpen);
+            });
+
+            backdrop.addEventListener('click', () => setOpen(false));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isOpen) setOpen(false);
+            });
+
+            const onBreakpointChange = () => setOpen(false);
+            if (mq.addEventListener) mq.addEventListener('change', onBreakpointChange);
+            else if (mq.addListener) mq.addListener(onBreakpointChange);
+
+            syncInert();
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             loadDynamicArticle();
+            initFooterSheet();
 
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
