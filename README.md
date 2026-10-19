@@ -1,41 +1,66 @@
-# 🌆 Newcity - Urban Interaction Platform
-**Live Link:** [👉 Explore the Live Newcity Application](https://marquis09.github.io/Newcity/)
+# New City Church MK — Website Redesign
 
-An interactive web layout built to streamline urban navigation and digital city services. Developed during my BSc (Hons) in Web & UX Design, this project explores how clean design frameworks can make civic information intuitive, responsive, and universally accessible.
+**Live preview:** [https://marquis09.github.io/Newcity/](https://marquis09.github.io/Newcity/)  
+**Legacy site:** [https://www.newcitychurch.co.uk/](https://www.newcitychurch.co.uk/)
 
----
-
-## 📱 User Interface & Visual System
-
-### Platform Dashboard Experience
-![Newcity Interface Desktop]( will be ready to view soon )
-*The primary desktop hub emphasizing grid alignment, clear typography contrast, and high-visibility visual anchors.*
-
-### Responsive Viewports
-![Newcity Interface Mobile]( will be read to view soon )
-*Responsive viewports showing how the complex urban interface neatly stacks for transit-riding mobile users.*
+Custom redesign of the New City Church Milton Keynes website.  
+Built as sole UX/UI designer and front-end developer after the original Wix site was left without anyone who could update or maintain it.
 
 ---
 
-## 🎯 The UX Design Framework
-This platform addresses the common UX failures of modern digital layouts—information overload and cluttered data architecture.
+## Project context
 
-- **Information Architecture:** Re-grouped urban utilities into a user-focused classification hierarchy to minimize cognitive friction.
-- **Wireframe Evolution:** Progressed from paper layout wireframes to click-through Figma prototypes, optimizing the navigation menu based on user flows.
-- **Interaction Elements:** Designed custom interactive iconography and map components to keep cognitive load minimal for the user.
+The brief started informally: the pastor’s wife asked if I could take a look at the church website. The previous developers had left, content was frozen, and the site no longer reflected how the community wanted to welcome newcomers.
 
----
-
-## 🛠️ Engineering Breakdown (Tech Stack)
-Built as a fully custom, semantic frontend solution from the ground up:
-
-- **Semantic HTML5:** Structured for high readability, clean content divisions, and strong screen-reader accessibility.
-- **Modern CSS3:** Structured with CSS Flexbox/Grid for layout fluidity and fast performance times.
-- **Fluid Breakpoints:** Media queries mapped to dynamic viewports ensuring consistency from 320px screens upwards.
-- **WCAG Standards:** Checked against contrast thresholds to ensure text remains highly legible for users with low vision.
+**Goal:** A contemporary, mobile-first site that:
+- Helps first-time visitors feel confident before they arrive
+- Makes service times, location, and “what to expect” easy to find
+- Lets church staff publish news without writing code
 
 ---
 
-## 📈 Key UI/UX Metrics Implemented
-- **Scannable Micro-copy:** Short sentences and clear header markers guide users rapidly to the exact information they need.
-- **Accessibility Layers:** Explicit active state borders on form fields and navigation items for better keyboard navigation.
+## What I delivered
+
+- Information architecture prioritising the newcomer journey  
+- Dedicated **Plan Your Visit** path  
+- Custom visual system (magenta brand, Plus Jakarta Sans, soft cards)  
+- Responsive front-end (desktop + mobile)  
+- Simple CMS path for news (Netlify / Decap)  
+
+**Pages:** Home · About Us · Sermons · Church Life · News · Plan Your Visit · supporting pages (Giving, Privacy, etc.)
+
+---
+
+## Tech stack
+
+| Area | Approach |
+|------|----------|
+| Markup | Semantic HTML5 |
+| Styling | Modern CSS (Flexbox / Grid, custom properties) |
+| Typography | Plus Jakarta Sans |
+| Icons | Phosphor Icons |
+| CMS | Netlify CMS / Decap (news) |
+| Hosting | GitHub Pages (preview) |
+
+---
+
+## Design focus
+
+- **Newcomer confidence** — clear CTAs, service times, parking, dress code, kids info  
+- **Mobile-first** — large touch targets, stacked layouts, no horizontal overflow  
+- **Maintainability** — static front-end + CMS so the church isn’t locked to one developer  
+- **Accessibility foundations** — semantic structure, contrast, keyboard-friendly navigation  
+
+---
+
+## Role
+
+**Sole UX/UI Designer & Front-end Developer**  
+Research → IA → wireframes → visual design → build → CMS setup
+
+---
+
+## Portfolio
+
+Full case study (process, personas, wireframes, before/after):  
+[https://marquis09.github.io/new-website/](https://marquis09.github.io/new-website/)
